@@ -1,0 +1,7 @@
+#summary Установка шаблонов в визио.
+
+= Установка шаблонов в визио =
+
+Что-бы шаблон появился в меню _Choose Drawing Type_ надо:
+ # Открыть в меню Tools - Options - Advanced - File Paths
+ # В строке Templates написать путь к папке шаблонов начинающийся с ";" (например _";C:\Andrey\Work\vwdaddin\Template"_)
