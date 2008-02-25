@@ -1,3 +1,8 @@
+// Шаблон для EventHandler'ов
+// После создания нового EventHandler'а надо
+// 1. Прописать его загрузку в конструкторе EventManager
+// 2. Подписаться на его события методом FillEventList
+
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -6,15 +11,17 @@ using System.Diagnostics;
 
 namespace VWDAddin
 {
-    public class ApplicationEventHandler : EventHandler
+    public class DocumentEventHandler : EventHandler
     {
         public static short[] HandleEvents = {
-            (short)VisEventCodes.visEvtDoc + Constants.visEvtAdd,
-            (short)VisEventCodes.visEvtApp + (short)VisEventCodes.visEvtBeforeQuit,
-            (short)VisEventCodes.visEvtCodeWinPageTurn,
+			// Здесь указаны все события, которые обрабатывает EventHandler
+            (short)VisEventCodes.visEvtDel + (short)VisEventCodes.visEvtShape,
+            (short)VisEventCodes.visEvtPage + Constants.visEvtAdd,
+            (short)VisEventCodes.visEvtShape + Constants.visEvtAdd,
+            (short)VisEventCodes.visEvtDel + (short)VisEventCodes.visEvtDoc,
         };
 
-        public ApplicationEventHandler(EventManager manager)
+        public DocumentEventHandler(EventManager manager)
             : base(manager, HandleEvents)
         {
         }
@@ -29,9 +36,7 @@ namespace VWDAddin
         {
             switch (eventCode)
             {
-                case (short)VisEventCodes.visEvtDoc + Constants.visEvtAdd:
-                    Owner.StartDocumentListener((Document)subject);
-                    break;
+				// Здесь обрабатываются события указанные в HandleEvents
                 default:
                     EventHandler.UnhandledEvent(eventCode);
                     break;
