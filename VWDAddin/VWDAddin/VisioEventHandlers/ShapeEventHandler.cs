@@ -6,14 +6,14 @@ using System.Diagnostics;
 
 namespace VWDAddin
 {
-    public class DocumentEventHandler : EventHandler
+    public class ShapeEventHandler : EventHandler
     {
         public static short[] HandleEvents = {
-            (short)VisEventCodes.visEvtPage + Constants.visEvtAdd,
-            (short)VisEventCodes.visEvtDel + (short)VisEventCodes.visEvtDoc,
+            (short)VisEventCodes.visEvtDel + (short)VisEventCodes.visEvtShape,
+            (short)VisEventCodes.visEvtShape + Constants.visEvtAdd,
         };
 
-        public DocumentEventHandler(EventManager manager)
+        public ShapeEventHandler(EventManager manager)
             : base(manager, HandleEvents)
         {
         }

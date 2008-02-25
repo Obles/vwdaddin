@@ -30,7 +30,11 @@ namespace VWDAddin
             switch (eventCode)
             {
                 case (short)VisEventCodes.visEvtDoc + Constants.visEvtAdd:
-                    Owner.StartDocumentListener((Document)subject);
+                    Document document = subject as Document;
+                    if (document.Type == VisDocumentTypes.visTypeDrawing)
+                    {
+                        Owner.StartDocumentListener(document);
+                    }
                     break;
                 default:
                     EventHandler.UnhandledEvent(eventCode);
