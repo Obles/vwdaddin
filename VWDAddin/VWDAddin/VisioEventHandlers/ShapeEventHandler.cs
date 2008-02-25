@@ -28,6 +28,10 @@ namespace VWDAddin
         {
             switch (eventCode)
             {
+                case (short)VisEventCodes.visEvtShape + Constants.visEvtAdd:
+                    Shape shape = subject as Shape;
+                    shape.get_Cells("User.GUID.Value").Formula = "\"" + Guid.NewGuid().ToString() + "\"";
+                    break;
                 default:
                     EventHandler.UnhandledEvent(eventCode);
                     break;
