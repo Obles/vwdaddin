@@ -1,0 +1,5 @@
+#summary Полезные ссылки для процесса разработки.
+
+= Полезные ссылки=
+
+ * [http://msdn2.microsoft.com/en-us/library/aa246644%28office.11%29.aspx Список функций Visio]
