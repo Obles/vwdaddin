@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.Office.Interop.Visio;
+using System.Diagnostics;
 
 namespace VWDAddin
 {
