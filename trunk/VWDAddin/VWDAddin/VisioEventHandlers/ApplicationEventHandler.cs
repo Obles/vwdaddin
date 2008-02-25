@@ -43,9 +43,14 @@ namespace VWDAddin
                     Application application = (Application)subject;
                     int id = Convert.ToInt32(application.get_EventInfo(0));
                     Shape selectedShape = VisioHelpers.GetShapeByID(id, application);
-                    if (selectedShape != null)
-                    {
-                        int abc = 0;
+                    if (selectedShape != null )
+                    {                        
+                        string type = VisioHelpers.GetShapeType(selectedShape);
+                        if (type.Equals("association"))
+                        {
+                            AssociationDisplayOptions dlg = new AssociationDisplayOptions(selectedShape);
+                            dlg.Show();                        
+                        }
                     }
                     break;
                 default:
