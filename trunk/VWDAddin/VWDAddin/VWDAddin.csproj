@@ -62,6 +62,7 @@
     <Compile Include="VisioEventHandlers\EventHandler.cs" />
     <Compile Include="VisioEventHandlers\EventManager.cs" />
     <Compile Include="VisioEventHandlers\EventSink.cs" />
+    <Compile Include="VisioEventHandlers\ShapeEventHandler.cs" />
     <Compile Include="WordInterop\AssociationNode.cs" />
     <Compile Include="WordInterop\AttributeNode.cs" />
     <Compile Include="WordInterop\ClassNode.cs" />

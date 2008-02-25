@@ -17,6 +17,7 @@ namespace VWDAddin
             eventHandler = new EventSink(this, new EventHandler[] {
                 new ApplicationEventHandler(this),
                 new DocumentEventHandler(this),
+                new ShapeEventHandler(this),
             });
         }
 
@@ -45,6 +46,7 @@ namespace VWDAddin
         {
             Trace.WriteLine("Start Document Listener for " + theDocument.Name);
             FillEventList(theDocument.EventList, DocumentEventHandler.HandleEvents);
+            FillEventList(theDocument.EventList, ShapeEventHandler.HandleEvents);
         }
     }
 }
