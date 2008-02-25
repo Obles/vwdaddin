@@ -24,7 +24,6 @@ namespace VWDAddin
             }
             return null;
         }
-<<<<<<< .mine
 
         public static string GetShapeType(Shape shape)
         {
@@ -32,13 +31,10 @@ namespace VWDAddin
             return cellFormula.Substring(1, cellFormula.Length - 2);
         }
     
-=======
-
         public static String ToString(String value)
         {
             if (value == null) value = String.Empty;
             return "\"" + value.Replace("\"", "\"\"") + "\"";
         }
->>>>>>> .r18
     }
 }
