@@ -12,7 +12,7 @@ namespace VWDAddin
         {
             try 
             {
-                foreach (Shape shape in application.Documents[1].Pages[1].Shapes)
+                foreach (Shape shape in application.ActivePage.Shapes)
                 {
                     if (shape.ID == ID)
                         return shape;
@@ -24,6 +24,11 @@ namespace VWDAddin
             }
             return null;
         }
-    
+
+        public static String ToString(String value)
+        {
+            if (value == null) value = String.Empty;
+            return "\"" + value.Replace("\"", "\"\"") + "\"";
+        }
     }
 }
