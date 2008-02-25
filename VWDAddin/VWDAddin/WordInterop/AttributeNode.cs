@@ -12,13 +12,13 @@ namespace VWDAddin {
 
     public AttributeNode(WordDocument doc, string attribute) {
       m_attrName = attribute;
-      m_attributeNode = Helpers.CreateCustomNode(doc, "attr_section", 0);
-      XmlNode attrNameNode = Helpers.CreateCustomNode(doc, "attr_name", 0);
-      attrNameNode.AppendChild(Helpers.CreateTextChildNode(doc, Definitions.CLASS_ATTR_NAME_PREFIX + attribute));
+      m_attributeNode = WordHelpers.CreateCustomNode(doc, "attr_section", 0);
+      XmlNode attrNameNode = WordHelpers.CreateCustomNode(doc, "attr_name", 0);
+      attrNameNode.AppendChild(WordHelpers.CreateTextChildNode(doc, Definitions.CLASS_ATTR_NAME_PREFIX + attribute));
       m_attributeNode.AppendChild(attrNameNode);
 
-      XmlNode attrDescrNode = Helpers.CreateCustomNode(doc, "attr_descr", 0);
-      attrDescrNode.AppendChild(Helpers.CreateTextChildNode(doc, Definitions.CLASS_ATTR_NAME_DESCR_PREFIX));
+      XmlNode attrDescrNode = WordHelpers.CreateCustomNode(doc, "attr_descr", 0);
+      attrDescrNode.AppendChild(WordHelpers.CreateTextChildNode(doc, Definitions.CLASS_ATTR_NAME_DESCR_PREFIX));
       m_attributeNode.AppendChild(attrDescrNode);
     }
      

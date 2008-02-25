@@ -66,7 +66,7 @@
     <Compile Include="WordInterop\AttributeNode.cs" />
     <Compile Include="WordInterop\ClassNode.cs" />
     <Compile Include="WordInterop\Definitions.cs" />
-    <Compile Include="WordInterop\Helpers.cs" />
+    <Compile Include="WordInterop\WordHelpers.cs" />
     <Compile Include="WordInterop\SingleAction.cs" />
     <Compile Include="WordInterop\WordDocument.cs" />
   </ItemGroup>
@@ -103,6 +103,9 @@
       <WrapperTool>primary</WrapperTool>
       <Isolated>False</Isolated>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="VisioDialogs\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
   <PropertyGroup>
