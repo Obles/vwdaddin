@@ -1,0 +1,176 @@
+    // Document event codes
+    case (short)VisEventCodes.visEvtDoc + (short)VisEventCodes.visEvtDel:
+    case (short)VisEventCodes.visEvtCodeBefDocSave:
+    case (short)VisEventCodes.visEvtCodeBefDocSaveAs:
+    case (short)VisEventCodes.visEvtCodeDocDesign:
+    case (short)VisEventCodes.visEvtDoc + Constants.visEvtAdd:
+    case (short)VisEventCodes.visEvtDoc + (short)VisEventCodes.visEvtMod:
+    case (short)VisEventCodes.visEvtCodeCancelDocClose:
+    case (short)VisEventCodes.visEvtCodeDocCreate:
+    case (short)VisEventCodes.visEvtCodeDocOpen:
+    case (short)VisEventCodes.visEvtCodeDocSave:
+    case (short)VisEventCodes.visEvtCodeDocSaveAs:
+    case (short)VisEventCodes.visEvtCodeDocRunning:
+    case (short)VisEventCodes.visEvtCodeQueryCancelDocClose:
+
+        // Subject object is a Document
+        //   Eventinfo may indicate what changed, e.g. 
+        //   /pagereordered, etc. For the save, saveas events 
+        //   the eventinfo is typically empty. However, starting
+        //   with Visio 2000 SR1 it is the name of the recover 
+        //   file if save occured for autorecovery.  
+        //   In general expect non-empty eventinfo only for SaveAs.
+        subjectDocument =
+            (Document)subject;
+        subjectApplication = subjectDocument.Application;
+        name = subjectDocument.Name;
+        break;
+
+    // Page event codes
+    case (short)VisEventCodes.visEvtPage + (short)VisEventCodes.visEvtDel:
+    case (short)VisEventCodes.visEvtPage + Constants.visEvtAdd:
+    case (short)VisEventCodes.visEvtPage + (short)VisEventCodes.visEvtMod:
+    case (short)VisEventCodes.visEvtCodeCancelPageDel:
+    case (short)VisEventCodes.visEvtCodeQueryCancelPageDel:
+
+        // Subject object is a Page
+        subjectPage = (Page)subject;
+        subjectApplication = subjectPage.Application;
+        name = subjectPage.Name;
+        break;
+
+    // Master event codes
+    case (short)VisEventCodes.visEvtMaster + (short)VisEventCodes.visEvtDel:
+    case (short)VisEventCodes.visEvtMaster + (short)VisEventCodes.visEvtMod:
+    case (short)VisEventCodes.visEvtCodeCancelMasterDel:
+    case (short)VisEventCodes.visEvtMaster + Constants.visEvtAdd:
+    case (short)VisEventCodes.visEvtCodeQueryCancelMasterDel:
+
+        // Subject object is a Master
+        subjectMaster = (Master)subject;
+        subjectApplication = subjectMaster.Application;
+        name = subjectMaster.Name;
+        break;
+
+    // Selection event codes
+    case (short)VisEventCodes.visEvtCodeBefSelDel:
+    case (short)VisEventCodes.visEvtCodeSelAdded:
+    case (short)VisEventCodes.visEvtCodeCancelSelDel:
+    case (short)VisEventCodes.visEvtCodeCancelConvertToGroup:
+    case (short)VisEventCodes.visEvtCodeQueryCancelUngroup:
+    case (short)VisEventCodes.visEvtCodeQueryCancelConvertToGroup:
+    case (short)VisEventCodes.visEvtCodeQueryCancelSelDel:
+    case (short)VisEventCodes.visEvtCodeCancelUngroup:
+
+        // Subject object is a Selection
+        subjectSelection =
+            (Selection)subject;
+        subjectApplication = subjectSelection.Application;
+        break;
+
+    // Shape event codes
+    case (short)VisEventCodes.visEvtShape + (short)VisEventCodes.visEvtDel:
+    case (short)VisEventCodes.visEvtCodeShapeBeforeTextEdit:
+    case (short)VisEventCodes.visEvtShape + Constants.visEvtAdd:
+    case (short)VisEventCodes.visEvtShape + (short)VisEventCodes.visEvtMod:
+    case (short)VisEventCodes.visEvtCodeShapeExitTextEdit:
+    case (short)VisEventCodes.visEvtCodeShapeParentChange:
+    case (short)VisEventCodes.visEvtCodeShapeDelete:
+    case (short)VisEventCodes.visEvtText + (short)VisEventCodes.visEvtMod:
+
+        // Subject object is a Shape
+        subjectShape =
+            (Shape)subject;
+        subjectApplication = subjectShape.Application;
+        name = subjectShape.Name;
+        break;
+
+    // Cell event codes
+    case (short)VisEventCodes.visEvtCell + (short)VisEventCodes.visEvtMod:
+    case (short)VisEventCodes.visEvtFormula + (short)VisEventCodes.visEvtMod:
+
+        // Subject object is a Cell
+        subjectCell =
+            (Cell)subject;
+        subjectShape = subjectCell.Shape;
+        subjectApplication = subjectCell.Application;
+        name = subjectShape.Name + "!" + subjectCell.Name;
+        break;
+
+    // Connects event codes
+    case (short)VisEventCodes.visEvtConnect + Constants.visEvtAdd:
+    case (short)VisEventCodes.visEvtConnect + (short)VisEventCodes.visEvtDel:
+
+        // Subject object is a Connects collection
+        subjectConnects =
+            (Connects)subject;
+        subjectApplication = subjectConnects.Application;
+        break;
+
+    // Style event codes
+    case (short)VisEventCodes.visEvtStyle + (short)VisEventCodes.visEvtDel:
+    case (short)VisEventCodes.visEvtStyle + Constants.visEvtAdd:
+    case (short)VisEventCodes.visEvtStyle + (short)VisEventCodes.visEvtMod:
+    case (short)VisEventCodes.visEvtCodeCancelStyleDel:
+    case (short)VisEventCodes.visEvtCodeQueryCancelStyleDel:
+
+        // Subject object is a Style
+        subjectStyle =
+            (Style)subject;
+        subjectApplication = subjectStyle.Application;
+        name = subjectStyle.Name;
+        break;
+
+    // Window event codes
+    case (short)VisEventCodes.visEvtWindow + (short)VisEventCodes.visEvtDel:
+    case (short)VisEventCodes.visEvtCodeBefWinPageTurn:
+    case (short)VisEventCodes.visEvtWindow + Constants.visEvtAdd:
+    case (short)VisEventCodes.visEvtWindow + (short)VisEventCodes.visEvtMod:
+    case (short)VisEventCodes.visEvtCodeWinPageTurn:
+    case (short)VisEventCodes.visEvtCodeBefWinSelDel:
+    case (short)VisEventCodes.visEvtCodeCancelWinClose:
+    case (short)VisEventCodes.visEvtApp + (short)VisEventCodes.visEvtWinActivate:
+    case (short)VisEventCodes.visEvtCodeWinSelChange:
+    case (short)VisEventCodes.visEvtCodeViewChanged:
+    case (short)VisEventCodes.visEvtCodeQueryCancelWinClose:
+
+        // Subject object is a Window
+        subjectWindow =
+            (Window)subject;
+        subjectApplication = subjectWindow.Application;
+        name = subjectWindow.Caption;
+        break;
+
+    // Application event codes
+    case (short)VisEventCodes.visEvtApp + (short)VisEventCodes.visEvtAfterModal:
+    case (short)VisEventCodes.visEvtCodeAfterResume:
+    case (short)VisEventCodes.visEvtApp + (short)VisEventCodes.visEvtAppActivate:
+    case (short)VisEventCodes.visEvtApp + (short)VisEventCodes.visEvtAppDeactivate:
+    case (short)VisEventCodes.visEvtApp + (short)VisEventCodes.visEvtObjActivate:
+    case (short)VisEventCodes.visEvtApp + (short)VisEventCodes.visEvtObjDeactivate:
+    case (short)VisEventCodes.visEvtApp + (short)VisEventCodes.visEvtBeforeModal:
+    case (short)VisEventCodes.visEvtApp + (short)VisEventCodes.visEvtBeforeQuit:
+    case (short)VisEventCodes.visEvtCodeBeforeSuspend:
+    case (short)VisEventCodes.visEvtCodeEnterScope:
+    case (short)VisEventCodes.visEvtCodeExitScope:
+    case (short)VisEventCodes.visEvtCodeKeyDown:
+    case (short)VisEventCodes.visEvtCodeKeyPress:
+    case (short)VisEventCodes.visEvtCodeKeyUp:
+    case (short)VisEventCodes.visEvtApp + (short)VisEventCodes.visEvtMarker:
+    case (short)VisEventCodes.visEvtCodeMouseDown:
+    case (short)VisEventCodes.visEvtCodeMouseMove:
+    case (short)VisEventCodes.visEvtCodeMouseUp:
+    case (short)VisEventCodes.visEvtCodeBefForcedFlush:
+    case (short)VisEventCodes.visEvtCodeAfterForcedFlush:
+    case (short)VisEventCodes.visEvtApp + (short)VisEventCodes.visEvtNonePending:
+    case (short)VisEventCodes.visEvtCodeWinOnAddonKeyMSG:
+    case (short)VisEventCodes.visEvtCodeQueryCancelQuit:
+    case (short)VisEventCodes.visEvtCodeQueryCancelSuspend:
+    case (short)VisEventCodes.visEvtCodeCancelQuit:
+    case (short)VisEventCodes.visEvtCodeCancelSuspend:
+    case (short)VisEventCodes.visEvtApp + (short)VisEventCodes.visEvtIdle:
+
+        // Subject object is an Application
+        subjectApplication =
+            (Application)subject;
+        break;

@@ -105,6 +105,10 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="VisioEventHandlers\AnyEventHandler.txt" />
+    <Content Include="VisioEventHandlers\EventCodes.txt" />
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="VisioDialogs\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
