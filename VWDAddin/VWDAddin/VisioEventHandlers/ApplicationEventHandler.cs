@@ -1,3 +1,5 @@
+using Application = Microsoft.Office.Interop.Visio.Application;
+using Shape = Microsoft.Office.Interop.Visio.Shape;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,9 +11,10 @@ namespace VWDAddin
     public class ApplicationEventHandler : EventHandler
     {
         public static short[] HandleEvents = {
-            (short)VisEventCodes.visEvtDoc + Constants.visEvtAdd,
-            (short)VisEventCodes.visEvtApp + (short)VisEventCodes.visEvtBeforeQuit,
-            (short)VisEventCodes.visEvtCodeWinPageTurn,
+          (short)VisEventCodes.visEvtDoc + Constants.visEvtAdd,
+          (short)VisEventCodes.visEvtApp + (short)VisEventCodes.visEvtBeforeQuit,
+          (short)VisEventCodes.visEvtCodeWinPageTurn,
+          (short)VisEventCodes.visEvtApp + (short)VisEventCodes.visEvtMarker,
         };
 
         public ApplicationEventHandler(EventManager manager)
@@ -34,6 +37,15 @@ namespace VWDAddin
                     if (document.Type == VisDocumentTypes.visTypeDrawing)
                     {
                         Owner.StartDocumentListener(document);
+                    }
+                    break;
+                case (short)VisEventCodes.visEvtApp + (short)VisEventCodes.visEvtMarker:
+                    Application application = (Application)subject;
+                    int id = Convert.ToInt32(application.get_EventInfo(0));
+                    Shape selectedShape = VisioHelpers.GetShapeByID(id, application);
+                    if (selectedShape != null)
+                    {
+                        int abc = 0;
                     }
                     break;
                 default:

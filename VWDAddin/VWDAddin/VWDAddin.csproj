@@ -42,6 +42,7 @@
       <HintPath>System.Data.dll</HintPath>
       <Name>System.Data</Name>
     </Reference>
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.XML">
       <HintPath>System.XML.dll</HintPath>
@@ -56,6 +57,12 @@
     <Compile Include="Connect.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="VisioDialogs\AssociationDisplayOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VisioDialogs\AssociationDisplayOptions.Designer.cs">
+      <DependentUpon>AssociationDisplayOptions.cs</DependentUpon>
+    </Compile>
     <Compile Include="VisioEventHandlers\ApplicationEventHandler.cs" />
     <Compile Include="VisioEventHandlers\Constants.cs" />
     <Compile Include="VisioEventHandlers\DocumentEventHandler.cs" />
@@ -63,6 +70,7 @@
     <Compile Include="VisioEventHandlers\EventManager.cs" />
     <Compile Include="VisioEventHandlers\EventSink.cs" />
     <Compile Include="VisioEventHandlers\ShapeEventHandler.cs" />
+    <Compile Include="VisioEventHandlers\VisioHelpers.cs" />
     <Compile Include="WordInterop\AssociationNode.cs" />
     <Compile Include="WordInterop\AttributeNode.cs" />
     <Compile Include="WordInterop\ClassNode.cs" />
@@ -110,7 +118,10 @@
     <Content Include="VisioEventHandlers\EventCodes.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="VisioDialogs\" />
+    <EmbeddedResource Include="VisioDialogs\AssociationDisplayOptions.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>AssociationDisplayOptions.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
   <PropertyGroup>

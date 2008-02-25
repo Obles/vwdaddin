@@ -47,25 +47,27 @@ namespace VWDAddin
 		///      Object representing this Add-in.
 		/// </param>
 		/// <seealso class='IDTExtensibility2' />
-		public void OnConnection(object application, Extensibility.ext_ConnectMode connectMode, object addInInst, ref System.Array custom)
-		{
-      Trace.WriteLine("-----------[ Add-In Connecting ]-----------");
-      try
-      {
-        visApplication = (Application)application;
-      }
-      catch (Exception)
-      {
-        MessageBox.Show("TypeCast Error");
-        return;
-      }
-      addInInstance = addInInst;
+        public void OnConnection(object application, Extensibility.ext_ConnectMode connectMode, object addInInst, ref System.Array custom)
+        {
+            Trace.WriteLine("-----------[ Add-In Connecting ]-----------");
+            try
+            {
+                visApplication = (Application)application;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("TypeCast Error");
+                return;
+            }
+            addInInstance = addInInst;
 
-      Trace.WriteLine("Name: " + visApplication.Name + " Version: " + visApplication.Version);
+            Trace.WriteLine("Name: " + visApplication.Name + " Version: " + visApplication.Version);
 
-      EventManager = new EventManager();
-      EventManager.StartApplicationListener(visApplication);
-		}
+            EventManager = new EventManager();
+            EventManager.StartApplicationListener(visApplication);
+
+            //visApplication.Documents.Add("C:\\temp\\001.vsd");
+        }
 
 		/// <summary>
 		///     Implements the OnDisconnection method of the IDTExtensibility2 interface.
