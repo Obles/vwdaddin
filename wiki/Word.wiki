@@ -1,0 +1,5 @@
+#summary Word
+
+= Microsoft Word =
+
+ * [http://ru.wikipedia.org/wiki/Microsoft_Word Материал из Википедии — свободной энциклопедии]
