@@ -342,6 +342,12 @@ namespace VWDAddin
             }
             #endregion
 
+            if (Owner.Application.IsUndoingOrRedoing)
+            {
+                System.Diagnostics.Trace.WriteLine("Is Undoing or Redoing");
+                return returnValue;
+            }
+
             foreach (EventHandler EventHandler in EventHandlers)
             {
                 if (EventHandler.HandlesEvent(eventCode))
