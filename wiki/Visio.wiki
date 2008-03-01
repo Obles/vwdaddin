@@ -1,0 +1,6 @@
+#summary Visio
+
+= Microsoft Visio =
+
+=== Ссылки ===
+ * [http://ru.wikipedia.org/wiki/Microsoft_Visio Материал из Википедии — свободной энциклопедии]
