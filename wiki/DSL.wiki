@@ -1,0 +1,5 @@
+#summary Domain-Specific Language Tools
+
+= Microsoft Domain-Specific Language Tools =
+
+ * [http://msdn2.microsoft.com/en-us/library/bb126235.aspx Статья MSDN]
