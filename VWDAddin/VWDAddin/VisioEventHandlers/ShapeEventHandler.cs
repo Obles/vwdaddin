@@ -11,6 +11,9 @@ namespace VWDAddin
         public static short[] HandleEvents = {
             (short)VisEventCodes.visEvtDel + (short)VisEventCodes.visEvtShape,
             (short)VisEventCodes.visEvtShape + Constants.visEvtAdd,
+            (short)VisEventCodes.visEvtCodeShapeBeforeTextEdit,
+            (short)VisEventCodes.visEvtCodeShapeExitTextEdit,
+            (short)VisEventCodes.visEvtConnect + Constants.visEvtAdd,
         };
 
         public ShapeEventHandler(EventManager manager)
