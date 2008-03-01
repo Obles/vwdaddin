@@ -31,6 +31,11 @@ namespace VWDAddin
             return handleEvents.Contains(eventCode);
         }
 
+        public void UndoableAction()
+        {
+            Owner.Application.AddUndoUnit(new UndoUnit());
+        }
+
         #region Debug information
         public static void UnhandledEvent(short eventCode)
         {

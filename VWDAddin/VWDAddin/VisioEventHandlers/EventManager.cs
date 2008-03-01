@@ -12,6 +12,12 @@ namespace VWDAddin
         /// </summary>
         private EventSink eventHandler;
 
+        private Application visioApplication;
+        public Application Application
+        {
+            get { return visioApplication; }
+        }
+
         public EventManager()
         {
             eventHandler = new EventSink(this, new EventHandler[] {
@@ -46,6 +52,8 @@ namespace VWDAddin
         public void StartApplicationListener(Application theApplication)
         {
             Trace.WriteLine("Start Application Listener for " + theApplication.Name + " " + theApplication.Version);
+            visioApplication = theApplication;
+
             FillEventList(theApplication.EventList, ApplicationEventHandler.HandleEvents);
 
             if (Constants.TraceAnyEvent)
