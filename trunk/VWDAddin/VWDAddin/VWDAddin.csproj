@@ -63,6 +63,7 @@
     <Compile Include="VisioDialogs\AssociationDisplayOptions.Designer.cs">
       <DependentUpon>AssociationDisplayOptions.cs</DependentUpon>
     </Compile>
+    <Compile Include="VisioEventHandlers\AnyEventHandler.cs" />
     <Compile Include="VisioEventHandlers\ApplicationEventHandler.cs" />
     <Compile Include="VisioEventHandlers\Constants.cs" />
     <Compile Include="VisioEventHandlers\DocumentEventHandler.cs" />

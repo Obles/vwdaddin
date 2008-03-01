@@ -130,7 +130,7 @@ namespace VWDAddin
 
         private System.Windows.Forms.CheckBox DisplayName;
         private System.Windows.Forms.Button OKButton;
-        private System.Windows.Forms.Button CancelButton;
+        private new System.Windows.Forms.Button CancelButton;
         private System.Windows.Forms.CheckBox DisplayEnd2Name;
         private System.Windows.Forms.CheckBox DisplayEnd1Name;
         private System.Windows.Forms.CheckBox DisplayEnd1MP;

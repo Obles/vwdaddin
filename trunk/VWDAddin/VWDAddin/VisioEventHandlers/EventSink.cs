@@ -25,6 +25,11 @@ namespace VWDAddin
             this.EventHandlers = new List<EventHandler>(handlers);
         }
 
+        public void Add(EventHandler EventHandler)
+        {
+            EventHandlers.Add(EventHandler);
+        }
+
         /// <summary>This method is called by Visio when an event in the
         /// EventList collection has been triggered. This method is an
         /// implementation of IVisEventProc.VisEventProc method.</summary>

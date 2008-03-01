@@ -27,14 +27,18 @@ namespace VWDAddin
 
         public static string GetShapeType(Shape shape)
         {
-            string cellFormula = shape.get_Cells("user.type").Formula;
-            return cellFormula.Substring(1, cellFormula.Length - 2);
+            return FromString(shape.get_Cells("user.type").Formula);
         }
     
         public static String ToString(String value)
         {
             if (value == null) value = String.Empty;
             return "\"" + value.Replace("\"", "\"\"") + "\"";
+        }
+ 
+        public static String FromString(String value)
+        {
+            return value.Substring(1, value.Length - 2).Replace("\"\"", "\"");
         }
     }
 }
