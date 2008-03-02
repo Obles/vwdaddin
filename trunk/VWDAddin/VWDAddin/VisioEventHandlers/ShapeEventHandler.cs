@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Office.Interop.Visio;
 using System.Diagnostics;
+using VWDAddin.VisioLogger;
 
 namespace VWDAddin
 {
@@ -35,7 +36,7 @@ namespace VWDAddin
                     Shape shape = subject as Shape;
                     shape.get_Cells("User.GUID.Value").Formula = VisioHelpers.ToString(Guid.NewGuid().ToString());
 
-                    UndoableAction(shape.Document);
+                    GetLogger(shape.Document).Add(new Action(Constants.ActionTypes.ClassAdded));
                     break;
                 }
                 case (short)VisEventCodes.visEvtDel + (short)VisEventCodes.visEvtShape:
@@ -43,7 +44,7 @@ namespace VWDAddin
                 case (short)VisEventCodes.visEvtConnect + Constants.visEvtAdd:
                 {
                     Shape shape = subject as Shape;
-                    UndoableAction(shape.Document);
+                    GetLogger(shape.Document).Add(new Action(Constants.ActionTypes.ClassAdded));
                     break;
                 }
                 default:
