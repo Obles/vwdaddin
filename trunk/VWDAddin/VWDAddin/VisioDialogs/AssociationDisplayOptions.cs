@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace VWDAddin
 {
@@ -67,7 +68,7 @@ namespace VWDAddin
             }
             catch (Exception e)
             {
-                int abc = 0;
+                Debug.WriteLine(e.Message + "Possible cause: Shape or child shape doesn't have user.type cell");
             }
         }
 
