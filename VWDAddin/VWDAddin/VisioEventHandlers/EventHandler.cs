@@ -32,11 +32,6 @@ namespace VWDAddin
             return handleEvents.Contains(eventCode);
         }
 
-        public void UndoableAction(Document Document)
-        {
-            Owner.Application.AddUndoUnit(new UndoUnit(GetLogger(Document)));
-        }
-
         public Logger GetLogger(Document Document)
         {
             return Owner.LoggerManager.GetLogger(Document);

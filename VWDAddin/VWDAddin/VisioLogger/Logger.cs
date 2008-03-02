@@ -28,6 +28,7 @@ namespace VWDAddin.VisioLogger
             currentAction++;
             actionList.RemoveRange(currentAction, actionList.Count - currentAction);
             actionList.Add(Action);
+            Document.Application.AddUndoUnit(new UndoUnit(this));
         }
 
         public Action CurrentAction
