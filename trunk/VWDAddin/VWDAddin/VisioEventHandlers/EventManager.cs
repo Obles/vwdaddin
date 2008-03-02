@@ -2,6 +2,7 @@ using System;
 using Microsoft.Office.Interop.Visio;
 using System.Diagnostics;
 using System.Collections.Generic;
+using VWDAddin.VisioLogger;
 
 namespace VWDAddin
 {
@@ -16,6 +17,12 @@ namespace VWDAddin
         public Application Application
         {
             get { return visioApplication; }
+        }
+
+        private LoggerManager loggerManager = new LoggerManager();
+        public LoggerManager LoggerManager
+        {
+            get { return loggerManager; }
         }
 
         public EventManager()
@@ -67,6 +74,8 @@ namespace VWDAddin
             Trace.WriteLine("Start Document Listener for " + theDocument.Name);
             FillEventList(theDocument.EventList, DocumentEventHandler.HandleEvents);
             FillEventList(theDocument.EventList, ShapeEventHandler.HandleEvents);
+
+            LoggerManager.CreateLogger(theDocument);
 
             if (Constants.TraceAnyEvent)
             {

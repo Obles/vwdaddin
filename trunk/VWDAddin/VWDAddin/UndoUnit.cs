@@ -3,22 +3,25 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Office.Interop.Visio;
 using System.Diagnostics;
+using VWDAddin.VisioLogger;
 
 namespace VWDAddin
 {
     class UndoUnit : IVBUndoUnit
     {
         private bool stateDo; // false - undo, true - redo
+        private Logger Logger;
 
-        public UndoUnit()
+        public UndoUnit(Logger Logger)
         {
             stateDo = false;
+            this.Logger = Logger;
         }
 
         /// <summary>Approximate memory size in bytes of the undo unit.</summary>
         public int UnitSize
         {
-            get { return 2; }
+            get { return 6; }
         }
 
         public void Do(IVBUndoManager undoManager)
@@ -28,12 +31,12 @@ namespace VWDAddin
                 if (stateDo)
                 {
                     System.Diagnostics.Debug.WriteLine("Redoing the action.");
-                    //TODO «десь спец.указатель будет двигатьс€ вперед по логу
+                    Logger.Redo();
                 }
                 else
                 {
                     System.Diagnostics.Debug.WriteLine("Undoing the action.");
-                    //TODO «десь спец.указатель будет двигатьс€ назад по логу
+                    Logger.Undo();
                 }
 
                 // Toggle the state flag.

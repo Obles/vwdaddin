@@ -35,14 +35,15 @@ namespace VWDAddin
                     Shape shape = subject as Shape;
                     shape.get_Cells("User.GUID.Value").Formula = VisioHelpers.ToString(Guid.NewGuid().ToString());
 
-                    UndoableAction();
+                    UndoableAction(shape.Document);
                     break;
                 }
                 case (short)VisEventCodes.visEvtDel + (short)VisEventCodes.visEvtShape:
                 case (short)VisEventCodes.visEvtCodeShapeExitTextEdit:
                 case (short)VisEventCodes.visEvtConnect + Constants.visEvtAdd:
                 {
-                    UndoableAction();
+                    Shape shape = subject as Shape;
+                    UndoableAction(shape.Document);
                     break;
                 }
                 default:

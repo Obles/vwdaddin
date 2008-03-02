@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using EventTypes = VWDAddin.VisioDefinitions.VISIO_EVENT_TYPES;
+using ActionTypes = VWDAddin.Constants.ActionTypes;
 
-namespace VWDAddin
+namespace VWDAddin.VisioLogger
 {
-    public class AssociationEvent : BaseEvent
+    public class AssociationAction : Action
     {
-        public AssociationEvent(EventTypes type) : base(type)
+        public AssociationAction(ActionTypes type)
+            : base(type)
         {
             // ToDo: add params here
         }

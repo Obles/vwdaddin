@@ -120,8 +120,8 @@ namespace VWDAddin
 		{
 		}
 
-    private EventManager EventManager;
-    private Application visApplication;
-    private object addInInstance;
+        private EventManager EventManager;
+        private Application visApplication;
+        private object addInInstance;
 	}
 }
