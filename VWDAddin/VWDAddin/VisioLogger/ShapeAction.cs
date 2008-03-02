@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using EventTypes = VWDAddin.VisioDefinitions.VISIO_EVENT_TYPES;
+using ActionTypes = VWDAddin.Constants.ActionTypes;
 
 namespace VWDAddin.VisioLogger
 {
-    public class ShapeEvent : BaseEvent
+    public class ShapeAction : Action
     {
-        public ShapeEvent(EventTypes type) : base(type)
+        public ShapeAction(ActionTypes type)
+            : base(type)
         {
             // ToDo: add params here
         }

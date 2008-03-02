@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Office.Interop.Visio;
 using System.Diagnostics;
+using VWDAddin.VisioLogger;
 
 namespace VWDAddin
 {
@@ -31,9 +32,14 @@ namespace VWDAddin
             return handleEvents.Contains(eventCode);
         }
 
-        public void UndoableAction()
+        public void UndoableAction(Document Document)
         {
-            Owner.Application.AddUndoUnit(new UndoUnit());
+            Owner.Application.AddUndoUnit(new UndoUnit(GetLogger(Document)));
+        }
+
+        public Logger GetLogger(Document Document)
+        {
+            return Owner.LoggerManager.GetLogger(Document);
         }
 
         #region Debug information
