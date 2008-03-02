@@ -2,5 +2,8 @@
 
 = Microsoft Visio =
 
+=== Требования ====
+Для работы addin'a необходим MS Visio 2007 или MS Visio 2003
+
 === Ссылки ===
- * [http://ru.wikipedia.org/wiki/Microsoft_Visio Материал из Википедии — свободной энциклопедии]
+ * [http://ru.wikipedia.org/wiki/Microsoft_Visio MS Visio в Википедии]
