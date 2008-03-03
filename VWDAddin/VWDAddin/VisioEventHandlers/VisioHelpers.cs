@@ -1,5 +1,4 @@
-using Application = Microsoft.Office.Interop.Visio.Application;
-using Shape= Microsoft.Office.Interop.Visio.Shape;
+using Microsoft.Office.Interop.Visio;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -39,6 +38,45 @@ namespace VWDAddin
         public static String FromString(String value)
         {
             return value.Substring(1, value.Length - 2).Replace("\"\"", "\"");
+        }
+
+        public static Cell GetDocumentCell(Document Document, String Property)
+        {
+            return Document.Pages[1].PageSheet.get_Cells(Property);
+        }
+
+        public static String GetDSLPath(Document Document)
+        {
+            try
+            {
+                return FromString(GetDocumentCell(Document, "User.DSL.Value").Formula);
+            }
+            catch (Exception)
+            {
+                return String.Empty;
+            }
+        }
+
+        public static String GetWordPath(Document Document)
+        {
+            try
+            {
+                return FromString(GetDocumentCell(Document, "User.Word.Value").Formula);
+            }
+            catch (Exception)
+            {
+                return String.Empty;
+            }
+        }
+
+        public static void SetDSLPath(Document Document, String Path)
+        {
+            GetDocumentCell(Document, "User.DSL.Value").Formula = ToString(Path);
+        }
+
+        public static void SetWordPath(Document Document, String Path)
+        {
+            GetDocumentCell(Document, "User.Word.Value").Formula = ToString(Path);
         }
     }
 }

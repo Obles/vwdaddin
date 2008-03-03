@@ -54,6 +54,12 @@
     <Compile Include="AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="VisioDialogs\DocumentProperties.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VisioDialogs\DocumentProperties.Designer.cs">
+      <DependentUpon>DocumentProperties.cs</DependentUpon>
+    </Compile>
     <Compile Include="VisioEventHandlers\MarkerEventHandler.cs" />
     <Compile Include="VisioLogger\AssociationAction.cs" />
     <Compile Include="Connect.cs">
@@ -129,6 +135,10 @@
     <EmbeddedResource Include="VisioDialogs\AssociationDisplayOptions.resx">
       <SubType>Designer</SubType>
       <DependentUpon>AssociationDisplayOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VisioDialogs\DocumentProperties.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>DocumentProperties.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
