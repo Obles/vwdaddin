@@ -47,5 +47,14 @@ namespace VWDAddin.VisioLogger
             currentAction++;
             Trace.WriteLine("Redoing Action " + currentAction + " in " + associatedDocument.Name);
         }
+
+        public void ApplyChanges()
+        {
+            Trace.WriteLine("Applying Changes in " + associatedDocument.Name);
+            for (int i = 0; i <= currentAction; i++)
+            {
+                // actionList[i].Apply(Document);
+            }
+        }
     }
 }

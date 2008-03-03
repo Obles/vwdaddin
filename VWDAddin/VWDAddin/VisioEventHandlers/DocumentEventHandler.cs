@@ -10,6 +10,9 @@ namespace VWDAddin
     {
         public static short[] HandleEvents = {
             (short)VisEventCodes.visEvtPage + Constants.visEvtAdd,
+            (short)VisEventCodes.visEvtCodeDocOpen,
+            (short)VisEventCodes.visEvtCodeDocSave,
+            (short)VisEventCodes.visEvtCodeDocSaveAs,
             (short)VisEventCodes.visEvtDel + (short)VisEventCodes.visEvtDoc,
         };
 
@@ -28,6 +31,18 @@ namespace VWDAddin
         {
             switch (eventCode)
             {
+                case (short)VisEventCodes.visEvtCodeDocSave:
+                case (short)VisEventCodes.visEvtCodeDocSaveAs:
+                {
+                    GetLogger(subject as Document).ApplyChanges();
+                    break;
+                }
+                case (short)VisEventCodes.visEvtDel + (short)VisEventCodes.visEvtDoc:
+                {
+                    GetLogger(subject as Document).ApplyChanges();
+                    //TODO чистить за собой
+                    break;
+                }
                 default:
                     EventHandler.UnhandledEvent(eventCode);
                     break;
