@@ -12,6 +12,8 @@ namespace VWDAddin
 {
     public partial class AssociationDisplayOptions : Form
     {
+        public const String MarkerName = "ShowAssocDisplayOptions";
+
         public AssociationDisplayOptions()
         {
             InitializeComponent();

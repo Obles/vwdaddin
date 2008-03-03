@@ -14,7 +14,6 @@ namespace VWDAddin
           (short)VisEventCodes.visEvtDoc + Constants.visEvtAdd,
           (short)VisEventCodes.visEvtApp + (short)VisEventCodes.visEvtBeforeQuit,
           (short)VisEventCodes.visEvtCodeWinPageTurn,
-          (short)VisEventCodes.visEvtApp + (short)VisEventCodes.visEvtMarker,
         };
 
         public ApplicationEventHandler(EventManager manager)
@@ -37,20 +36,6 @@ namespace VWDAddin
                     if (document.Type == VisDocumentTypes.visTypeDrawing)
                     {
                         Owner.StartDocumentListener(document);
-                    }
-                    break;
-                case (short)VisEventCodes.visEvtApp + (short)VisEventCodes.visEvtMarker:
-                    Application application = (Application)subject;
-                    int id = Convert.ToInt32(application.get_EventInfo(0));
-                    Shape selectedShape = VisioHelpers.GetShapeByID(id, application);
-                    if (selectedShape != null )
-                    {                        
-                        string type = VisioHelpers.GetShapeType(selectedShape);
-                        if (type.Equals("association"))
-                        {
-                            AssociationDisplayOptions dlg = new AssociationDisplayOptions(selectedShape);
-                            dlg.Show();                        
-                        }
                     }
                     break;
                 default:

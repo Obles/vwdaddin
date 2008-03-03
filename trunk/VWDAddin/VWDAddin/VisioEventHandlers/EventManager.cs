@@ -29,6 +29,7 @@ namespace VWDAddin
         {
             eventHandler = new EventSink(this, new EventHandler[] {
                 new ApplicationEventHandler(this),
+                new MarkerEventHandler(this),
                 new DocumentEventHandler(this),
                 new ShapeEventHandler(this),
             });
@@ -62,6 +63,7 @@ namespace VWDAddin
             visioApplication = theApplication;
 
             FillEventList(theApplication.EventList, ApplicationEventHandler.HandleEvents);
+            FillEventList(theApplication.EventList, MarkerEventHandler.HandleEvents);
 
             if (Constants.TraceAnyEvent)
             {
