@@ -46,6 +46,11 @@ namespace VWDAddin
                         }
                         break;
                     }
+                    case DocumentProperties.MarkerName:
+                    {
+                        new DocumentProperties(application.ActiveDocument).Show();
+                        break;
+                    }
                     default:
                         Trace.WriteLine("Undefined function " + Params[0]);
                         break;
