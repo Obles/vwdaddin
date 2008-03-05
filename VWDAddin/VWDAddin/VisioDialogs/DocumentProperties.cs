@@ -35,6 +35,7 @@ namespace VWDAddin
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 DSLPath.Text = openFileDialog.FileName;
+                //TODO синхронизаци€ документов, если это возможно
             }
         }
 
@@ -44,6 +45,7 @@ namespace VWDAddin
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 WordPath.Text = openFileDialog.FileName;
+                //TODO синхронизаци€ документов, если это возможно
             }
         }
 

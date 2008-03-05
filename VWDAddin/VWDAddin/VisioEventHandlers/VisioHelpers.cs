@@ -78,5 +78,10 @@ namespace VWDAddin
         {
             GetDocumentCell(Document, "User.Word.Value").Formula = ToString(Path);
         }
+
+        public static String GetTempDSLPath(Document Document)
+        {
+            return GetDSLPath(Document) + "~";
+        }
     }
 }
