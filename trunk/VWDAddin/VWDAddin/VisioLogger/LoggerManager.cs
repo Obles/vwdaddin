@@ -20,5 +20,11 @@ namespace VWDAddin.VisioLogger
         {
             return Loggers[Document];
         }
+
+        public void RemoveLogger(Document Document)
+        {
+            Loggers[Document].Cleanup();
+            Loggers.Remove(Document);
+        }
     }
 }

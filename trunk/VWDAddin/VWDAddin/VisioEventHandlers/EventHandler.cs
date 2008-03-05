@@ -37,6 +37,11 @@ namespace VWDAddin
             return Owner.LoggerManager.GetLogger(Document);
         }
 
+        public void RemoveLogger(Document Document)
+        {
+            Owner.LoggerManager.RemoveLogger(Document);
+        }
+
         #region Debug information
         public static void UnhandledEvent(short eventCode)
         {
