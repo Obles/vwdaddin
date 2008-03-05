@@ -80,10 +80,12 @@ namespace VWDAddin.VisioLogger
         /// <summary>Уничтожение всей вспомогательной информации</summary>
         private void RemoveDSLControlPoint()
         {
-            String TempDslPath = VisioHelpers.GetTempDSLPath(associatedDocument);
-            if (File.Exists(TempDslPath))
+            //TODO пока будем тут сохранять инфу для сравнения.
+            // потом надо будет переписать DSL-Comparer для сравнения vsd с dsl
+            String DslPath = VisioHelpers.GetDSLPath(associatedDocument);
+            if (File.Exists(DslPath))
             {
-                File.Delete(TempDslPath);
+                File.Copy(DslPath, VisioHelpers.GetTempDSLPath(associatedDocument));
             }
         }
     }
