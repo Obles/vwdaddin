@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using Microsoft.Office.Interop.Visio;
 using System.Diagnostics;
+using System.IO;
 
 namespace VWDAddin
 {
@@ -65,7 +66,16 @@ namespace VWDAddin
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
                 WordPath.Text = saveFileDialog.FileName;
-                //TODO создание документа
+                // создание документа
+                // Переделать, так как если пользователь нажмет отмену, то файл все равно создается
+                if (File.Exists("EmptyDoc.docx"))
+                {
+                    File.Copy("EmptyDoc.docx", WordPath.Text);
+                }
+                else
+                {
+                    // MAYBE - Manually generate empty file
+                }
             }
         }
 

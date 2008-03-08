@@ -4,13 +4,20 @@ using System.Text;
 using Microsoft.Office.Interop.Visio;
 using System.Diagnostics;
 using System.IO;
+using VWDAddin.VisioLogger.Actions;
 
 namespace VWDAddin.VisioLogger
 {
     public class Logger
     {
-        private List<Action> actionList = new List<Action>();
+        private List<BaseAction> actionList = new List<BaseAction>();
         private int currentAction = -1;
+
+        private WordDocument m_wordDocument;
+        public WordDocument wordDocument
+        {
+            get { return m_wordDocument; }
+        }
 
         public Logger(Document Document)
         {
@@ -32,7 +39,7 @@ namespace VWDAddin.VisioLogger
             get { return associatedDocument; }
         }
 
-        public void Add(Action Action)
+        public void Add(BaseAction Action)
         {
             currentAction++;
             actionList.RemoveRange(currentAction, actionList.Count - currentAction);
@@ -40,7 +47,7 @@ namespace VWDAddin.VisioLogger
             Document.Application.AddUndoUnit(new UndoUnit(this));
         }
 
-        public Action CurrentAction
+        public BaseAction CurrentAction
         {
             get { return actionList[currentAction]; }
         }
@@ -62,7 +69,7 @@ namespace VWDAddin.VisioLogger
             Trace.WriteLine("Applying Changes in " + associatedDocument.Name);
             for (int i = 0; i <= currentAction; i++)
             {
-                // actionList[i].Apply(Document);
+                //actionList[i].Apply(Document);
             }
         }
 

@@ -99,9 +99,7 @@ namespace VWDAddin
                 }
             }
             this.Close();
-        }
-
-        private Shape m_shape;
+        }        
 
         private void CancelButton_Click(object sender, EventArgs e)
         {
