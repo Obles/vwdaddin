@@ -66,7 +66,7 @@ namespace VWDAddin
             EventManager = new EventManager();
             EventManager.StartApplicationListener(visApplication);
 
-            //visApplication.Documents.Add("C:\\temp\\001.vsd");
+            visApplication.Documents.Add("e:\\Visual Studio 2005\\Projects\\vwdaddin\\Template\\Domain-Specific Modeling\\TestTemplate.vtx");
         }
 
 		/// <summary>

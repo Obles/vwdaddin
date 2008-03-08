@@ -2,6 +2,7 @@ using Microsoft.Office.Interop.Visio;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Diagnostics;
 
 namespace VWDAddin
 {
@@ -17,16 +18,41 @@ namespace VWDAddin
                         return shape;
                 }
             }
-            catch(Exception)
+            catch(Exception e)
             {
-                int abc =0 ;
+                Debug.WriteLine(e.Message /* + "Possible cause: Unknown" */);
             }
             return null;
         }
 
-        public static string GetShapeType(Shape shape)
+        public static String GetShapeType(Shape shape)
         {
             return FromString(shape.get_Cells("user.type").Formula);
+        }
+
+        public static String GetShapeCell(Shape shape, String cellName)
+        {
+            return FromString(shape.get_Cells(cellName).Formula);
+        }
+
+        public static void ParseClassShape(Shape shape, out String guid, out String className, out String attributes)
+        {
+            try
+            {
+                if (!GetShapeType(shape).Equals("class"))
+                {
+                    guid = className = attributes = String.Empty;
+                    return;
+                }
+                guid = GetShapeCell(shape, "user.guid.value");
+                className = shape.Shapes[1].Text;
+                attributes = shape.Shapes[2].Text;
+            }
+            catch (Exception e)
+            {
+                guid = className = attributes = String.Empty;
+                Debug.WriteLine(e.Message /* + "Possible cause: Unknown" */);
+            }
         }
     
         public static String ToString(String value)
@@ -37,6 +63,7 @@ namespace VWDAddin
  
         public static String FromString(String value)
         {
+            //if (value.Length < 2) return string.Empty;
             return value.Substring(1, value.Length - 2).Replace("\"\"", "\"");
         }
 

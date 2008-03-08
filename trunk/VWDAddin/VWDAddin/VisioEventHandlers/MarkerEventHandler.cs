@@ -40,8 +40,7 @@ namespace VWDAddin
                             string type = VisioHelpers.GetShapeType(selectedShape);
                             if (type.Equals("association"))
                             {
-                                AssociationDisplayOptions dlg = new AssociationDisplayOptions(selectedShape);
-                                dlg.Show();
+                                new AssociationDisplayOptions(selectedShape).Show();
                             }
                         }
                         break;

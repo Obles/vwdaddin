@@ -1,3 +1,4 @@
+using Microsoft.Office.Interop.Visio;
 namespace VWDAddin
 {
     partial class AssociationDisplayOptions
@@ -135,5 +136,6 @@ namespace VWDAddin
         private System.Windows.Forms.CheckBox DisplayEnd1Name;
         private System.Windows.Forms.CheckBox DisplayEnd1MP;
         private System.Windows.Forms.CheckBox DisplayEnd2MP;
+        private Shape m_shape;
     }
 }

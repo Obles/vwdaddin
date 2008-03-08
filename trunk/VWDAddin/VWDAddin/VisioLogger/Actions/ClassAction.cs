@@ -1,16 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Office.Interop.Visio;
 using ActionTypes = VWDAddin.Constants.ActionTypes;
 
-namespace VWDAddin.VisioLogger
+namespace VWDAddin.VisioLogger.Actions
 {
-    public class ShapeAction : Action
+    public class ClassAction : BaseAction
     {
-        public ShapeAction(ActionTypes type)
-            : base(type)
+        public ClassAction(Shape targetShape)
+            : base(targetShape)
         {
-            // ToDo: add params here
+            VisioHelpers.ParseClassShape(targetShape, out m_guid, out m_className, out m_attributes);
         }
 
         #region Members
@@ -21,17 +22,17 @@ namespace VWDAddin.VisioLogger
         public string GUID
         {
             get { return m_guid; }
-            //set { m_guid = value; }
+            set { m_guid = value; }
         }
         public string className
         {
             get { return m_className; }
-            //set { m_className = value; }
+            set { m_className = value; }
         }
         public string attributes
         {
             get { return m_attributes; }
-            //set { m_attributes = value; }
+            set { m_attributes = value; }
         }        
         #endregion
     }

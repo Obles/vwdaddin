@@ -1,14 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Office.Interop.Visio;
 using ActionTypes = VWDAddin.Constants.ActionTypes;
 
-namespace VWDAddin.VisioLogger
+namespace VWDAddin.VisioLogger.Actions
 {
-    public class AssociationAction : Action
+    public class AssociationAction : BaseAction
     {
-        public AssociationAction(ActionTypes type)
-            : base(type)
+        public AssociationAction(Shape targetShape)
+            : base(targetShape)
         {
             // ToDo: add params here
         }
