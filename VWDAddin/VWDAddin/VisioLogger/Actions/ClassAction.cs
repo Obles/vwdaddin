@@ -11,28 +11,28 @@ namespace VWDAddin.VisioLogger.Actions
         public ClassAction(Shape targetShape)
             : base(targetShape)
         {
-            VisioHelpers.ParseClassShape(targetShape, out m_guid, out m_className, out m_attributes);
+            VisioHelpers.ParseClassShape(targetShape, out _guid, out _className, out _attributes);
         }
 
         #region Members
-        private string m_guid;
-        private string m_className;
-        private string m_attributes;
+        private string _guid;
+        private string _className;
+        private string _attributes;
 
         public string GUID
         {
-            get { return m_guid; }
-            set { m_guid = value; }
+            get { return _guid; }
+            set { _guid = value; }
         }
-        public string className
+        public string ClassName
         {
-            get { return m_className; }
-            set { m_className = value; }
+            get { return _className; }
+            set { _className = value; }
         }
-        public string attributes
+        public string Attributes
         {
-            get { return m_attributes; }
-            set { m_attributes = value; }
+            get { return _attributes; }
+            set { _attributes = value; }
         }        
         #endregion
     }

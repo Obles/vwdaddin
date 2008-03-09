@@ -15,13 +15,13 @@ namespace VWDAddin {
       return string.Empty;
     }
 
-    public static XmlNode CreateCustomNode(WordDocument doc, string elementName, int id) {
+    public static XmlNode CreateCustomNode(WordDocument doc, string elementName, string id) {
       XmlNode customNode = doc.CreateNode(XmlNodeType.Element, "w:customXml", Definitions.WORD_PROCESSING_ML);
       XmlAttribute attr = doc.CreateAttribute("w:element", Definitions.WORD_PROCESSING_ML);
       attr.Value = elementName;
       customNode.Attributes.Append(attr);
       attr = doc.CreateAttribute("w:object_id", Definitions.WORD_PROCESSING_ML);
-      attr.Value = id.ToString();
+      attr.Value = id;
       customNode.Attributes.Append(attr);
       return customNode;
     }

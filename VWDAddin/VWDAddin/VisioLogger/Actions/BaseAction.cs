@@ -9,7 +9,7 @@ namespace VWDAddin.VisioLogger.Actions
     public class BaseAction
     {
         public BaseAction(Shape targetShape) { }
-        
-        public void Apply(Document document) { }        
+
+        virtual public void Apply(Document document) { }
     }
 }

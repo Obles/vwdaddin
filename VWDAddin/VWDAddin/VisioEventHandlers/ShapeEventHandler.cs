@@ -38,7 +38,7 @@ namespace VWDAddin
                     shape.get_Cells("User.GUID.Value").Formula = VisioHelpers.ToString(Guid.NewGuid().ToString());
 
                     Logger logger = GetLogger(shape.Document);
-                    logger.Add(new ClassAdded(shape, logger.wordDocument));
+                    logger.Add(new ClassAdded(shape, logger.WordDocument));
                     break;
                 }
                 case (short)VisEventCodes.visEvtDel + (short)VisEventCodes.visEvtShape:

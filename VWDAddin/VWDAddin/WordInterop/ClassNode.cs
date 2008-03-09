@@ -7,53 +7,53 @@ namespace VWDAddin {
   public class ClassNode {
     public ClassNode(WordDocument doc, XmlNode node) {
       Init();
-      m_classNode = node;
-      m_classID = Convert.ToInt32(node.Attributes[1].Value);
-      XmlNode nodeAttrPart = WordHelpers.GetCustomChild(m_classNode, "attr_part");
+      _classNode = node;
+      _classID = node.Attributes[1].Value;
+      XmlNode nodeAttrPart = WordHelpers.GetCustomChild(_classNode, "attr_part");
       foreach (XmlNode attrNode in nodeAttrPart.ChildNodes) {
         AttributeNode attribute = new AttributeNode(doc, attrNode);
-        m_attrList.Add(attribute);
-        m_attributes.Add(attribute.m_attrName);
+        _attrList.Add(attribute);
+        _attributes.Add(attribute.m_attrName);
       }
     }
     
-    public ClassNode(WordDocument doc, SingleAction action) {
+    public ClassNode(WordDocument doc, string name, string classAttributes, string id) {
       Init();
-      m_classNode = WordHelpers.CreateCustomNode(doc, "class", action.m_objectID);
-      doc.m_root.AppendChild(m_classNode);
-      XmlNode classNameNode = WordHelpers.CreateCustomNode(doc, "class_name", action.m_objectID);
-      classNameNode.AppendChild(WordHelpers.CreateTextChildNode(doc, Definitions.CLASS_NAME_PREFIX + action.m_mainName));
-      m_classNode.AppendChild(classNameNode);
+      _classNode = WordHelpers.CreateCustomNode(doc, "class", id);
+      doc.Root.AppendChild(_classNode);
+      XmlNode classNameNode = WordHelpers.CreateCustomNode(doc, "class_name", id);
+      classNameNode.AppendChild(WordHelpers.CreateTextChildNode(doc, Definitions.CLASS_NAME_PREFIX + name));
+      _classNode.AppendChild(classNameNode);
 
-      XmlNode classDescrNode = WordHelpers.CreateCustomNode(doc, "class_descr", action.m_objectID);
+      XmlNode classDescrNode = WordHelpers.CreateCustomNode(doc, "class_descr", id);
       classDescrNode.AppendChild(WordHelpers.CreateTextChildNode(doc, Definitions.CLASS_NAME_DESCR_PREFIX));
-      m_classNode.AppendChild(classDescrNode);
+      _classNode.AppendChild(classDescrNode);
 
-      XmlNode classAttrPartNode = WordHelpers.CreateCustomNode(doc, "attr_part", action.m_objectID);
-      string[] attributes = action.m_attributes.Split(new Char[] {'\n'});
+      XmlNode classAttrPartNode = WordHelpers.CreateCustomNode(doc, "attr_part", id);
+      string[] attributes = classAttributes.Split(new Char[] { '\n' });
       foreach (string attribute in attributes) {
         AttributeNode attrNode = new AttributeNode(doc, attribute);
-        m_attrList.Add(attrNode);
-        m_attributes.Add(attribute);
+        _attrList.Add(attrNode);
+        _attributes.Add(attribute);
         classAttrPartNode.AppendChild(attrNode.m_attributeNode);
       }
-      m_classNode.AppendChild(classAttrPartNode);
+      _classNode.AppendChild(classAttrPartNode);
 
-      XmlNode classAssocNode = WordHelpers.CreateCustomNode(doc, "assoc_part", action.m_objectID);
-      m_classNode.AppendChild(classAssocNode);
+      XmlNode classAssocNode = WordHelpers.CreateCustomNode(doc, "assoc_part", id);
+      _classNode.AppendChild(classAssocNode);
 
-      m_classID = action.m_objectID;
+      _classID = id;
     }
 
     public void ChangeName(string newName) {
-      XmlNode nodeText = WordHelpers.GetCustomChild(m_classNode, "class_name");
+      XmlNode nodeText = WordHelpers.GetCustomChild(_classNode, "class_name");
       nodeText.FirstChild.FirstChild.FirstChild.FirstChild.Value = Definitions.CLASS_NAME_PREFIX + newName;
     }
 
     public void ChangeAttributes(WordDocument doc, string newAttrs) {
       List<string> newAttributes = WordHelpers.ConvertArrayToList(newAttrs.Split(new Char[] { '\n' }));
       List<string> toDelete = new List<string>();
-      foreach (string attr in m_attributes) {
+      foreach (string attr in _attributes) {
         if (newAttrs.Contains(attr)) {
           newAttributes.Remove(attr);
         } else {
@@ -62,39 +62,39 @@ namespace VWDAddin {
         }
       }
       foreach(string deliting in toDelete)
-        m_attributes.Remove(deliting);
+        _attributes.Remove(deliting);
       foreach (string newAttr in newAttributes) {
         AttributeNode attrNode = new AttributeNode(doc, newAttr);
-        m_attrList.Add(attrNode);
-        m_attributes.Add(newAttr);
-        WordHelpers.GetCustomChild(m_classNode, "attr_part").AppendChild(attrNode.m_attributeNode);
+        _attrList.Add(attrNode);
+        _attributes.Add(newAttr);
+        WordHelpers.GetCustomChild(_classNode, "attr_part").AppendChild(attrNode.m_attributeNode);
       }
     }
 
     public void DeleteAttribute(string name) {
-      foreach (AttributeNode node in m_attrList) {
+      foreach (AttributeNode node in _attrList) {
         if (node.m_attrName == name) {
-          WordHelpers.GetCustomChild(m_classNode, "attr_part").RemoveChild(node.m_attributeNode);
+          WordHelpers.GetCustomChild(_classNode, "attr_part").RemoveChild(node.m_attributeNode);
           break;
         }
       }
     }
 
     public void AppendAssociation(AssociationNode assocNode) {
-      WordHelpers.GetCustomChild(m_classNode, "assoc_part").AppendChild(assocNode.m_associationNode);
+      WordHelpers.GetCustomChild(_classNode, "assoc_part").AppendChild(assocNode.m_associationNode);
     }
 
     private void Init() {
-      if (m_attrList == null)
-        m_attrList = new List<AttributeNode>();
-      if (m_attributes == null)
-        m_attributes = new List<string>();
+      if (_attrList == null)
+        _attrList = new List<AttributeNode>();
+      if (_attributes == null)
+        _attributes = new List<string>();
     }
 
-    public XmlNode m_classNode;
-    public int m_classID;
-    public List<AttributeNode> m_attrList;
-    public List<String> m_attributes;
+    private XmlNode _classNode;
+    private string _classID;
+    private List<AttributeNode> _attrList;
+    private List<String> _attributes;
     
   }
 }

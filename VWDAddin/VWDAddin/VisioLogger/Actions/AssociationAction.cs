@@ -14,41 +14,41 @@ namespace VWDAddin.VisioLogger.Actions
             // ToDo: add params here
         }
         #region Members
-        private string m_guid;
-        private string m_mainName;
-        private string m_end1Name;
-        private string m_end1MP;        //Multiplicity
-        private string m_end2Name;
-        private string m_end2MP;
+        private string _guid;
+        private string _mainName;
+        private string _end1Name;
+        private string _end1MP;        //Multiplicity
+        private string _end2Name;
+        private string _end2MP;
 
         public string GUID
         {
-            get { return m_guid; }
+            get { return _guid; }
             //set { m_guid = value; }
         }
-        public string mainName
+        public string MainName
         {
-            get { return m_mainName; }
+            get { return _mainName; }
             //set { m_mainName = value; }
         }
-        public string end1Name
+        public string End1Name
         {
-            get { return m_end1Name; }
+            get { return _end1Name; }
             //set { m_end1Name = value; }
         }
-        public string end1MP
+        public string End1MP
         {
-            get { return m_end1MP; }
+            get { return _end1MP; }
             //set { m_end1MP = value; }
         }
-        public string end2Name
+        public string End2Name
         {
-            get { return m_end2Name; }
+            get { return _end2Name; }
             //set { m_end2Name = value; }
         }
-        public string end2MP
+        public string End2MP
         {
-            get { return m_end2MP; }
+            get { return _end2MP; }
             //set { m_end2MP = value; }
         }
         #endregion
