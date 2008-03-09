@@ -10,11 +10,19 @@ namespace VWDAddin.VisioLogger.Actions
         public ClassAdded(Shape targetShape, WordDocument wordDocument)
             :base(targetShape)
         {
-            // ToDo
+            WordDocument = wordDocument;
         }
 
-        new public void Apply(Document document) 
-        { 
+        override public void Apply(Document document) 
+        {
+            WordDocument.AddClass(ClassName, Attributes, GUID);
+        }
+        
+        private WordDocument _wordDocument;
+        public WordDocument WordDocument
+        {
+            get { return _wordDocument; }
+            set { _wordDocument = value; }
         }
     }
 }

@@ -13,10 +13,11 @@ namespace VWDAddin.VisioLogger
         private List<BaseAction> actionList = new List<BaseAction>();
         private int currentAction = -1;
 
-        private WordDocument m_wordDocument;
-        public WordDocument wordDocument
+        private WordDocument _wordDocument = new WordDocument();
+        public WordDocument WordDocument
         {
-            get { return m_wordDocument; }
+            get { return _wordDocument; }
+            set { _wordDocument = WordDocument; }
         }
 
         public Logger(Document Document)
@@ -31,6 +32,7 @@ namespace VWDAddin.VisioLogger
         {
             Trace.WriteLine("Cleanup logger for " + Document.Name);          
             RemoveDSLControlPoint();
+            WordDocument.CloseWordDocument();
         }
 
         private Document associatedDocument;
@@ -69,7 +71,7 @@ namespace VWDAddin.VisioLogger
             Trace.WriteLine("Applying Changes in " + associatedDocument.Name);
             for (int i = 0; i <= currentAction; i++)
             {
-                //actionList[i].Apply(Document);
+                actionList[i].Apply(Document);
             }
         }
 
@@ -81,6 +83,11 @@ namespace VWDAddin.VisioLogger
             if (File.Exists(DslPath))
             {
                 File.Copy(DslPath, VisioHelpers.GetTempDSLPath(associatedDocument));
+            }
+            String wordPath = VisioHelpers.GetWordPath(associatedDocument);
+            if (File.Exists(wordPath))
+            {
+                WordDocument.ParseDocx(wordPath);
             }
         }
 
