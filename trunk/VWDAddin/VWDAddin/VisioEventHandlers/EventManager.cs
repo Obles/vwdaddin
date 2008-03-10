@@ -3,6 +3,7 @@ using Microsoft.Office.Interop.Visio;
 using System.Diagnostics;
 using System.Collections.Generic;
 using VWDAddin.VisioLogger;
+using VWDAddin.DslWrapper;
 
 namespace VWDAddin
 {
@@ -77,6 +78,7 @@ namespace VWDAddin
             FillEventList(theDocument.EventList, DocumentEventHandler.HandleEvents);
             FillEventList(theDocument.EventList, ShapeEventHandler.HandleEvents);
 
+            DslCompare.ApplyChanges(theDocument);
             LoggerManager.CreateLogger(theDocument);
 
             if (Constants.TraceAnyEvent)

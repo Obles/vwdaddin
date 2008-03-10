@@ -67,5 +67,11 @@ namespace VWDAddin.DslWrapper
             Console.Write(value);
             Console.ForegroundColor = col;
         }
+
+        public String GUID
+        {
+            get { return Xml.GetAttribute("Id"); }
+            set { Xml.SetAttribute("Id", value); }
+        }
     }
 }

@@ -21,6 +21,14 @@ namespace VWDAddin
             }
         }
 
+        private static int count = 0;
+        public static Shape Drop(
+            Document document,
+            string masterNameU)
+        {
+            return Drop(document, masterNameU, ++count, count);
+        }
+
         public static Shape Drop(
             Document document,
             string masterNameU,

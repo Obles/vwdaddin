@@ -25,6 +25,24 @@ namespace VWDAddin
             return null;
         }
 
+        public static Shape GetShapeByGUID(String Guid, Document Document)
+        {
+            try
+            {
+                Guid = ToString(Guid);
+                foreach (Shape shape in Document.Pages[1].Shapes)
+                {
+                    if (shape.get_Cells("User.GUID.Value").Formula == Guid)
+                        return shape;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+            }
+            return null;
+        }
+
         public static String GetShapeType(Shape shape)
         {
             return FromString(shape.get_Cells("user.type").Formula);
