@@ -20,6 +20,8 @@ namespace VWDAddin.VisioLogger.Actions
         private string _end1MP;        //Multiplicity
         private string _end2Name;
         private string _end2MP;
+        private string _class1GUID;
+        private string _class2GUID;
 
         public string GUID
         {
@@ -50,6 +52,16 @@ namespace VWDAddin.VisioLogger.Actions
         {
             get { return _end2MP; }
             //set { m_end2MP = value; }
+        }
+        public string Class1GUID
+        {
+            get { return _class1GUID; }
+            //set { _class1GUID = value; }
+        }
+        public string Class2GUID
+        {
+            get { return _class2GUID; }
+            //set { _class2GUID = value; }
         }
         #endregion
     }

@@ -26,13 +26,14 @@ namespace VWDAddin.VisioLogger
             associatedDocument = Document;
 
             CreateDSLControlPoint();
+            CreateWordControlPoint();
         }
 
         public void Cleanup()
         {
             Trace.WriteLine("Cleanup logger for " + Document.Name);          
             RemoveDSLControlPoint();
-            WordDocument.CloseWordDocument();
+            RemoveWordControlPoint();
         }
 
         private Document associatedDocument;
@@ -101,6 +102,20 @@ namespace VWDAddin.VisioLogger
             {
                 File.Copy(DslPath, VisioHelpers.GetTempDSLPath(associatedDocument));
             }
+        }
+
+        private void CreateWordControlPoint()
+        {
+            String wordPath = VisioHelpers.GetWordPath(associatedDocument);
+            if (File.Exists(wordPath))
+            {
+                WordDocument.ParseDocx(wordPath);
+            }
+        }
+
+        private void RemoveWordControlPoint()
+        {
+            WordDocument.CloseWordDocument();
         }
     }
 }

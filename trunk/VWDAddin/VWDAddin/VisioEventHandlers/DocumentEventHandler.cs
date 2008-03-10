@@ -39,7 +39,7 @@ namespace VWDAddin
                 }
                 case (short)VisEventCodes.visEvtDel + (short)VisEventCodes.visEvtDoc:
                 {
-                    GetLogger(subject as Document).ApplyChanges();
+                    //GetLogger(subject as Document).ApplyChanges();
                     RemoveLogger(subject as Document);
                     break;
                 }
