@@ -39,14 +39,23 @@ namespace VWDAddin
         {
             try
             {
-                if (!GetShapeType(shape).Equals("class"))
+                switch (GetShapeType(shape))
                 {
-                    guid = className = attributes = String.Empty;
-                    return;
+                    case "class":
+                        guid = GetShapeCell(shape, "user.guid.value");
+                        className = shape.Shapes[1].Text;
+                        attributes = shape.Shapes[2].Text;
+                        break;
+                    case "class_name":
+                    case "attr_section":
+                        guid = GetShapeCell(shape.Parent as Shape, "user.guid.value");
+                        className = (shape.Parent as Shape).Shapes[1].Text;
+                        attributes = (shape.Parent as Shape).Shapes[2].Text;
+                        break;
+                    default:
+                        guid = className = attributes = String.Empty;
+                        break;
                 }
-                guid = GetShapeCell(shape, "user.guid.value");
-                className = shape.Shapes[1].Text;
-                attributes = shape.Shapes[2].Text;
             }
             catch (Exception e)
             {

@@ -100,6 +100,7 @@
     <Compile Include="VisioLogger\Actions\BaseAction.cs" />
     <Compile Include="VisioLogger\Actions\ClassAdded.cs" />
     <Compile Include="VisioLogger\Actions\ClassAttributesChanged.cs" />
+    <Compile Include="VisioLogger\Actions\ClassDeleted.cs" />
     <Compile Include="VisioLogger\Actions\ClassNameChanged.cs" />
     <Compile Include="VisioLogger\LoggerManager.cs" />
     <Compile Include="VisioLogger\Logger.cs" />

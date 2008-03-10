@@ -5,16 +5,17 @@ using Microsoft.Office.Interop.Visio;
 
 namespace VWDAddin.VisioLogger.Actions
 {
-    class ClassAttributesChanged : ClassAction
+    class ClassDeleted : ClassAction
     {
-        public ClassAttributesChanged(Shape targetShape)
-            : base(targetShape)
-        {         
+        public ClassDeleted(Shape targetShape)
+            :base(targetShape)
+        {            
         }
 
         override public void Apply(Document document, WordDocument wordDocument)
         {
-            wordDocument.ChangeClassAttributes(GUID, Attributes);
+            wordDocument.DeleteClass(GUID);
         }
-    }    
+
+    }
 }

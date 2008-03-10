@@ -7,22 +7,22 @@ namespace VWDAddin.VisioLogger.Actions
 {
     public class ClassAdded : ClassAction
     {
-        public ClassAdded(Shape targetShape, WordDocument wordDocument)
+        public ClassAdded(Shape targetShape)
             :base(targetShape)
         {
-            WordDocument = wordDocument;
+            //WordDocument = wordDocument;
         }
 
-        override public void Apply(Document document) 
+        override public void Apply(Document document, WordDocument wordDocument) 
         {
-            WordDocument.AddClass(ClassName, Attributes, GUID);
+            wordDocument.AddClass(ClassName, Attributes, GUID);
         }
         
-        private WordDocument _wordDocument;
-        public WordDocument WordDocument
-        {
-            get { return _wordDocument; }
-            set { _wordDocument = value; }
-        }
+        //private WordDocument _wordDocument;
+        //public WordDocument WordDocument
+        //{
+        //    get { return _wordDocument; }
+        //    set { _wordDocument = value; }
+        //}
     }
 }

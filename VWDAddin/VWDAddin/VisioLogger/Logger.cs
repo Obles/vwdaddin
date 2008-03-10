@@ -72,7 +72,7 @@ namespace VWDAddin.VisioLogger
             Trace.WriteLine("Applying Changes in " + associatedDocument.Name);
             for (int i = 0; i <= currentAction; i++)
             {
-                actionList[i].Apply(Document);
+                actionList[i].Apply(Document, WordDocument);
             }
         }
 
@@ -84,11 +84,6 @@ namespace VWDAddin.VisioLogger
             if (File.Exists(DslPath))
             {
                 File.Copy(DslPath, VisioHelpers.GetTempDSLPath(associatedDocument));
-            }
-            String wordPath = VisioHelpers.GetWordPath(associatedDocument);
-            if (File.Exists(wordPath))
-            {
-                WordDocument.ParseDocx(wordPath);
             }
         }
 
