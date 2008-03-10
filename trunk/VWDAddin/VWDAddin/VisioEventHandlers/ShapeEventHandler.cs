@@ -36,31 +36,43 @@ namespace VWDAddin
                 case (short)VisEventCodes.visEvtShape + Constants.visEvtAdd:
                 {                    
                     shape.get_Cells("User.GUID.Value").Formula = VisioHelpers.ToString(Guid.NewGuid().ToString());
-
-                    Logger logger = GetLogger(shape.Document);
-                    logger.Add(new ClassAdded(shape, logger.WordDocument));
-                    break;
-                }
-                case (short)VisEventCodes.visEvtDel + (short)VisEventCodes.visEvtShape:
-                    
-                    //GetLogger(shape.Document).Add(new ...);
-                    break;
-                case (short)VisEventCodes.visEvtCodeShapeExitTextEdit:
-                    
                     switch (VisioHelpers.GetShapeType(shape))
                     {
                         case "class":
+                            GetLogger(shape.Document).Add(new ClassAdded(shape));
+                            break;                        
+                        default:
                             break;
-                        case "class_name":
-                            GetLogger(shape.Document).Add(new ClassNameChanged(shape));
-                            break;
-                        case "attr_section":
-                            //GetLogger(shape.Document).Add(new ...);
+                    }
+                    break;
+                }
+                case (short)VisEventCodes.visEvtDel + (short)VisEventCodes.visEvtShape:
+                {
+                    switch (VisioHelpers.GetShapeType(shape))
+                    {
+                        case "class":
+                            GetLogger(shape.Document).Add(new ClassDeleted(shape));
                             break;
                         default:
                             break;
                     }
                     break;
+                }
+                case (short)VisEventCodes.visEvtCodeShapeExitTextEdit:                    
+                {
+                    switch (VisioHelpers.GetShapeType(shape))
+                    {
+                        case "class_name":
+                            GetLogger(shape.Document).Add(new ClassNameChanged(shape));
+                            break;
+                        case "attr_section":
+                            GetLogger(shape.Document).Add(new ClassAttributesChanged(shape));
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                }
                 case (short)VisEventCodes.visEvtConnect + Constants.visEvtAdd:
                 {
                     

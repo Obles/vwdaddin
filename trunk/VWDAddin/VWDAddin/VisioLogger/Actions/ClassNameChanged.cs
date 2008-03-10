@@ -11,5 +11,10 @@ namespace VWDAddin.VisioLogger.Actions
             : base(targetShape)
         {         
         }
+
+        override public void Apply(Document document, WordDocument wordDocument)
+        {
+            wordDocument.ChangeClassName(GUID, ClassName);
+        }
     }
 }
