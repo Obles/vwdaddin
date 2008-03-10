@@ -5,7 +5,7 @@ using System.Xml;
 
 namespace VWDAddin.DslWrapper
 {
-    class DslElementList
+    public class DslElementList
     {
         private Type ElemType;
         private XmlNode RootNode;

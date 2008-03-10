@@ -5,7 +5,7 @@ using System.Xml;
 
 namespace VWDAddin.DslWrapper
 {
-    class RolePlayerConnectDirective : DslElement
+    public class RolePlayerConnectDirective : DslElement
     {
         public RolePlayerConnectDirective(XmlElement Node)
             : base(Node)

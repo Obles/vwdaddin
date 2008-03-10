@@ -6,7 +6,7 @@ using System.Xml;
 namespace VWDAddin.DslWrapper
 {
 
-    class DslElement
+    public class DslElement
     {
         private XmlElement XmlElement;
         public XmlElement Xml { get { return XmlElement; } }

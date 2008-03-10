@@ -5,7 +5,7 @@ using System.Xml;
 
 namespace VWDAddin.DslWrapper
 {
-    class Moniker
+    public class Moniker
     {
         public static String Get(DslElement This, String Name, String Moniker)
         {

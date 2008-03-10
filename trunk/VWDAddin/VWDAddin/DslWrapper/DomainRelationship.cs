@@ -5,7 +5,7 @@ using System.Xml;
 
 namespace VWDAddin.DslWrapper
 {
-    class DomainRelationship : DslElement
+    public class DomainRelationship : DslElement
     {
         public DomainRelationship(XmlElement Node)
             : base(Node)

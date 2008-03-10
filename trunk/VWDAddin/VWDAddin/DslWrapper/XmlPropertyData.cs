@@ -5,7 +5,7 @@ using System.Xml;
 
 namespace VWDAddin.DslWrapper
 {
-    class XmlPropertyData : DslElement
+    public class XmlPropertyData : DslElement
     {
         public XmlPropertyData(XmlElement Node)
             : base(Node)

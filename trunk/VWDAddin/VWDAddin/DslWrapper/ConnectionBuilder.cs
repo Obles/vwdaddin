@@ -5,7 +5,7 @@ using System.Xml;
 
 namespace VWDAddin.DslWrapper
 {
-    class ConnectionBuilder : DslElement
+    public class ConnectionBuilder : DslElement
     {
         public ConnectionBuilder(XmlElement Node)
             : base(Node)

@@ -4,12 +4,12 @@ using System.Text;
 
 namespace VWDAddin.DslWrapper
 {
-    enum Multiplicity
+    public enum Multiplicity
     {
         ZeroMany, ZeroOne, One, OneMany
     }
 
-    class MultiplicityHelper
+    public class MultiplicityHelper
     {
         public static Multiplicity Parse(String value)
         {
