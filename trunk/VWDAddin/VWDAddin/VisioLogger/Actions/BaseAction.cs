@@ -10,6 +10,6 @@ namespace VWDAddin.VisioLogger.Actions
     {
         public BaseAction(Shape targetShape) { }
 
-        virtual public void Apply(Document document, WordDocument wordDocument) { }
+        virtual public void Apply(Logger Logger) { }
     }
 }

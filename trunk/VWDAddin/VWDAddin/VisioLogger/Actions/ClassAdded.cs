@@ -13,9 +13,14 @@ namespace VWDAddin.VisioLogger.Actions
             //WordDocument = wordDocument;
         }
 
-        override public void Apply(Document document, WordDocument wordDocument) 
+        override public void Apply(Logger Logger) 
         {
-            wordDocument.AddClass(ClassName, Attributes, GUID);
+            if (Logger.DslDocument != null)
+            {
+                Logger.DslDocument.Dsl.CreateDomainClass(ClassName, ClassName);
+            }
+
+            Logger.WordDocument.AddClass(ClassName, Attributes, GUID);
         }
         
         //private WordDocument _wordDocument;

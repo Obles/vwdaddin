@@ -5,6 +5,7 @@ using Microsoft.Office.Interop.Visio;
 using System.Diagnostics;
 using System.IO;
 using VWDAddin.VisioLogger.Actions;
+using VWDAddin.DslWrapper;
 
 namespace VWDAddin.VisioLogger
 {
@@ -12,13 +13,6 @@ namespace VWDAddin.VisioLogger
     {
         private List<BaseAction> actionList = new List<BaseAction>();
         private int currentAction = -1;
-
-        private WordDocument _wordDocument = new WordDocument();
-        public WordDocument WordDocument
-        {
-            get { return _wordDocument; }
-            set { _wordDocument = WordDocument; }
-        }
 
         public Logger(Document Document)
         {
@@ -40,6 +34,19 @@ namespace VWDAddin.VisioLogger
         public Document Document
         {
             get { return associatedDocument; }
+        }
+
+        private WordDocument _wordDocument = new WordDocument();
+        public WordDocument WordDocument
+        {
+            get { return _wordDocument; }
+            set { _wordDocument = WordDocument; }
+        }
+
+        private DslDocument dslDocument = null;
+        public DslDocument DslDocument
+        {
+            get { return dslDocument; }
         }
 
         public void Add(BaseAction Action)
@@ -70,9 +77,30 @@ namespace VWDAddin.VisioLogger
         public void ApplyChanges()
         {
             Trace.WriteLine("Applying Changes in " + associatedDocument.Name);
+
+            // Инициализация dsl-документа и возврат к контрольной точке
+            String DslPath = VisioHelpers.GetDSLPath(associatedDocument);
+            if (File.Exists(DslPath))
+            {
+                String TempDslPath = VisioHelpers.GetTempDSLPath(associatedDocument);
+                File.Copy(TempDslPath, DslPath, true);
+
+                dslDocument = new DslDocument();
+                dslDocument.Load(DslPath);
+            }
+
+            // Внесение изменений
             for (int i = 0; i <= currentAction; i++)
             {
-                actionList[i].Apply(Document, WordDocument);
+                actionList[i].Apply(this);
+            }
+
+            // Сохранение dsl-документа
+            if (dslDocument != null)
+            {
+                File.WriteAllText(DslPath + ".diagram", String.Empty);
+                dslDocument.Save(DslPath);
+                dslDocument = null;
             }
         }
 
@@ -83,7 +111,7 @@ namespace VWDAddin.VisioLogger
             String DslPath = VisioHelpers.GetDSLPath(associatedDocument);
             if (File.Exists(DslPath))
             {
-                File.Copy(DslPath, VisioHelpers.GetTempDSLPath(associatedDocument));
+                File.Copy(DslPath, VisioHelpers.GetTempDSLPath(associatedDocument), true);
             }
         }
 
@@ -95,7 +123,7 @@ namespace VWDAddin.VisioLogger
             String DslPath = VisioHelpers.GetDSLPath(associatedDocument);
             if (File.Exists(DslPath))
             {
-                File.Copy(DslPath, VisioHelpers.GetTempDSLPath(associatedDocument));
+                File.Copy(DslPath, VisioHelpers.GetTempDSLPath(associatedDocument), true);
             }
         }
 
