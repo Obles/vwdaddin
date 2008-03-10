@@ -70,7 +70,17 @@ namespace VWDAddin.DslWrapper
 
         public bool IsEmbedding
         {
-            get { return bool.Parse(Xml.GetAttribute("IsEmbedding")); }
+            get
+            {
+                try
+                {
+                    return bool.Parse(Xml.GetAttribute("IsEmbedding"));
+                }
+                catch
+                {
+                    return false;
+                }
+            }
             set { Xml.SetAttribute("IsEmbedding", value.ToString().ToUpper()); }
         }
 

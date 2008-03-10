@@ -16,8 +16,8 @@ namespace VWDAddin.VisioWrapper
         /// <summary>Физическое имя коннектора</summary>
         public String Name
         {
-            get { throw new NotImplementedException(); }
-            set { throw new NotImplementedException(); }
+            get { return Shape.Text; }
+            set { Shape.Text = value; }
         }
 
         /// <summary>Получение элемента от которого начинается коннектор</summary>
@@ -48,6 +48,32 @@ namespace VWDAddin.VisioWrapper
             String s = Connections.Create(target, targetPoint);
             Shape.get_Cells("EndX").Formula = s;
             Shape.get_Cells("EndY").Formula = s;
+        }
+
+        public String SourceMultiplicity
+        {
+            get { return GetSubshape("end1_mp").Text; }
+            set { GetSubshape("end1_mp").Text = value; }
+        }
+
+        public String TargetMultiplicity
+        {
+            get { return GetSubshape("end2_mp").Text; }
+            set { GetSubshape("end2_mp").Text = value; }
+        }
+
+        /// <summary>Подпись начала стрелки</summary>
+        public String SourceText
+        {
+            get { return GetSubshape("end1_name").Text; }
+            set { GetSubshape("end1_name").Text = value; }
+        }
+
+        /// <summary>Подпись конца стрелки</summary>
+        public String TargetText
+        {
+            get { return GetSubshape("end2_name").Text; }
+            set { GetSubshape("end2_name").Text = value; }
         }
     }
 }

@@ -16,8 +16,14 @@ namespace VWDAddin.VisioWrapper
         /// <summary>Физическое имя класса</summary>
         public String Name
         {
+            get { return GetSubshape("class_name").Text; }
+            set { GetSubshape("class_name").Text = value; }
+        }
+
+        /// <summary>Исходящая стрелка наследования</summary>
+        public Shape Generalization
+        {
             get { throw new NotImplementedException(); }
-            set { throw new NotImplementedException(); }
         }
     }
 }

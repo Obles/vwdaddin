@@ -44,5 +44,10 @@ namespace VWDAddin.DslWrapper
             PrintValue("RolePlayer", RolePlayer);
             Console.WriteLine();
         }
+
+        public Multiplicity Multiplicity
+        {
+            get { return MultiplicityHelper.Parse(Xml.GetAttribute("Multiplicity")); }
+        }
     }
 }
