@@ -12,9 +12,9 @@ namespace VWDAddin.VisioLogger.Actions
         {            
         }
 
-        override public void Apply(Document document, WordDocument wordDocument)
+        override public void Apply(Logger Logger)
         {
-            wordDocument.DeleteClass(GUID);
+            Logger.WordDocument.DeleteClass(GUID);
         }
 
     }

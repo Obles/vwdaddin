@@ -5,6 +5,7 @@ using Microsoft.Office.Interop.Visio;
 using System.Diagnostics;
 using VWDAddin.VisioLogger;
 using VWDAddin.VisioLogger.Actions;
+using VWDAddin.VisioWrapper;
 
 namespace VWDAddin
 {
@@ -34,8 +35,10 @@ namespace VWDAddin
             switch (eventCode)
             {
                 case (short)VisEventCodes.visEvtShape + Constants.visEvtAdd:
-                {                    
-                    shape.get_Cells("User.GUID.Value").Formula = VisioHelpers.ToString(Guid.NewGuid().ToString());
+                {
+                    VisioShape vs = new VisioShape(shape);
+                    if(vs.GUID == String.Empty) vs.GUID = Guid.NewGuid().ToString();
+
                     switch (VisioHelpers.GetShapeType(shape))
                     {
                         case "class":
