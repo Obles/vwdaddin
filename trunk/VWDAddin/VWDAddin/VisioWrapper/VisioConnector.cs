@@ -6,7 +6,7 @@ using System.Diagnostics;
 
 namespace VWDAddin.VisioWrapper
 {
-    class VisioConnector : VisioShape
+    public class VisioConnector : VisioShape
     {
         public VisioConnector(Shape Shape)
             : base(Shape)
@@ -24,12 +24,14 @@ namespace VWDAddin.VisioWrapper
         public Shape Source
         {
             get { throw new NotImplementedException(); }
+            set { SetSource(value, ClassConnections.Undef); }
         }
 
         /// <summary>Получение элемента в котором заканчивается коннектор</summary>
         public Shape Target
         {
             get { throw new NotImplementedException(); }
+            set { SetTarget(value, ClassConnections.Undef); }
         }
 
         /// <summary>Установка элемента от которого начинается коннектор</summary>
