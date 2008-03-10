@@ -22,5 +22,17 @@ namespace VWDAddin.DslWrapper
                 default: return Multiplicity.ZeroMany;
             }
         }
+
+        public static String AsDigits(Multiplicity mult)
+        {
+            switch (mult)
+            {
+                case Multiplicity.ZeroMany: return "0..*";
+                case Multiplicity.ZeroOne: return "0..1";
+                case Multiplicity.One: return "1";
+                case Multiplicity.OneMany: return "1..*";
+                default: throw new NotImplementedException();
+            }
+        }
     }
 }

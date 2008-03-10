@@ -15,18 +15,16 @@ namespace VWDAddin.DslWrapper
             this.document = document;
         }
 
-        protected delegate void DeleteAction(DslElement e);
-        protected delegate void CreateAction(DslElement e);
         protected delegate void CompareAction(DslElement e1, DslElement e2);
 
-        protected void CompareLists(DslElementList list1, DslElementList list2, DeleteAction DeleteAction, CreateAction CreateAction, CompareAction CompareAction)
+        protected void CompareLists(DslElementList list1, DslElementList list2, CompareAction CompareAction)
         {
             foreach (DslElement de1 in list1)
             {
                 DslElement de2 = list2.Find(de1.GUID);
                 if (de2.Xml == null)
                 {
-                    DeleteAction(de1);
+                    CompareAction(de1, null);
                 }
                 else CompareAction(de1, de2);
             }
@@ -35,14 +33,9 @@ namespace VWDAddin.DslWrapper
                 DslElement de1 = list1.Find(de2.GUID);
                 if (de1.Xml == null)
                 {
-                    CreateAction(de2);
+                    CompareAction(null, de2);
                 }
             }
-        }
-
-        protected bool CompareAttributes(String attr, DslElement de1, DslElement de2)
-        {
-            return de1.Xml.GetAttribute(attr) != de2.Xml.GetAttribute(attr);
         }
 
         public void Compare(DslDocument dsl1, DslDocument dsl2)
@@ -50,54 +43,38 @@ namespace VWDAddin.DslWrapper
             CompareLists(
                 dsl1.Dsl.Classes,
                 dsl2.Dsl.Classes,
-                delegate(DslElement e)
-                {
-                    Trace.WriteLine("Delete Class " + e.GUID);
-                    VisioHelpers.GetShapeByGUID(e.GUID, document).Delete();
-                },
-                delegate(DslElement e)
-                {
-                    Trace.WriteLine("Create Class " + e.GUID);
-                    VisioShape shape = new VisioShape(VisioMaster.Drop(document, Constants.Class));
-                    shape.GUID = e.GUID;
-                    //TODO при сравнении, если надо создать класс, отношение итп
-                    // то надо его не просто создавать, а создавать со всеми параметрами
-                    // м.б. надо вызывать сравнение с new domainclass
-                },
                 CompareClasses
             );
             CompareLists(
                 dsl1.Dsl.Relationships,
                 dsl2.Dsl.Relationships,
-                delegate(DslElement e)
-                {
-                    Trace.WriteLine("Delete Relationship " + e.GUID);
-                    VisioHelpers.GetShapeByGUID(e.GUID, document).Delete();
-                },
-                delegate(DslElement e)
-                {
-                    Trace.WriteLine("Create Relationship " + e.GUID);
-                    DomainRelationship dr = e as DomainRelationship;
-                    VisioConnector con = new VisioConnector(VisioMaster.DropConnection(
-                        VisioHelpers.GetShapeByGUID(dr.OwnerDocument.Dsl.Classes[dr.Source.RolePlayer].GUID, document),
-                        VisioHelpers.GetShapeByGUID(dr.OwnerDocument.Dsl.Classes[dr.Target.RolePlayer].GUID, document),
-                        (dr.IsEmbedding ? Constants.Composition : Constants.Association)
-                    ));
-                    con.GUID = e.GUID;
-                    //TODO аналогично сравнению классов
-                },
                 CompareRelationships
             );
         }
 
         protected void CompareClasses(DslElement de1, DslElement de2)
         {
-            VisioClass class1 = new VisioClass(VisioHelpers.GetShapeByGUID(de1.GUID, document));
-            VisioClass class2 = new VisioClass(VisioHelpers.GetShapeByGUID(de2.GUID, document));
+            if(de2 == null)
+            {
+                Trace.WriteLine("Delete Class " + de1.GUID);
+                VisioHelpers.GetShapeByGUID(de1.GUID, document).Delete();
+                return;
+            }
+            VisioClass Class;
+            if(de1 == null)
+            {
+                Trace.WriteLine("Create Class " + de2.GUID);
+                Class = new VisioClass(VisioMaster.Drop(document, Constants.Class));
+                de1 = new DomainClass(de2.OwnerDocument);
+            }
+            else Class = new VisioClass(VisioHelpers.GetShapeByGUID(de1.GUID, document));
 
-            //CompareAttributes(ActionType.EditDomainClass, "Name", de1, de2);
-            //CompareAttributes(ActionType.EditDomainClass, "DisplayName", de1, de2);
+            // Переносим изменения
+            Class.GUID = de2.GUID;
+            Class.Name = de2.Xml.GetAttribute("Name");
+            //Class.DisplayName = de2.Xml.GetAttribute("DisplayName");
 
+            // Переносим изменения наследования
             String b1 = (de1 as DomainClass).BaseClass;
             String b2 = (de2 as DomainClass).BaseClass;
             if (b1 != b2)
@@ -105,13 +82,14 @@ namespace VWDAddin.DslWrapper
                 if (b1 != null)
                 {
                     Trace.WriteLine("Delete Generalization");
-                    class1.Generalization.Delete();
+                    Shape shape = Class.Generalization;
+                    if(shape != null) shape.Delete();
                 }
                 if (b2 != null)
                 {
                     Trace.WriteLine("Create Generalization");
                     VisioMaster.DropConnection(
-                        class2.Shape,
+                        Class.Shape,
                         VisioHelpers.GetShapeByGUID(de2.OwnerDocument.Dsl.Classes[b2].GUID, document),
                         Constants.Generalization
                     );
@@ -121,43 +99,79 @@ namespace VWDAddin.DslWrapper
             CompareLists(
                 (de1 as DomainClass).Properties,
                 (de2 as DomainClass).Properties,
-                delegate(DslElement e)
-                {
-                    //TODO Удаление Property
-                    Trace.WriteLine("Delete Class Property " + e.GUID);
-                },
-                delegate(DslElement e)
-                {
-                    //TODO Создание Property
-                    Trace.WriteLine("Create Class Property " + e.GUID);
-                    //TODO аналогично сравнению классов
-                },
                 CompareProperties
             );
         }
 
         protected void CompareRelationships(DslElement de1, DslElement de2)
         {
-            //CompareAttributes(ActionType.EditRelationship, "Name", de1, de2);
-            //CompareAttributes(ActionType.EditRelationship, "DisplayName", de1, de2);
-            //CompareAttributes(ActionType.EditRelationship, "IsEmbedding", de1, de2);
+            if(de2 == null)
+            {
+                Trace.WriteLine("Delete Relationship " + de1.GUID);
+                VisioHelpers.GetShapeByGUID(de1.GUID, document).Delete();
+                return;
+            }
+            VisioConnector Conn;
+            if(de1 == null)
+            {
+                Trace.WriteLine("Create Relationship " + de2.GUID);
+                DomainRelationship dr = de2 as DomainRelationship;
+                Conn = new VisioConnector(VisioMaster.DropConnection(
+                    VisioHelpers.GetShapeByGUID(dr.OwnerDocument.Dsl.Classes[dr.Source.RolePlayer].GUID, document),
+                    VisioHelpers.GetShapeByGUID(dr.OwnerDocument.Dsl.Classes[dr.Target.RolePlayer].GUID, document),
+                    (dr.IsEmbedding ? Constants.Composition : Constants.Association)
+                ));
+                de1 = new DomainRelationship(de2.OwnerDocument);
+            }
+            else Conn = new VisioConnector(VisioHelpers.GetShapeByGUID(de1.GUID, document));
 
-            CompareMultiplicity((de1 as DomainRelationship).Source, (de2 as DomainRelationship).Source);
-            CompareMultiplicity((de1 as DomainRelationship).Target, (de2 as DomainRelationship).Target);
+            // Переносим изменения
+            Conn.GUID = de2.GUID;
+            Conn.Name = de2.Xml.GetAttribute("Name");
+            //Conn.DisplayName = de2.Xml.GetAttribute("DisplayName");
+
+            String s = CompareMultiplicity(
+                (de1 as DomainRelationship).Source, 
+                (de2 as DomainRelationship).Source
+            );
+            if (s != null) Conn.SourceMultiplicity = s;
+            s = CompareMultiplicity(
+                (de1 as DomainRelationship).Target, 
+                (de2 as DomainRelationship).Target
+            );
+            if (s != null) Conn.TargetMultiplicity = s;
         }
 
         protected void CompareProperties(DslElement de1, DslElement de2)
         {
+            if(de2 == null)
+            {
+                //TODO Удаление Property
+                Trace.WriteLine("Delete Class Property " + de1.GUID);
+            }
+            if(de1 == null)
+            {
+                //TODO Создание Property
+                Trace.WriteLine("Create Class Property " + de2.GUID);
+            }
             //CompareAttributes(ActionType.EditProperty, "Name", de1, de2);
             //CompareAttributes(ActionType.EditProperty, "DisplayName", de1, de2);
         }
 
-        protected void CompareMultiplicity(DomainRole dr1, DomainRole dr2)
+        protected String CompareMultiplicity(DomainRole dr1, DomainRole dr2)
         {
-            if (dr1.Xml.GetAttribute("Multiplicity") != dr2.Xml.GetAttribute("Multiplicity"))
+            try
             {
-                Trace.WriteLine("Change Multiplicity");
-                //TODO изменение множественности
+                if (dr1.Xml.GetAttribute("Multiplicity") != dr2.Xml.GetAttribute("Multiplicity"))
+                {
+                    Trace.WriteLine("Change Multiplicity");
+                    return MultiplicityHelper.AsDigits(dr2.Multiplicity);
+                }
+                else return null;
+            }
+            catch
+            {
+                return MultiplicityHelper.AsDigits(dr2.Multiplicity);
             }
         }
 
