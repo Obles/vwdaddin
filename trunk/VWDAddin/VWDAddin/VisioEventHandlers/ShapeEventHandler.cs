@@ -79,6 +79,7 @@ namespace VWDAddin
                     //GetLogger(shape.Document).Add(new ...);
                     break;
                 }
+
                 default:
                     EventHandler.UnhandledEvent(eventCode);
                     break;

@@ -19,6 +19,18 @@ namespace VWDAddin
             return null;
         }
 
+        public static XmlNode GetCustomXmlPropertyNode(XmlNode classNode)
+        {
+            foreach (XmlNode node in classNode.ChildNodes)
+            {
+                if (node.Name.Equals("w:customXmlPr"))
+                {
+                    return node;
+                }
+            }
+            return null;
+        }
+
         public static string GetName(Microsoft.Office.Interop.Visio.Shape shape, string shapeName)
         {
             if (shape.Name == shapeName)
@@ -37,8 +49,24 @@ namespace VWDAddin
             XmlAttribute attr = doc.CreateAttribute("w:element", Definitions.WORD_PROCESSING_ML);
             attr.Value = elementName;
             customNode.Attributes.Append(attr);
-            attr = doc.CreateAttribute("w:object_id", Definitions.WORD_PROCESSING_ML);
-            attr.Value = id;
+            XmlNode customPropertyNode = doc.CreateNode(XmlNodeType.Element, "w:customXmlPr", Definitions.WORD_PROCESSING_ML);
+            XmlNode attrNode = doc.CreateNode(XmlNodeType.Element, "w:attr", Definitions.WORD_PROCESSING_ML);
+            XmlAttribute attrName = doc.CreateAttribute("w:name", Definitions.WORD_PROCESSING_ML);
+            attrName.Value = "GUID";
+            XmlAttribute attrID = doc.CreateAttribute("w:val", Definitions.WORD_PROCESSING_ML);
+            attrID.Value = id;
+            attrNode.Attributes.Append(attrName);
+            attrNode.Attributes.Append(attrID);
+            customPropertyNode.AppendChild(attrNode);
+            customNode.AppendChild(customPropertyNode);
+            return customNode;
+        }
+
+        public static XmlNode CreateCustomNode(WordDocument doc, string elementName)
+        {
+            XmlNode customNode = doc.CreateNode(XmlNodeType.Element, "w:customXml", Definitions.WORD_PROCESSING_ML);
+            XmlAttribute attr = doc.CreateAttribute("w:element", Definitions.WORD_PROCESSING_ML);
+            attr.Value = elementName;
             customNode.Attributes.Append(attr);
             return customNode;
         }
@@ -47,7 +75,7 @@ namespace VWDAddin
         {
             foreach (XmlNode child in node.ChildNodes)
             {
-                if (child.Attributes[0].Value == customName)
+                if (child.Attributes.Count > 0 && child.Attributes[0].Value == customName)
                     return child;
             }
             return null;
