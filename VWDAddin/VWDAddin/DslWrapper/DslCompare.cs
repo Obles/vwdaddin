@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Office.Interop.Visio;
 using System.Diagnostics;
+using VWDAddin.VisioWrapper;
 
 namespace VWDAddin.DslWrapper
 {
@@ -57,8 +58,8 @@ namespace VWDAddin.DslWrapper
                 delegate(DslElement e)
                 {
                     Trace.WriteLine("Create Class " + e.GUID);
-                    Shape shape = VisioMaster.Drop(document, Constants.Class);
-                    shape.get_Cells("User.GUID.Value").Formula = VisioHelpers.ToString(e.GUID);
+                    VisioShape shape = new VisioShape(VisioMaster.Drop(document, Constants.Class));
+                    shape.GUID = e.GUID;
                     //TODO при сравнении, если надо создать класс, отношение итп
                     // то надо его не просто создавать, а создавать со всеми параметрами
                     // м.б. надо вызывать сравнение с new domainclass
@@ -77,13 +78,12 @@ namespace VWDAddin.DslWrapper
                 {
                     Trace.WriteLine("Create Relationship " + e.GUID);
                     DomainRelationship dr = e as DomainRelationship;
-                    VisioMaster.DropConnection(
+                    VisioConnector con = new VisioConnector(VisioMaster.DropConnection(
                         VisioHelpers.GetShapeByGUID(dr.OwnerDocument.Dsl.Classes[dr.Source.RolePlayer].GUID, document),
                         VisioHelpers.GetShapeByGUID(dr.OwnerDocument.Dsl.Classes[dr.Target.RolePlayer].GUID, document),
-                        (dr.IsEmbedding ? Constants.Composition : Constants.Association),
-                        ClassConnections.Undef,
-                        ClassConnections.Undef
-                    );
+                        (dr.IsEmbedding ? Constants.Composition : Constants.Association)
+                    ));
+                    con.GUID = e.GUID;
                     //TODO аналогично сравнению классов
                 },
                 CompareRelationships
@@ -92,6 +92,9 @@ namespace VWDAddin.DslWrapper
 
         protected void CompareClasses(DslElement de1, DslElement de2)
         {
+            VisioClass class1 = new VisioClass(VisioHelpers.GetShapeByGUID(de1.GUID, document));
+            VisioClass class2 = new VisioClass(VisioHelpers.GetShapeByGUID(de2.GUID, document));
+
             //CompareAttributes(ActionType.EditDomainClass, "Name", de1, de2);
             //CompareAttributes(ActionType.EditDomainClass, "DisplayName", de1, de2);
 
@@ -99,26 +102,19 @@ namespace VWDAddin.DslWrapper
             String b2 = (de2 as DomainClass).BaseClass;
             if (b1 != b2)
             {
-                if (b1 == null) // b1 == null, b2 != null
+                if (b1 != null)
+                {
+                    Trace.WriteLine("Delete Generalization");
+                    class1.Generalization.Delete();
+                }
+                if (b2 != null)
                 {
                     Trace.WriteLine("Create Generalization");
                     VisioMaster.DropConnection(
-                        VisioHelpers.GetShapeByGUID(de2.GUID, document),
+                        class2.Shape,
                         VisioHelpers.GetShapeByGUID(de2.OwnerDocument.Dsl.Classes[b2].GUID, document),
-                        Constants.Generalization,
-                        ClassConnections.Undef,
-                        ClassConnections.Undef
+                        Constants.Generalization
                     );
-                }
-                else if (b2 == null) // b1 != null, b2 == null
-                {
-                    Trace.WriteLine("Delete Generalization");
-                    //TODO Удаление наследования
-                }
-                else // b1 != null, b2 != null
-                {
-                    Trace.WriteLine("Change Generalization");
-                    //TODO Перевешивание наследования
                 }
             }
 
