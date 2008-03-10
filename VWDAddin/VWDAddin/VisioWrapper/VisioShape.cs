@@ -6,7 +6,7 @@ using System.Diagnostics;
 
 namespace VWDAddin.VisioWrapper
 {
-    class VisioShape
+    public class VisioShape
     {
         public Shape Shape;
 
