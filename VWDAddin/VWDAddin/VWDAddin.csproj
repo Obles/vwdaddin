@@ -61,6 +61,7 @@
     <Compile Include="DslWrapper\DomainRelationship.cs" />
     <Compile Include="DslWrapper\DomainRole.cs" />
     <Compile Include="DslWrapper\Dsl.cs" />
+    <Compile Include="DslWrapper\DslCompare.cs" />
     <Compile Include="DslWrapper\DslDocument.cs" />
     <Compile Include="DslWrapper\DslElement.cs" />
     <Compile Include="DslWrapper\DslElementList.cs" />

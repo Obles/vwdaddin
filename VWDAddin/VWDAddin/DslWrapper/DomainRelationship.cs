@@ -68,6 +68,12 @@ namespace VWDAddin.DslWrapper
             return Properties.Append(new DomainProperty(OwnerDocument, Type, Name, DisplayName)) as DomainProperty;
         }
 
+        public bool IsEmbedding
+        {
+            get { return bool.Parse(Xml.GetAttribute("IsEmbedding")); }
+            set { Xml.SetAttribute("IsEmbedding", value.ToString().ToUpper()); }
+        }
+
         public void Print(String t)
         {
             PrintNodeName(t + "Relationship");

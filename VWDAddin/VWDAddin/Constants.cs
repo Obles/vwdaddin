@@ -13,6 +13,11 @@ namespace VWDAddin
 
         public const String StencilName = "Stencil.vss";
 
+        public const String Class = "Class";
+        public const String Composition = "Composition";
+        public const String Association = "Association";
+        public const String Generalization = "Generalization";
+
         public enum ActionTypes
         {
             ClassAdded,

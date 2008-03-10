@@ -9,6 +9,7 @@ namespace VWDAddin
     /// <summary>Номера точек соединения у классов</summary>
     public enum ClassConnections
     {
+        Undef = 1,
         LeftBottom = 1,
         Left,
         LeftTop,
