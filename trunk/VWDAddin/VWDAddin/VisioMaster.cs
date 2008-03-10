@@ -68,5 +68,13 @@ namespace VWDAddin
             connector.SetTarget(target, targetPoint);
             return connector.Shape;
         }
+
+        public static Shape DropConnection(
+            Shape source,
+            Shape target,
+            string masterNameU)
+        {
+            return DropConnection(source, target, masterNameU, ClassConnections.Undef, ClassConnections.Undef);
+        }
     }
 }
