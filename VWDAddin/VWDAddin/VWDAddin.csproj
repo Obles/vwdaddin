@@ -54,6 +54,7 @@
     <Compile Include="AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Connections.cs" />
     <Compile Include="DslWrapper\ConnectionBuilder.cs" />
     <Compile Include="DslWrapper\DomainClass.cs" />
     <Compile Include="DslWrapper\DomainProperty.cs" />
@@ -105,6 +106,7 @@
     <Compile Include="VisioLogger\LoggerManager.cs" />
     <Compile Include="VisioLogger\Logger.cs" />
     <Compile Include="VisioLogger\Actions\ClassAction.cs" />
+    <Compile Include="VisioMaster.cs" />
     <Compile Include="WordInterop\AssociationNode.cs" />
     <Compile Include="WordInterop\AttributeNode.cs" />
     <Compile Include="WordInterop\ClassNode.cs" />
