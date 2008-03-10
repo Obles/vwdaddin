@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.Office.Interop.Visio;
+using System.Diagnostics;
 
 namespace VWDAddin.DslWrapper
 {
@@ -50,11 +51,14 @@ namespace VWDAddin.DslWrapper
                 dsl2.Dsl.Classes,
                 delegate(DslElement e)
                 {
+                    Trace.WriteLine("Delete Class " + e.GUID);
                     VisioHelpers.GetShapeByGUID(e.GUID, document).Delete();
                 },
                 delegate(DslElement e)
                 {
-                    VisioMaster.Drop(document, Constants.Class);
+                    Trace.WriteLine("Create Class " + e.GUID);
+                    Shape shape = VisioMaster.Drop(document, Constants.Class);
+                    shape.get_Cells("User.GUID.Value").Formula = VisioHelpers.ToString(e.GUID);
                     //TODO при сравнении, если надо создать класс, отношение итп
                     // то надо его не просто создавать, а создавать со всеми параметрами
                     // м.б. надо вызывать сравнение с new domainclass
@@ -66,10 +70,12 @@ namespace VWDAddin.DslWrapper
                 dsl2.Dsl.Relationships,
                 delegate(DslElement e)
                 {
+                    Trace.WriteLine("Delete Relationship " + e.GUID);
                     VisioHelpers.GetShapeByGUID(e.GUID, document).Delete();
                 },
                 delegate(DslElement e)
                 {
+                    Trace.WriteLine("Create Relationship " + e.GUID);
                     DomainRelationship dr = e as DomainRelationship;
                     VisioMaster.DropConnection(
                         VisioHelpers.GetShapeByGUID(dr.OwnerDocument.Dsl.Classes[dr.Source.RolePlayer].GUID, document),
@@ -95,6 +101,7 @@ namespace VWDAddin.DslWrapper
             {
                 if (b1 == null) // b1 == null, b2 != null
                 {
+                    Trace.WriteLine("Create Generalization");
                     VisioMaster.DropConnection(
                         VisioHelpers.GetShapeByGUID(de2.GUID, document),
                         VisioHelpers.GetShapeByGUID(de2.OwnerDocument.Dsl.Classes[b2].GUID, document),
@@ -105,10 +112,12 @@ namespace VWDAddin.DslWrapper
                 }
                 else if (b2 == null) // b1 != null, b2 == null
                 {
+                    Trace.WriteLine("Delete Generalization");
                     //TODO ”даление наследовани€
                 }
                 else // b1 != null, b2 != null
                 {
+                    Trace.WriteLine("Change Generalization");
                     //TODO ѕеревешивание наследовани€
                 }
             }
@@ -119,10 +128,12 @@ namespace VWDAddin.DslWrapper
                 delegate(DslElement e)
                 {
                     //TODO ”даление Property
+                    Trace.WriteLine("Delete Class Property " + e.GUID);
                 },
                 delegate(DslElement e)
                 {
                     //TODO —оздание Property
+                    Trace.WriteLine("Create Class Property " + e.GUID);
                     //TODO аналогично сравнению классов
                 },
                 CompareProperties
@@ -149,12 +160,15 @@ namespace VWDAddin.DslWrapper
         {
             if (dr1.Xml.GetAttribute("Multiplicity") != dr2.Xml.GetAttribute("Multiplicity"))
             {
+                Trace.WriteLine("Change Multiplicity");
                 //TODO изменение множественности
             }
         }
 
         public static void ApplyChanges(Document document)
         {
+            Trace.WriteLine("Applying Changes from DSL");
+            Trace.Indent();
             try
             {
                 DslDocument dslOrig = new DslDocument();
@@ -170,6 +184,7 @@ namespace VWDAddin.DslWrapper
             {
                 System.Diagnostics.Debug.WriteLine(e.Message);
             }
+            Trace.Unindent();
         }
     }
 }

@@ -108,6 +108,9 @@
     <Compile Include="VisioLogger\Logger.cs" />
     <Compile Include="VisioLogger\Actions\ClassAction.cs" />
     <Compile Include="VisioMaster.cs" />
+    <Compile Include="VisioWrapper\VisioConnector.cs" />
+    <Compile Include="VisioWrapper\VisioShape.cs" />
+    <Compile Include="VisioWrapper\VisioClass.cs" />
     <Compile Include="WordInterop\AssociationNode.cs" />
     <Compile Include="WordInterop\AttributeNode.cs" />
     <Compile Include="WordInterop\ClassNode.cs" />

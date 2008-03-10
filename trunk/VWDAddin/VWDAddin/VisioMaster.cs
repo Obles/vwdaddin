@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Office.Interop.Visio;
 using System.Diagnostics;
+using VWDAddin.VisioWrapper;
 
 namespace VWDAddin
 {
@@ -60,17 +61,12 @@ namespace VWDAddin
             ClassConnections sourcePoint,
             ClassConnections targetPoint)
         {
-            Shape connection = Drop(source.Document, masterNameU, 0, 0);
-
-            String s = Connections.Create(source, sourcePoint);
-            connection.get_Cells("BeginX").Formula = s;
-            connection.get_Cells("BeginY").Formula = s;
-
-            s = Connections.Create(target, targetPoint);
-            connection.get_Cells("EndX").Formula = s;
-            connection.get_Cells("EndY").Formula = s;
-
-            return connection;
+            VisioConnector connector = new VisioConnector(
+                Drop(source.Document, masterNameU, 0, 0)
+            );
+            connector.SetSource(source, sourcePoint);
+            connector.SetTarget(target, targetPoint);
+            return connector.Shape;
         }
     }
 }
