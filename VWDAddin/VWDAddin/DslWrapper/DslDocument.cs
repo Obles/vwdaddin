@@ -5,7 +5,7 @@ using System.Xml;
 
 namespace VWDAddin.DslWrapper
 {
-    class DslDocument : XmlDocument
+    public class DslDocument : XmlDocument
     {
         private XmlNamespaceManager nsManager;
         public XmlNamespaceManager Manager { get { return nsManager; } }

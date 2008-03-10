@@ -5,7 +5,7 @@ using System.Xml;
 
 namespace VWDAddin.DslWrapper
 {
-    class XmlSerializationBehavior : DslElement
+    public class XmlSerializationBehavior : DslElement
     {
         public XmlSerializationBehavior(XmlElement Node)
             : base(Node)

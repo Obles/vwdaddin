@@ -7,7 +7,7 @@ using VWDAddin.VisioWrapper;
 
 namespace VWDAddin.DslWrapper
 {
-    class DslCompare
+    public class DslCompare
     {
         public Document document;
         public DslCompare(Document document)
