@@ -4,6 +4,7 @@ using System.Text;
 using Microsoft.Office.Interop.Visio;
 using System.Diagnostics;
 using VWDAddin.VisioLogger;
+using VWDAddin.VisioLogger.Actions.Associations;
 using VWDAddin.VisioLogger.Actions;
 using VWDAddin.VisioWrapper;
 
@@ -45,7 +46,7 @@ namespace VWDAddin
                             GetLogger(shape.Document).Add(new ClassAdded(new VisioClass(shape)));
                             break;
                         case "association":
-                            //GetLogger(shape.Document).Add(new AssociationAction(new VisioConnector(shape)));
+                            //GetLogger(shape.Document).Add(new AssociationAdded(new VisioConnector(shape)));
                             break;
                         default:
                             break;
@@ -58,6 +59,9 @@ namespace VWDAddin
                     {
                         case "class":
                             GetLogger(shape.Document).Add(new ClassDeleted(new VisioClass(shape)));
+                            break;
+                        case "association":
+                            GetLogger(shape.Document).Add(new AssociationDeleted(new VisioConnector(shape)));
                             break;
                         default:
                             break;
@@ -73,6 +77,21 @@ namespace VWDAddin
                             break;
                         case "attr_section":
                             GetLogger(shape.Document).Add(new ClassAttributesChanged(new VisioClass(shape.Parent as Shape)));
+                            break;
+                        case "association":
+                            GetLogger(shape.Document).Add(new AssociationNameChanged(new VisioConnector(shape)));
+                            break;
+                        case "end1_name":
+                            GetLogger(shape.Document).Add(new AssociationSourceNameChanged(new VisioConnector(shape)));
+                            break;
+                        case "end1_mp":
+                            GetLogger(shape.Document).Add(new AssociationSourceMPChanged(new VisioConnector(shape)));
+                            break;
+                        case "end2_name":
+                            GetLogger(shape.Document).Add(new AssociationTargetNameChanged(new VisioConnector(shape)));
+                            break;
+                        case "end2_mp":
+                            GetLogger(shape.Document).Add(new AssociationTargetMPChanged(new VisioConnector(shape)));
                             break;
                         default:
                             break;

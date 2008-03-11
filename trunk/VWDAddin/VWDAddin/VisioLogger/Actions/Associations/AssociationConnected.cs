@@ -4,9 +4,9 @@ using System.Text;
 using ConnectionTypes = VWDAddin.Constants.ConnectionTypes;
 using VWDAddin.VisioWrapper;
 
-namespace VWDAddin.VisioLogger.Actions
+namespace VWDAddin.VisioLogger.Actions.Associations
 {
-    class AssociationConnected: AssociationAction
+    class AssociationConnected : AssociationAction
     {
         public AssociationConnected(VisioConnector targetShape, ConnectionTypes connectType)
             : base(targetShape)
