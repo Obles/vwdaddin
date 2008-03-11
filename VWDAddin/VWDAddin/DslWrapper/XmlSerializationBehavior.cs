@@ -22,6 +22,16 @@ namespace VWDAddin.DslWrapper
             get { return new DslElementList(typeof(XmlClassData), GetChildNode("ClassData")); }
         }
 
+        public XmlClassData GetClassData(DomainClass Class)
+        {
+            String Name = Class.Xml.GetAttribute("Name");
+            foreach (XmlClassData xcd in ClassData)
+            {
+                if (xcd.DomainClassMoniker == Name) return xcd;
+            }
+            return null;
+        }
+
         public XmlClassData Find(String Name)
         {
             foreach (XmlClassData xcd in ClassData)
