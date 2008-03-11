@@ -17,6 +17,7 @@ namespace VWDAddin
             _freeAssociationEnds = new List<AssociationNode>();
             _namespaceManager = new XmlNamespaceManager(this.NameTable);
             _namespaceManager.AddNamespace(Definitions.WORD_XML_PREFIX, Definitions.WORD_PROCESSING_ML);
+            IsAssociated = false;
         }
 
         public void ParseDocx(string fileName)
@@ -33,6 +34,7 @@ namespace VWDAddin
                 {
                     _classList.Add(new ClassNode(this, node));
                 }
+                IsAssociated = true;
             }
             catch (Exception e)
             {
@@ -89,9 +91,12 @@ namespace VWDAddin
         {
             try
             {
-                this.Save(_partDocumentXML.GetStream(FileMode.Create, FileAccess.Write));
-                _pkgOutputDoc.Flush();
-                _pkgOutputDoc.Close();
+                if (IsAssociated)
+                {
+                    this.Save(_partDocumentXML.GetStream(FileMode.Create, FileAccess.Write));
+                    _pkgOutputDoc.Flush();
+                    _pkgOutputDoc.Close();
+                }
             }
             catch (Exception e)
             {
@@ -160,5 +165,11 @@ namespace VWDAddin
         public XmlNode Root;
         private PackagePart _partDocumentXML;
         private Package _pkgOutputDoc;
+        private bool _isAssociated;
+        public bool IsAssociated
+        {
+            get { return _isAssociated; }
+            set { _isAssociated = value; }
+        }
     }
 }
