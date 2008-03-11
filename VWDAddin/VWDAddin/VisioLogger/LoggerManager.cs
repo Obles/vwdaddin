@@ -11,7 +11,7 @@ namespace VWDAddin.VisioLogger
 
         public Logger CreateLogger(Document Document)
         {
-            Logger Logger = new Logger(Document);
+            Logger Logger = new Logger(this, Document);
             Loggers.Add(Document, Logger);
             return Logger;
         }
@@ -25,6 +25,12 @@ namespace VWDAddin.VisioLogger
         {
             Loggers[Document].Cleanup();
             Loggers.Remove(Document);
+        }
+
+        public Logger ResetLogger(Document Document)
+        {
+            RemoveLogger(Document);
+            return CreateLogger(Document);
         }
     }
 }

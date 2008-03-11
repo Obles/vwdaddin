@@ -47,7 +47,7 @@ namespace VWDAddin
                     }
                     case DocumentProperties.MarkerName:
                     {
-                        new DocumentProperties(application.ActiveDocument).Show();
+                        new DocumentProperties(GetLogger(application.ActiveDocument)).Show();
                         break;
                     }
                     default:
