@@ -53,6 +53,16 @@ namespace VWDAddin
             return FromString(shape.get_Cells(cellName).Formula);
         }
 
+        public static String GetConnectedClassName(string connectionString)
+        {
+            string prefix = "PAR(PNT(";
+            if (connectionString.Length > 20 && connectionString.StartsWith(prefix))
+            {
+                return connectionString.Substring(prefix.Length).Split('!')[0];
+            }
+            return string.Empty;
+        }
+
         public static void ParseClassShape(Shape shape, out String guid, out String className, out String attributes)
         {
             try

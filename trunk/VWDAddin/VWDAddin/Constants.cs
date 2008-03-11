@@ -18,26 +18,10 @@ namespace VWDAddin
         public const String Association = "Association";
         public const String Generalization = "Generalization";
 
-        public enum ActionTypes
+        public enum ConnectionTypes
         {
-            ClassAdded,
-            ClassDeleted,
-            ClassNameChanged,
-            ClassAttrChanged,
-
-            AssociationAdded,
-            AssociationConnected,
-            AssociationDisconnected,
-            AssociationDeleted,
-            AssociationNameChanged,
-            AssociationEndNameChanged,
-            AssociationMultiplicityChanged,
-
-            CompositionAdded,
-            CompositionDeleted,
-            CompositionNameChanged,
-            CompositionEndNameChanged,
-            CompositionMultiplicityChanged,
+            BeginConnected,
+            EndConnected,            
         }
     }
 }

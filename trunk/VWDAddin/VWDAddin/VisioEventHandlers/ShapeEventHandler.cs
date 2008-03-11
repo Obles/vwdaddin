@@ -43,7 +43,10 @@ namespace VWDAddin
                     {
                         case "class":
                             GetLogger(shape.Document).Add(new ClassAdded(new VisioClass(shape)));
-                            break;                        
+                            break;
+                        case "association":
+                            //GetLogger(shape.Document).Add(new AssociationAction(new VisioConnector(shape)));
+                            break;
                         default:
                             break;
                     }
@@ -78,8 +81,15 @@ namespace VWDAddin
                 }
                 case (short)VisEventCodes.visEvtConnect + Constants.visEvtAdd:
                 {
-                    
-                    //GetLogger(shape.Document).Add(new ...);
+                    VisioConnector connector = new VisioConnector((subject as Connects).FromSheet);
+                    if ((subject as Connects).ToSheet.Name.Equals(connector.Source.Name))
+                    {
+                        GetLogger(shape.Document).Add(new AssociationConnected(connector, Constants.ConnectionTypes.BeginConnected));
+                    }
+                    else
+                    {
+                        GetLogger(shape.Document).Add(new AssociationConnected(connector, Constants.ConnectionTypes.EndConnected));
+                    }
                     break;
                 }
 
