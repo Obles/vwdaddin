@@ -181,14 +181,18 @@ namespace VWDAddin.DslWrapper
             Trace.Indent();
             try
             {
-                DslDocument dslOrig = new DslDocument();
-                dslOrig.Load(VisioHelpers.GetTempDSLPath(document));
+                String TempDslPath = VisioHelpers.GetTempDSLPath(document);
+                if (System.IO.File.Exists(TempDslPath))
+                {
+                    DslDocument dslOrig = new DslDocument();
+                    dslOrig.Load(TempDslPath);
 
-                DslDocument dslNew = new DslDocument();
-                dslNew.Load(VisioHelpers.GetDSLPath(document));
+                    DslDocument dslNew = new DslDocument();
+                    dslNew.Load(VisioHelpers.GetDSLPath(document));
 
-                DslCompare comparer = new DslCompare(document);
-                comparer.Compare(dslOrig, dslNew);
+                    DslCompare comparer = new DslCompare(document);
+                    comparer.Compare(dslOrig, dslNew);
+                }
             }
             catch(Exception e)
             {

@@ -14,10 +14,13 @@ namespace VWDAddin.VisioLogger
         private List<BaseAction> actionList = new List<BaseAction>();
         private int currentAction = -1;
 
-        public Logger(Document Document)
+        public Logger(LoggerManager LoggerManager, Document Document)
         {
             Trace.WriteLine("Create logger for " + Document.Name);
             associatedDocument = Document;
+            loggerManager = LoggerManager;
+
+            Document.Application.PurgeUndo();
 
             CreateDSLControlPoint();
             CreateWordControlPoint();
@@ -28,6 +31,12 @@ namespace VWDAddin.VisioLogger
             Trace.WriteLine("Cleanup logger for " + Document.Name);          
             RemoveDSLControlPoint();
             RemoveWordControlPoint();
+        }
+
+        private LoggerManager loggerManager;
+        public LoggerManager LoggerManager
+        {
+            get { return loggerManager; }
         }
 
         private Document associatedDocument;
@@ -49,12 +58,22 @@ namespace VWDAddin.VisioLogger
             get { return dslDocument; }
         }
 
+        private bool active = true;
+        public bool Active
+        {
+            get { return active; }
+            set { active = value; }
+        }
+
         public void Add(BaseAction Action)
         {
-            currentAction++;
-            actionList.RemoveRange(currentAction, actionList.Count - currentAction);
-            actionList.Add(Action);
-            Document.Application.AddUndoUnit(new UndoUnit(this));
+            if (active)
+            {
+                currentAction++;
+                actionList.RemoveRange(currentAction, actionList.Count - currentAction);
+                actionList.Add(Action);
+                Document.Application.AddUndoUnit(new UndoUnit(this));
+            }
         }
 
         public BaseAction CurrentAction

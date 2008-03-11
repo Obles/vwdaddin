@@ -8,6 +8,9 @@ using System.Windows.Forms;
 using Microsoft.Office.Interop.Visio;
 using System.Diagnostics;
 using System.IO;
+using VWDAddin.DslWrapper;
+using VWDAddin.VisioWrapper;
+using VWDAddin.VisioLogger;
 
 namespace VWDAddin
 {
@@ -19,16 +22,16 @@ namespace VWDAddin
         private const String WordFilter = "Word Document (*.docx)|*.docx";
         private const String AllFilter = "All Files (*.*)|*.*";
 
-        public DocumentProperties(Document Document)
+        public DocumentProperties(Logger Logger)
         {
             InitializeComponent();
-            this.Document = Document;
+            this.Logger = Logger;
 
-            DSLPath.Text = VisioHelpers.GetDSLPath(Document);
-            WordPath.Text = VisioHelpers.GetWordPath(Document);
+            DSLPath.Text = VisioHelpers.GetDSLPath(Logger.Document);
+            WordPath.Text = VisioHelpers.GetWordPath(Logger.Document);
         }
 
-        private Document Document;
+        private Logger Logger;
 
         private void btnSelectDSL_Click(object sender, EventArgs e)
         {
@@ -81,8 +84,48 @@ namespace VWDAddin
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            VisioHelpers.SetDSLPath(Document, DSLPath.Text);
-            VisioHelpers.SetWordPath(Document, WordPath.Text);
+            if (VisioHelpers.GetDSLPath(Logger.Document) != DSLPath.Text)
+            {
+                VisioHelpers.SetDSLPath(Logger.Document, DSLPath.Text);
+                //TODO сделать нормальную синхронихацию
+                // сейчас это частичная генерация из Dsl-проекта
+                Logger.Active = false;
+
+                while (Logger.Document.Pages[1].Shapes.Count > 0)
+                {
+                    Logger.Document.Pages[1].Shapes[1].Delete();
+                }
+
+                DslDocument dslDocument = new DslDocument();
+                dslDocument.Load(DSLPath.Text);
+                foreach (DomainClass dc in dslDocument.Dsl.Classes)
+                {
+                    VisioClass vc = new VisioClass(VisioMaster.Drop(Logger.Document, "Class"));
+                    vc.GUID = dc.GUID;
+                    vc.Name = dc.Xml.GetAttribute("Name");
+                    String attrs = "";
+                    foreach (DomainProperty prop in dc.Properties)
+                    {
+                        attrs += prop.Xml.GetAttribute("Name") + "\n";
+                    }
+                    vc.Attributes = attrs.Trim();
+                    // ... ... ...
+                }
+                foreach (DomainRelationship dr in dslDocument.Dsl.Relationships)
+                {
+                    VisioConnector vc = new VisioConnector(VisioMaster.DropConnection(
+                        VisioHelpers.GetShapeByGUID(dslDocument.Dsl.Classes[dr.Source.RolePlayer].GUID, Logger.Document),
+                        VisioHelpers.GetShapeByGUID(dslDocument.Dsl.Classes[dr.Target.RolePlayer].GUID, Logger.Document),
+                        (dr.IsEmbedding ? Constants.Composition : Constants.Association)
+                    ));
+                    vc.GUID = dr.GUID;
+                    vc.Name = dr.Xml.GetAttribute("Name");
+                    // ... ... ...
+                }
+                Logger.Active = true;
+                Logger = Logger.LoggerManager.ResetLogger(Logger.Document);
+            }
+            VisioHelpers.SetWordPath(Logger.Document, WordPath.Text);
             this.Close();
         }
 
