@@ -10,12 +10,12 @@ namespace VWDAddin.VisioLogger.Actions
     {
         public ClassAction(VisioClass targetShape)            
         {
-            ClassShape = targetShape;
+            ClassShape = targetShape.ToStaticClass();
         }
 
         #region Members
-        private VisioClass _classShape;
-        public VisioClass ClassShape
+        private StaticClass _classShape;
+        public StaticClass ClassShape
         {
             get { return _classShape; }
             set { _classShape = value; }

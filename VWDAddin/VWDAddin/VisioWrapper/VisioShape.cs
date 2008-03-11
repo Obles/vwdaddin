@@ -30,5 +30,10 @@ namespace VWDAddin.VisioWrapper
             }
             return null;
         }
+
+        public StaticShape ToStaticShape()
+        {
+            return new StaticShape(Shape);
+        }
     }
 }

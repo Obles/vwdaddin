@@ -89,5 +89,10 @@ namespace VWDAddin.VisioWrapper
             get { return GetSubshape("end2_name").Text; }
             set { GetSubshape("end2_name").Text = value; }
         }
+
+        public StaticConnector ToStaticConnector()
+        {
+            return new StaticConnector(Shape);
+        }
     }
 }
