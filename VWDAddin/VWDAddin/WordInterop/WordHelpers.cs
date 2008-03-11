@@ -43,6 +43,36 @@ namespace VWDAddin
             return string.Empty;
         }
 
+        public static XmlNode CreateCustomNode(WordDocument doc, string elementName, string id, string connectionType)
+        {
+            XmlNode customNode = doc.CreateNode(XmlNodeType.Element, "w:customXml", Definitions.WORD_PROCESSING_ML);
+            XmlAttribute attr = doc.CreateAttribute("w:element", Definitions.WORD_PROCESSING_ML);
+            attr.Value = elementName;
+            customNode.Attributes.Append(attr);
+            XmlNode customPropertyNode = doc.CreateNode(XmlNodeType.Element, "w:customXmlPr", Definitions.WORD_PROCESSING_ML);
+            
+            XmlNode attrNode = doc.CreateNode(XmlNodeType.Element, "w:attr", Definitions.WORD_PROCESSING_ML);
+            XmlAttribute attrName = doc.CreateAttribute("w:name", Definitions.WORD_PROCESSING_ML);
+            attrName.Value = "GUID";
+            XmlAttribute attrID = doc.CreateAttribute("w:val", Definitions.WORD_PROCESSING_ML);
+            attrID.Value = id;
+            attrNode.Attributes.Append(attrName);
+            attrNode.Attributes.Append(attrID);
+            customPropertyNode.AppendChild(attrNode);
+            
+            XmlNode attrSecondNode = doc.CreateNode(XmlNodeType.Element, "w:attr", Definitions.WORD_PROCESSING_ML);
+            XmlAttribute attrSecondName = doc.CreateAttribute("w:name", Definitions.WORD_PROCESSING_ML);
+            attrSecondName.Value = "Connection Type";
+            XmlAttribute attrType = doc.CreateAttribute("w:val", Definitions.WORD_PROCESSING_ML);
+            attrType.Value = connectionType;
+            attrSecondNode.Attributes.Append(attrSecondName);
+            attrSecondNode.Attributes.Append(attrType);
+            customPropertyNode.AppendChild(attrSecondNode);
+
+            customNode.AppendChild(customPropertyNode);
+            return customNode;
+        }
+
         public static XmlNode CreateCustomNode(WordDocument doc, string elementName, string id)
         {
             XmlNode customNode = doc.CreateNode(XmlNodeType.Element, "w:customXml", Definitions.WORD_PROCESSING_ML);

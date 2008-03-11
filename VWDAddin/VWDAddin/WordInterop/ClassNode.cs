@@ -30,6 +30,12 @@ namespace VWDAddin
                 if (attribute.AttrName != null)
                     _attributes.Add(attribute.AttrName);
             }
+            XmlNode nodeAssocPart = WordHelpers.GetCustomChild(ClassXmlNode, "assoc_part");
+            foreach (XmlNode assocNode in nodeAssocPart.ChildNodes)
+            {
+                AssociationNode association = new AssociationNode(doc, assocNode);
+                _assocList.Add(association);                
+            }
         }
 
         public ClassNode(WordDocument doc, string name, string classAttributes, string id)
@@ -115,7 +121,52 @@ namespace VWDAddin
 
         public void AppendAssociation(AssociationNode assocNode)
         {
-            WordHelpers.GetCustomChild(ClassXmlNode, "assoc_part").AppendChild(assocNode.m_associationNode);
+            WordHelpers.GetCustomChild(ClassXmlNode, "assoc_part").AppendChild(assocNode.AssociationXmlNode);
+            _assocList.Add(assocNode);
+        }
+
+        public void AppendAssociation(WordDocument doc, string associationGuid, string name, string endName, string endMP, string associationType, string connectionType)
+        {
+            AssociationNode newNode = new AssociationNode(doc, associationGuid, name, endName, endMP, associationType, connectionType);
+            WordHelpers.GetCustomChild(ClassXmlNode, "assoc_part").AppendChild(newNode.AssociationXmlNode);
+            _assocList.Add(newNode);
+        }
+
+        public AssociationNode GetAssociationNode(string associationGuid)
+        {
+            foreach (AssociationNode node in _assocList)
+            {                
+                if (node.AssociationGUID == associationGuid)
+                {
+                    _assocList.Remove(node);
+                    return node;
+                }
+            }
+            return null;
+        }
+
+        public void RemoveAssociation(string associationGuid)
+        {
+            foreach (AssociationNode node in _assocList)
+            {                
+                if (node.AssociationGUID == associationGuid)
+                {
+                    _assocList.Remove(node);
+                    WordHelpers.GetCustomChild(ClassXmlNode, "assoc_part").RemoveChild(node.AssociationXmlNode);
+                }
+            }
+        }
+
+        public bool CheckAssociation(string associationGuid, string connectionType)
+        {
+            foreach (AssociationNode node in _assocList)
+            {
+                if (node.AssociationGUID == associationGuid && node.AssociationConnectionType == connectionType)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         private void Init()
@@ -124,12 +175,15 @@ namespace VWDAddin
                 _attrList = new List<AttributeNode>();
             if (_attributes == null)
                 _attributes = new List<string>();
+            if (_assocList == null)
+                _assocList = new List<AssociationNode>();
         }
 
         public XmlNode ClassXmlNode;
         public string ClassID;
         private List<AttributeNode> _attrList;
         private List<String> _attributes;
+        private List<AssociationNode> _assocList;
 
     }
 }

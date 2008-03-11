@@ -13,7 +13,22 @@ namespace VWDAddin.VisioLogger.Actions.Associations
         {
             ConnectType = connectType;
         }
-        
+
+        override public void Apply(Logger Logger)
+        {
+            if (Logger.WordDocument.IsAssociated)
+            {
+                if (ConnectType == ConnectionTypes.BeginConnected)
+                {
+                    Logger.WordDocument.AddAssociation(Connector.Source.GUID, Connector.GUID, Connector.Name, Connector.SourceText, Connector.SourceMultiplicity, "association", ConnectType.ToString());
+                }
+                else
+                {
+                    Logger.WordDocument.AddAssociation(Connector.Target.GUID, Connector.GUID, Connector.Name, Connector.TargetText, Connector.TargetMultiplicity, "association", ConnectType.ToString());
+                }
+            }
+        }
+
         private ConnectionTypes _connectType;
         public ConnectionTypes ConnectType
         {

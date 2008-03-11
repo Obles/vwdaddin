@@ -14,7 +14,6 @@ namespace VWDAddin
           : base()
         {
             _classList = new List<ClassNode>();
-            _freeAssociationEnds = new List<AssociationNode>();
             _namespaceManager = new XmlNamespaceManager(this.NameTable);
             _namespaceManager.AddNamespace(Definitions.WORD_XML_PREFIX, Definitions.WORD_PROCESSING_ML);
             IsAssociated = false;
@@ -87,6 +86,37 @@ namespace VWDAddin
             }
         }
 
+        public void AddAssociation(string classID, string associationGuid, string name, string endName, string endMP, string associationType, string connectionType)
+        {
+            ClassNode targetNode = WordHelpers.GetClassNodeByID(_classList, classID);
+            ClassNode sourceNode = CheckAssociation(associationGuid, connectionType);
+            if (null != sourceNode && null != targetNode)
+            {
+                targetNode.AppendAssociation(sourceNode.GetAssociationNode(associationGuid));
+                sourceNode.RemoveAssociation(associationGuid);
+            }
+            else if (null == sourceNode && null != targetNode)
+            {
+                targetNode.AppendAssociation(this, associationGuid, name, endName, endMP, associationType, connectionType);
+            }
+            else
+            {
+                Debug.WriteLine("WORD_INTEROP.ADD ASSOCIATION : UNKNOWN CLASS ID");
+            }
+        }
+
+        public ClassNode CheckAssociation(string associationGuid, string connectionType)
+        {
+            foreach (ClassNode node in _classList)
+            {
+                if (node.CheckAssociation(associationGuid, connectionType))
+                {
+                    return node;
+                }
+            }
+            return null;
+        }
+
         public void CloseWordDocument()
         {
             try
@@ -105,62 +135,12 @@ namespace VWDAddin
             }
         }
 
-        //public void CommitChanges(List<SingleAction> actionLog)
-        //{
-        //  try
-        //  {
-        //    foreach (SingleAction action in actionLog)
-        //    {
-        //      switch (action.m_actionType)
-        //      {
-        //        case Definitions.ACTION_TYPES.ASSOCIATION_ADDED:
-        //          m_FreeAssociationEnds.Add(new AssociationNode(this, action));
-        //          break;
-        //        case Definitions.ACTION_TYPES.ASSOCIATION_CONNECTED:
-        //          AssociationNode assocNode = null;
-        //          bool found = false;
-        //          foreach (AssociationNode node in m_FreeAssociationEnds)
-        //          {
-        //            if (node.m_associationEndID == action.m_assocEndID && action.m_toEnd < 0.2)
-        //            {
-        //              assocNode = node;
-        //              m_FreeAssociationEnds.Remove(node);
-        //              found = true;
-        //              break;
-        //            }
-        //          }
-        //          if (found)
-        //          {
-        //            foreach (ClassNode node in m_classList)
-        //            {
-        //              if (node.m_classID == action.m_objectID)
-        //              {
-        //                node.AppendAssociation(assocNode);
-        //                break;
-        //              }
-        //            }
-        //          }
-        //          break;
-        //      }
-        //    }
-
-        //    //this.Save(m_partDocumentXML.GetStream(FileMode.Create, FileAccess.Write));
-        //    //m_pkgOutputDoc.Flush();
-        //    //m_pkgOutputDoc.Close();
-        //  }
-        //  catch (Exception err)
-        //  {
-
-        //    int abc = 0;
-        //  }
-        //}
 
         private XmlNamespaceManager _namespaceManager;
         public XmlNamespaceManager NamespaceManager 
         { 
             get { return _namespaceManager; } 
         }
-        private List<AssociationNode> _freeAssociationEnds;
         private List<ClassNode> _classList;
         public XmlNode Root;
         private PackagePart _partDocumentXML;
