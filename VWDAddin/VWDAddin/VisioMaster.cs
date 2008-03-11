@@ -27,7 +27,8 @@ namespace VWDAddin
             Document document,
             string masterNameU)
         {
-            return Drop(document, masterNameU, ++count, count);
+            double height = document.get_PaperHeight(VisUnitCodes.visInches) - count;
+            return Drop(document, masterNameU, ++count, height);
         }
 
         public static Shape Drop(
@@ -74,7 +75,7 @@ namespace VWDAddin
             Shape target,
             string masterNameU)
         {
-            return DropConnection(source, target, masterNameU, ClassConnections.Undef, ClassConnections.Undef);
+            return DropConnection(source, target, masterNameU, ClassConnections.Right, ClassConnections.Top);
         }
     }
 }
