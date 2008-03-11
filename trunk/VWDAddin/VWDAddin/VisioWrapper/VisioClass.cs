@@ -20,6 +20,12 @@ namespace VWDAddin.VisioWrapper
             set { GetSubshape("class_name").Text = value; }
         }
 
+        public String Attributes
+        {
+            get { return Shape.Shapes[2].Text; }
+            set { Shape.Shapes[2].Text = value; }
+        }
+
         /// <summary>Исходящая стрелка наследования</summary>
         public Shape Generalization
         {
