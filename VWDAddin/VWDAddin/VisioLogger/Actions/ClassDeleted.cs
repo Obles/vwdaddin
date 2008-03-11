@@ -2,12 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.Office.Interop.Visio;
+using VWDAddin.VisioWrapper;
 
 namespace VWDAddin.VisioLogger.Actions
 {
     class ClassDeleted : ClassAction
     {
-        public ClassDeleted(Shape targetShape)
+        public ClassDeleted(VisioClass targetShape)
             :base(targetShape)
         {            
         }
@@ -16,7 +17,7 @@ namespace VWDAddin.VisioLogger.Actions
         {
             if (Logger.WordDocument.IsAssociated)
             {
-                Logger.WordDocument.DeleteClass(GUID);
+                Logger.WordDocument.DeleteClass(ClassShape.GUID);
             }
         }
 

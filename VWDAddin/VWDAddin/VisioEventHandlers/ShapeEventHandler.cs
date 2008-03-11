@@ -42,7 +42,7 @@ namespace VWDAddin
                     switch (VisioHelpers.GetShapeType(shape))
                     {
                         case "class":
-                            GetLogger(shape.Document).Add(new ClassAdded(shape));
+                            GetLogger(shape.Document).Add(new ClassAdded(new VisioClass(shape)));
                             break;                        
                         default:
                             break;
@@ -54,7 +54,7 @@ namespace VWDAddin
                     switch (VisioHelpers.GetShapeType(shape))
                     {
                         case "class":
-                            GetLogger(shape.Document).Add(new ClassDeleted(shape));
+                            GetLogger(shape.Document).Add(new ClassDeleted(new VisioClass(shape)));
                             break;
                         default:
                             break;
@@ -66,10 +66,10 @@ namespace VWDAddin
                     switch (VisioHelpers.GetShapeType(shape))
                     {
                         case "class_name":
-                            GetLogger(shape.Document).Add(new ClassNameChanged(shape));
+                            GetLogger(shape.Document).Add(new ClassNameChanged(new VisioClass(shape.Parent as Shape)));
                             break;
                         case "attr_section":
-                            GetLogger(shape.Document).Add(new ClassAttributesChanged(shape));
+                            GetLogger(shape.Document).Add(new ClassAttributesChanged(new VisioClass(shape.Parent as Shape)));
                             break;
                         default:
                             break;

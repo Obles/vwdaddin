@@ -8,8 +8,6 @@ namespace VWDAddin.VisioLogger.Actions
 {
     public class BaseAction
     {
-        public BaseAction(Shape targetShape) { }
-
         virtual public void Apply(Logger Logger) { }
     }
 }

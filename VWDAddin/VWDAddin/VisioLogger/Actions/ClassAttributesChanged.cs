@@ -2,12 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.Office.Interop.Visio;
+using VWDAddin.VisioWrapper;
 
 namespace VWDAddin.VisioLogger.Actions
 {
     class ClassAttributesChanged : ClassAction
     {
-        public ClassAttributesChanged(Shape targetShape)
+        public ClassAttributesChanged(VisioClass targetShape)
             : base(targetShape)
         {         
         }
@@ -16,7 +17,7 @@ namespace VWDAddin.VisioLogger.Actions
         {
             if (Logger.WordDocument.IsAssociated)
             {
-                Logger.WordDocument.ChangeClassAttributes(GUID, Attributes);
+                Logger.WordDocument.ChangeClassAttributes(ClassShape.GUID, ClassShape.Attributes);
             }
         }
     }    
