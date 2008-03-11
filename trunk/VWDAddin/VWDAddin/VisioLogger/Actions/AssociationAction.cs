@@ -10,12 +10,12 @@ namespace VWDAddin.VisioLogger.Actions
     {
         public AssociationAction(VisioConnector targetShape)           
         {
-            Connector = targetShape;
+            Connector = targetShape.ToStaticConnector();
         }
 
         #region Members
-        private VisioConnector _connector;
-        public VisioConnector Connector
+        private StaticConnector _connector;
+        public StaticConnector Connector
         {
             get { return _connector; }
             set { _connector = value; }

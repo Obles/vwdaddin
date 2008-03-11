@@ -115,6 +115,9 @@
     <Compile Include="VisioLogger\Logger.cs" />
     <Compile Include="VisioLogger\Actions\ClassAction.cs" />
     <Compile Include="VisioMaster.cs" />
+    <Compile Include="VisioWrapper\StaticClass.cs" />
+    <Compile Include="VisioWrapper\StaticConnector.cs" />
+    <Compile Include="VisioWrapper\StaticShape.cs" />
     <Compile Include="VisioWrapper\VisioConnector.cs" />
     <Compile Include="VisioWrapper\VisioShape.cs" />
     <Compile Include="VisioWrapper\VisioClass.cs" />

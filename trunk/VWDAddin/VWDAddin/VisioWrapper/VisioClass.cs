@@ -29,7 +29,12 @@ namespace VWDAddin.VisioWrapper
         /// <summary>Исходящая стрелка наследования</summary>
         public Shape Generalization
         {
-            get { throw new NotImplementedException(); }
+            get { return null; /*throw new NotImplementedException();*/ }
+        }
+
+        public StaticClass ToStaticClass()
+        {
+            return new StaticClass(Shape);
         }
     }
 }
