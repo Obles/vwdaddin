@@ -103,11 +103,11 @@ namespace VWDAddin
                     VisioConnector connector = new VisioConnector((subject as Connects).FromSheet);
                     if ((subject as Connects).ToSheet.Name.Equals(connector.Source.Name))
                     {
-                        GetLogger(shape.Document).Add(new AssociationConnected(connector, Constants.ConnectionTypes.BeginConnected));
+                        GetLogger(connector.Shape.Document).Add(new AssociationConnected(connector, Constants.ConnectionTypes.BeginConnected));
                     }
                     else
                     {
-                        GetLogger(shape.Document).Add(new AssociationConnected(connector, Constants.ConnectionTypes.EndConnected));
+                        GetLogger(connector.Shape.Document).Add(new AssociationConnected(connector, Constants.ConnectionTypes.EndConnected));
                     }
                     break;
                 }
