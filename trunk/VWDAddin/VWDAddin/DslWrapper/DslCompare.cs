@@ -144,18 +144,40 @@ namespace VWDAddin.DslWrapper
 
         protected void CompareProperties(DslElement de1, DslElement de2)
         {
-            if(de2 == null)
+            DomainClass dc;
+            VisioClass Class;
+            if (de1 == null)
             {
-                //TODO Удаление Property
-                Trace.WriteLine("Delete Class Property " + de1.GUID);
-            }
-            if(de1 == null)
-            {
-                //TODO Создание Property
                 Trace.WriteLine("Create Class Property " + de2.GUID);
+
+                dc = (de2 as DomainProperty).Parent;
+                Class = new VisioClass(VisioHelpers.GetShapeByGUID(dc.GUID, document));
+
+                Class.Attributes += "\n" + de2.Xml.GetAttribute("Name");
+                return;
             }
-            //CompareAttributes(ActionType.EditProperty, "Name", de1, de2);
-            //CompareAttributes(ActionType.EditProperty, "DisplayName", de1, de2);
+
+            if (de2 != null && de2.Xml.GetAttribute("Name") == de1.Xml.GetAttribute("Name")) return;
+
+            dc = (de1 as DomainProperty).Parent;
+            Class = new VisioClass(VisioHelpers.GetShapeByGUID(dc.GUID, document));
+
+            String[] str = new String[1];
+            str[0] = de1.Xml.GetAttribute("Name");
+            str = Class.Attributes.Split(str, 2, StringSplitOptions.None);
+
+            if (de2 == null)
+            {
+                Trace.WriteLine("Delete Class Property " + de1.GUID);
+
+                Class.Attributes = str[0].Trim() + "\n" + str[1].Trim();
+            }
+            else
+            {
+                Trace.WriteLine("Rename Class Property " + de1.GUID);
+
+                Class.Attributes = str[0] + de1.Xml.GetAttribute("Name") + str[1];
+            }
         }
 
         protected String CompareMultiplicity(DomainRole dr1, DomainRole dr2)
