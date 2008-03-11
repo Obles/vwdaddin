@@ -13,8 +13,8 @@ namespace VWDAddin.VisioWrapper
         {
             this.GUID = base.GUID;
             this.Name = base.Name;
-            this.Source = new StaticClass(base.Source);
-            this.Target = new StaticClass(base.Target);
+            this.Source = base.Source == null ? null : new StaticClass(base.Source);
+            this.Target = base.Target == null ? null : new StaticClass(base.Target);
             this.SourceMultiplicity = base.SourceMultiplicity;
             this.TargetMultiplicity = base.TargetMultiplicity;
             this.SourceText = base.SourceText;
