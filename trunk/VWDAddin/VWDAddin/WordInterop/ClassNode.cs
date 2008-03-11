@@ -153,6 +153,7 @@ namespace VWDAddin
                 {
                     _assocList.Remove(node);
                     WordHelpers.GetCustomChild(ClassXmlNode, "assoc_part").RemoveChild(node.AssociationXmlNode);
+                    break;
                 }
             }
         }
