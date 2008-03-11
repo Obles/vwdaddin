@@ -41,7 +41,9 @@ namespace VWDAddin.DslWrapper
 
         public DomainClass CreateDomainClass(String Name, String DisplayName)
         {
-            return Classes.Append(new DomainClass(OwnerDocument, Name, DisplayName)) as DomainClass;
+            DomainClass dc = new DomainClass(OwnerDocument, Name, DisplayName);
+            OwnerDocument.Dsl.XmlSerializationBehavior.ClassData.Append(new XmlClassData(dc));
+            return Classes.Append(dc) as DomainClass;
         }
 
         public DomainRelationship CreateRelationship(DomainClass Source, Multiplicity SourceMultiplicity, DomainClass Target, Multiplicity TargetMultiplicity, Boolean IsEmbedding)
