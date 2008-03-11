@@ -4,7 +4,7 @@ using System.Text;
 using Microsoft.Office.Interop.Visio;
 using VWDAddin.VisioWrapper;
 
-namespace VWDAddin.VisioLogger.Actions
+namespace VWDAddin.VisioLogger.Actions.Associations
 {
     class AssociationNameChanged : AssociationAction
     {
