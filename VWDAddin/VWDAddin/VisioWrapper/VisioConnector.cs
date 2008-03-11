@@ -21,17 +21,31 @@ namespace VWDAddin.VisioWrapper
         }
 
         /// <summary>Получение элемента от которого начинается коннектор</summary>
+        /// *Это там, где ромбик - для композиции* 
         public Shape Source
         {
-            get { throw new NotImplementedException(); }
+            get { return FindConnectedShape(Shape.get_Cells("BeginX").Formula); }
             set { SetSource(value, ClassConnections.Undef); }
         }
 
         /// <summary>Получение элемента в котором заканчивается коннектор</summary>
         public Shape Target
         {
-            get { throw new NotImplementedException(); }
+            get { return FindConnectedShape(Shape.get_Cells("EndX").Formula); }
             set { SetTarget(value, ClassConnections.Undef); }
+        }
+
+        public Shape FindConnectedShape(string connectionString)
+        {
+            string searchName = VisioHelpers.GetConnectedClassName(connectionString);
+            foreach (Shape suspiciousShape in Shape.Document.Pages[1].Shapes)
+            {
+                if (suspiciousShape.Name == searchName)
+                {
+                    return suspiciousShape;
+                }
+            }
+            return null;
         }
 
         /// <summary>Установка элемента от которого начинается коннектор</summary>

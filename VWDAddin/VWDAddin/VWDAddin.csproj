@@ -98,6 +98,8 @@
     <Compile Include="VisioEventHandlers\EventSink.cs" />
     <Compile Include="VisioEventHandlers\ShapeEventHandler.cs" />
     <Compile Include="VisioEventHandlers\VisioHelpers.cs" />
+    <Compile Include="VisioLogger\Actions\AssociationAdded.cs" />
+    <Compile Include="VisioLogger\Actions\AssociationConnected.cs" />
     <Compile Include="VisioLogger\Actions\AssociationNameChanged.cs" />
     <Compile Include="VisioLogger\Actions\BaseAction.cs" />
     <Compile Include="VisioLogger\Actions\ClassAdded.cs" />

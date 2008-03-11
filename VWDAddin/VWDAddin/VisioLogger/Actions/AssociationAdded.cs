@@ -1,17 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.Office.Interop.Visio;
 using VWDAddin.VisioWrapper;
 
 namespace VWDAddin.VisioLogger.Actions
 {
-    class AssociationNameChanged : AssociationAction
+    class AssociationAdded : AssociationAction
     {
-        public AssociationNameChanged(VisioConnector targetShape)
+        public AssociationAdded(VisioConnector targetShape)
             : base(targetShape)
         {            
         }
-
     }
 }

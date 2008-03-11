@@ -30,6 +30,6 @@ namespace VWDAddin
         {
             return "PAR(PNT(" + shape.Name + "!Connections.X" + (int)con + "," 
                 + shape.Name + "!Connections.Y" + (int)con +"))";
-        }
+        }        
     }
 }
