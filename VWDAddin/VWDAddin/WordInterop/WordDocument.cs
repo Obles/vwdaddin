@@ -92,8 +92,11 @@ namespace VWDAddin
             ClassNode sourceNode = CheckAssociation(associationGuid, connectionType);
             if (null != sourceNode && null != targetNode)
             {
-                targetNode.AppendAssociation(sourceNode.GetAssociationNode(associationGuid));
-                sourceNode.RemoveAssociation(associationGuid);
+                if (sourceNode.ClassID != targetNode.ClassID)
+                {
+                    targetNode.AppendAssociation(sourceNode.GetAssociationNode(associationGuid));
+                    sourceNode.RemoveAssociation(associationGuid);
+                }
             }
             else if (null == sourceNode && null != targetNode)
             {

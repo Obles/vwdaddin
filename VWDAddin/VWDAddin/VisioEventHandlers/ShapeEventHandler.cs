@@ -101,7 +101,7 @@ namespace VWDAddin
                 case (short)VisEventCodes.visEvtConnect + Constants.visEvtAdd:
                 {
                     VisioConnector connector = new VisioConnector((subject as Connects).FromSheet);
-                    if ((subject as Connects).ToSheet.Name.Equals(connector.Source.Name))
+                    if (connector.Source != null && (subject as Connects).ToSheet.Name.Equals(connector.Source.Name))
                     {
                         GetLogger(connector.Shape.Document).Add(new AssociationConnected(connector, Constants.ConnectionTypes.BeginConnected));
                     }
