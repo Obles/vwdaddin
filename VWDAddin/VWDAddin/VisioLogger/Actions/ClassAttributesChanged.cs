@@ -14,7 +14,10 @@ namespace VWDAddin.VisioLogger.Actions
 
         override public void Apply(Logger Logger)
         {
-            Logger.WordDocument.ChangeClassAttributes(GUID, Attributes);
+            if (Logger.WordDocument.IsAssociated)
+            {
+                Logger.WordDocument.ChangeClassAttributes(GUID, Attributes);
+            }
         }
     }    
 }

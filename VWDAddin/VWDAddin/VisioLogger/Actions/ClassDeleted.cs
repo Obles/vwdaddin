@@ -14,7 +14,10 @@ namespace VWDAddin.VisioLogger.Actions
 
         override public void Apply(Logger Logger)
         {
-            Logger.WordDocument.DeleteClass(GUID);
+            if (Logger.WordDocument.IsAssociated)
+            {
+                Logger.WordDocument.DeleteClass(GUID);
+            }
         }
 
     }

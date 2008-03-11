@@ -19,8 +19,10 @@ namespace VWDAddin.VisioLogger.Actions
             {
                 Logger.DslDocument.Dsl.CreateDomainClass(ClassName, ClassName);
             }
-
-            Logger.WordDocument.AddClass(ClassName, Attributes, GUID);
+            if (Logger.WordDocument.IsAssociated)
+            {
+                Logger.WordDocument.AddClass(ClassName, Attributes, GUID);
+            }
         }
         
         //private WordDocument _wordDocument;
