@@ -20,8 +20,9 @@ namespace VWDAddin.VisioLogger.Actions
             {
                 Dsl Dsl = Logger.DslDocument.Dsl;
                 DomainClass dc = Dsl.Classes.Find(ClassShape.GUID) as DomainClass;
-                Dsl.Classes.Remove(dc);
                 XmlClassData xcd = Dsl.XmlSerializationBehavior.GetClassData(dc);
+
+                Dsl.Classes.Remove(dc);
                 Dsl.XmlSerializationBehavior.ClassData.Remove(xcd);
             }
             if (Logger.WordDocument.IsAssociated)

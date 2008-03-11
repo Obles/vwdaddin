@@ -40,5 +40,10 @@ namespace VWDAddin.DslWrapper
             PrintValue("Name", Xml.GetAttribute("Name"));
             Console.WriteLine();
         }
+
+        public DomainClass Parent
+        {
+            get { return new DomainClass(Xml.ParentNode.ParentNode as XmlElement); }
+        }
     }
 }
