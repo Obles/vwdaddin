@@ -82,16 +82,16 @@ namespace VWDAddin
                             GetLogger(shape.Document).Add(new AssociationNameChanged(new VisioConnector(shape)));
                             break;
                         case "end1_name":
-                            GetLogger(shape.Document).Add(new AssociationSourceNameChanged(new VisioConnector(shape)));
+                            GetLogger(shape.Document).Add(new AssociationSourceNameChanged(new VisioConnector(shape.Parent as Shape)));
                             break;
                         case "end1_mp":
-                            GetLogger(shape.Document).Add(new AssociationSourceMPChanged(new VisioConnector(shape)));
+                            GetLogger(shape.Document).Add(new AssociationSourceMPChanged(new VisioConnector(shape.Parent as Shape)));
                             break;
                         case "end2_name":
-                            GetLogger(shape.Document).Add(new AssociationTargetNameChanged(new VisioConnector(shape)));
+                            GetLogger(shape.Document).Add(new AssociationTargetNameChanged(new VisioConnector(shape.Parent as Shape)));
                             break;
                         case "end2_mp":
-                            GetLogger(shape.Document).Add(new AssociationTargetMPChanged(new VisioConnector(shape)));
+                            GetLogger(shape.Document).Add(new AssociationTargetMPChanged(new VisioConnector(shape.Parent as Shape)));
                             break;
                         default:
                             break;

@@ -54,6 +54,24 @@ namespace VWDAddin
             AssociationXmlNode.AppendChild(assocTypeNode);
         }
 
+        public void ChangeAssociationName(string newName)
+        {
+            XmlNode nodeText = WordHelpers.GetCustomChild(AssociationXmlNode, "assoc_name");
+            nodeText.FirstChild.FirstChild.FirstChild.FirstChild.Value = Definitions.CLASS_ASSOC_NAME_PREFIX + newName;
+        }
+
+        public void ChangeAssociationEndName(string newName)
+        {
+            XmlNode nodeText = WordHelpers.GetCustomChild(AssociationXmlNode, "assoc_name_end");
+            nodeText.FirstChild.FirstChild.FirstChild.FirstChild.Value = Definitions.CLASS_ASSOC_NAME_END_PREFIX + newName;
+        }
+
+        public void ChangeAssociationMP(string newName)
+        {
+            XmlNode nodeText = WordHelpers.GetCustomChild(AssociationXmlNode, "assoc_mult");
+            nodeText.FirstChild.FirstChild.FirstChild.FirstChild.Value = Definitions.CLASS_ASSOC_MULT_PREFIX + newName;
+        }        
+
         private string _associationGUID;
         public string AssociationGUID
         {

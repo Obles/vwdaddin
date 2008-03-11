@@ -10,7 +10,15 @@ namespace VWDAddin.VisioLogger.Actions.Associations
     {
         public AssociationNameChanged(VisioConnector targetShape)
             : base(targetShape)
-        {            
+        {           
+        }
+
+        override public void Apply(Logger Logger)
+        {
+            if (Logger.WordDocument.IsAssociated)
+            {
+                Logger.WordDocument.ChangeAssociationName(Connector.GUID, Connector.Name);
+            }
         }
 
     }

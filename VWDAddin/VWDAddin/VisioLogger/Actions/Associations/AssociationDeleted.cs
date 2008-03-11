@@ -11,5 +11,13 @@ namespace VWDAddin.VisioLogger.Actions.Associations
             : base(targetShape)
         {            
         }
+
+        override public void Apply(Logger Logger)
+        {
+            if (Logger.WordDocument.IsAssociated)
+            {
+                Logger.WordDocument.DeleteAssociation(Connector.GUID);
+            }
+        }
     }
 }
