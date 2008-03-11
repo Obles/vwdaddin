@@ -132,11 +132,11 @@ namespace VWDAddin
             _assocList.Add(newNode);
         }
 
-        public AssociationNode GetAssociationNode(string associationGuid)
+        public AssociationNode GetAssociationNode(string associationGuid, string connectionType)
         {
             foreach (AssociationNode node in _assocList)
             {                
-                if (node.AssociationGUID == associationGuid)
+                if (node.AssociationGUID == associationGuid && node.AssociationConnectionType == connectionType)
                 {
                     _assocList.Remove(node);
                     return node;
@@ -158,6 +158,19 @@ namespace VWDAddin
             }
         }
 
+        public void RemoveAssociation(string associationGuid, string connectionType)
+        {
+            foreach (AssociationNode node in _assocList)
+            {
+                if (node.AssociationGUID == associationGuid && node.AssociationConnectionType == connectionType)
+                {
+                    _assocList.Remove(node);
+                    WordHelpers.GetCustomChild(ClassXmlNode, "assoc_part").RemoveChild(node.AssociationXmlNode);
+                    break;
+                }
+            }
+        }
+
         public bool CheckAssociation(string associationGuid, string connectionType)
         {
             foreach (AssociationNode node in _assocList)
@@ -168,6 +181,51 @@ namespace VWDAddin
                 }
             }
             return false;
+        }
+
+        public bool CheckAssociation(string associationGuid)
+        {
+            foreach (AssociationNode node in _assocList)
+            {
+                if (node.AssociationGUID == associationGuid)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public void ChangeAssociationName(string associationGuid, string newName)
+        {
+            foreach (AssociationNode node in _assocList)
+            {
+                if (node.AssociationGUID == associationGuid)
+                {
+                    node.ChangeAssociationName(newName);
+                }
+            }
+        }
+
+        public void ChangeAssociationEndName(string associationGuid, string newName)
+        {
+            foreach (AssociationNode node in _assocList)
+            {
+                if (node.AssociationGUID == associationGuid)
+                {
+                    node.ChangeAssociationEndName(newName);
+                }
+            }
+        }
+
+        public void ChangeAssociationMP(string associationGuid, string newName)
+        {
+            foreach (AssociationNode node in _assocList)
+            {
+                if (node.AssociationGUID == associationGuid)
+                {
+                    node.ChangeAssociationMP(newName);
+                }
+            }
         }
 
         private void Init()

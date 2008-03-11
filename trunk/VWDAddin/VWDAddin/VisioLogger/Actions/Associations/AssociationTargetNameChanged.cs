@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using VWDAddin.VisioWrapper;
+using ConnectionTypes = VWDAddin.Constants.ConnectionTypes;
 
 namespace VWDAddin.VisioLogger.Actions.Associations
 {
@@ -10,6 +11,14 @@ namespace VWDAddin.VisioLogger.Actions.Associations
         public AssociationTargetNameChanged(VisioConnector targetShape)
             : base(targetShape)
         {
+        }
+
+        override public void Apply(Logger Logger)
+        {
+            if (Logger.WordDocument.IsAssociated)
+            {
+                Logger.WordDocument.ChangeAssociationEndName(Connector.GUID, Connector.TargetText, ConnectionTypes.EndConnected.ToString());
+            }
         }
     }
 }

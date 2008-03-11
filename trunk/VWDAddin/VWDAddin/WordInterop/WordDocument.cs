@@ -94,8 +94,8 @@ namespace VWDAddin
             {
                 if (sourceNode.ClassID != targetNode.ClassID)
                 {
-                    targetNode.AppendAssociation(sourceNode.GetAssociationNode(associationGuid));
-                    sourceNode.RemoveAssociation(associationGuid);
+                    targetNode.AppendAssociation(sourceNode.GetAssociationNode(associationGuid, connectionType));
+                    sourceNode.RemoveAssociation(associationGuid, connectionType);
                 }
             }
             else if (null == sourceNode && null != targetNode)
@@ -118,6 +118,52 @@ namespace VWDAddin
                 }
             }
             return null;
+        }
+
+        public void ChangeAssociationName(string associationGuid, string newName)
+        {            
+            foreach (ClassNode node in _classList)
+            {
+                if (node.CheckAssociation(associationGuid))
+                {
+                    node.ChangeAssociationName(associationGuid, newName);
+                }
+            }
+        }
+
+        public void DeleteAssociation(string associationGuid)
+        {
+            foreach (ClassNode node in _classList)
+            {
+                if (node.CheckAssociation(associationGuid))
+                {
+                    node.RemoveAssociation(associationGuid);
+                }
+            }
+        }
+
+        public void ChangeAssociationEndName(string associationGuid, string newName, string connectionType)
+        {
+            foreach (ClassNode node in _classList)
+            {
+                if (node.CheckAssociation(associationGuid, connectionType))
+                {
+                    node.ChangeAssociationEndName(associationGuid, newName);
+                    break;
+                }
+            }
+        }
+
+        public void ChangeAssociationMP(string associationGuid, string newName, string connectionType)
+        {
+            foreach (ClassNode node in _classList)
+            {
+                if (node.CheckAssociation(associationGuid, connectionType))
+                {
+                    node.ChangeAssociationMP(associationGuid, newName);
+                    break;
+                }
+            }
         }
 
         public void CloseWordDocument()
