@@ -75,11 +75,13 @@ namespace VWDAddin
         public void StartDocumentListener(Document theDocument)
         {
             Trace.WriteLine("Start Document Listener for " + theDocument.Name);
+            Trace.Indent();
+
             FillEventList(theDocument.EventList, DocumentEventHandler.HandleEvents);
             FillEventList(theDocument.EventList, ShapeEventHandler.HandleEvents);
 
             DslCompare.ApplyChanges(theDocument);
-            LoggerManager.CreateLogger(theDocument);
+            LoggerManager.CreateLogger(theDocument).Active = false;
 
             if (Constants.TraceAnyEvent)
             {

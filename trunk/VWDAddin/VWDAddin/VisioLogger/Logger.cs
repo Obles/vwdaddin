@@ -28,7 +28,7 @@ namespace VWDAddin.VisioLogger
 
         public void Cleanup()
         {
-            Trace.WriteLine("Cleanup logger for " + Document.Name);          
+            Trace.WriteLine("Cleanup logger for " + Document.Name);
             RemoveDSLControlPoint();
             RemoveWordControlPoint();
         }
@@ -62,7 +62,7 @@ namespace VWDAddin.VisioLogger
         public bool Active
         {
             get { return active; }
-            set { active = value; }
+            set { active = value; Trace.WriteLine("Logger " + (value ? "Activated" : "Deactivated")); }
         }
 
         public void Add(BaseAction Action)
@@ -96,6 +96,7 @@ namespace VWDAddin.VisioLogger
         public void ApplyChanges()
         {
             Trace.WriteLine("Applying Changes in " + associatedDocument.Name);
+            Trace.Indent();
             try
             {
                 // Инициализация dsl-документа и возврат к контрольной точке
@@ -112,6 +113,7 @@ namespace VWDAddin.VisioLogger
                 // Внесение изменений
                 for (int i = 0; i <= currentAction; i++)
                 {
+                    Trace.WriteLine("Apply " + actionList[i].ToString());
                     actionList[i].Apply(this);
                 }
 
@@ -130,6 +132,7 @@ namespace VWDAddin.VisioLogger
                 Debug.WriteLine(e.StackTrace);
                 Debug.Unindent();
             }
+            Trace.Unindent();
         }
 
         /// <summary>Инициализация контрольной точки, от которой будут 
@@ -167,6 +170,16 @@ namespace VWDAddin.VisioLogger
         private void RemoveWordControlPoint()
         {
             WordDocument.CloseWordDocument();
+        }
+
+        new public String ToString()
+        {
+            String s = base.ToString();
+            for (int i = 0; i <= currentAction; i++)
+            {
+                s += "\n" + i + ". " + actionList[i].ToString();
+            }
+            return s;
         }
     }
 }

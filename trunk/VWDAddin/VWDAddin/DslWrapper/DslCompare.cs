@@ -153,7 +153,8 @@ namespace VWDAddin.DslWrapper
                 dc = (de2 as DomainProperty).Parent;
                 Class = new VisioClass(VisioHelpers.GetShapeByGUID(dc.GUID, document));
 
-                Class.Attributes += "\n" + de2.Xml.GetAttribute("Name");
+                Class.Attributes = Class.Attributes.Trim() + "\n" + de2.Xml.GetAttribute("Name");
+                Class.Attributes = Class.Attributes.Trim();
                 return;
             }
 
@@ -197,28 +198,32 @@ namespace VWDAddin.DslWrapper
             }
         }
 
-        public static void ApplyChanges(Document document)
+        public static void ApplyChanges(Document Document)
         {
             Trace.WriteLine("Applying Changes from DSL");
             Trace.Indent();
             try
             {
-                String TempDslPath = VisioHelpers.GetTempDSLPath(document);
+                String TempDslPath = VisioHelpers.GetTempDSLPath(Document);
                 if (System.IO.File.Exists(TempDslPath))
                 {
                     DslDocument dslOrig = new DslDocument();
                     dslOrig.Load(TempDslPath);
 
                     DslDocument dslNew = new DslDocument();
-                    dslNew.Load(VisioHelpers.GetDSLPath(document));
+                    dslNew.Load(VisioHelpers.GetDSLPath(Document));
 
-                    DslCompare comparer = new DslCompare(document);
+                    DslCompare comparer = new DslCompare(Document);
                     comparer.Compare(dslOrig, dslNew);
+
+                    System.IO.File.Delete(TempDslPath);
+                    Document.Save();
                 }
             }
             catch(Exception e)
             {
-                System.Diagnostics.Debug.WriteLine(e.Message);
+                Debug.WriteLine(e.TargetSite + ": " + e.Message);
+                Debug.WriteLine(e.StackTrace);
             }
             Trace.Unindent();
         }

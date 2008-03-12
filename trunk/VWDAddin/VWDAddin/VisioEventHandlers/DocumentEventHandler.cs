@@ -14,6 +14,7 @@ namespace VWDAddin
             (short)VisEventCodes.visEvtCodeDocSave,
             (short)VisEventCodes.visEvtCodeDocSaveAs,
             (short)VisEventCodes.visEvtDel + (short)VisEventCodes.visEvtDoc,
+            (short)VisEventCodes.visEvtCodeDocRunning,
         };
 
         public DocumentEventHandler(EventManager manager)
@@ -41,6 +42,13 @@ namespace VWDAddin
                 {
                     //GetLogger(subject as Document).ApplyChanges();
                     RemoveLogger(subject as Document);
+                    break;
+                }
+                case (short)VisEventCodes.visEvtCodeDocRunning:
+                {
+                    GetLogger(subject as Document).Active = true;
+                    Trace.Unindent();
+                    Trace.WriteLine("Document Listener Ready");
                     break;
                 }
                 default:
