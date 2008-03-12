@@ -96,30 +96,39 @@ namespace VWDAddin.VisioLogger
         public void ApplyChanges()
         {
             Trace.WriteLine("Applying Changes in " + associatedDocument.Name);
-
-            // Инициализация dsl-документа и возврат к контрольной точке
-            String DslPath = VisioHelpers.GetDSLPath(associatedDocument);
-            if (File.Exists(DslPath))
+            try
             {
-                String TempDslPath = VisioHelpers.GetTempDSLPath(associatedDocument);
-                File.Copy(TempDslPath, DslPath, true);
+                // Инициализация dsl-документа и возврат к контрольной точке
+                String DslPath = VisioHelpers.GetDSLPath(associatedDocument);
+                if (File.Exists(DslPath))
+                {
+                    String TempDslPath = VisioHelpers.GetTempDSLPath(associatedDocument);
+                    File.Copy(TempDslPath, DslPath, true);
 
-                dslDocument = new DslDocument();
-                dslDocument.Load(DslPath);
+                    dslDocument = new DslDocument();
+                    dslDocument.Load(DslPath);
+                }
+
+                // Внесение изменений
+                for (int i = 0; i <= currentAction; i++)
+                {
+                    actionList[i].Apply(this);
+                }
+
+                // Сохранение dsl-документа
+                if (dslDocument != null)
+                {
+                    File.WriteAllText(DslPath + ".diagram", String.Empty);
+                    dslDocument.Save(DslPath);
+                    dslDocument = null;
+                }
             }
-
-            // Внесение изменений
-            for (int i = 0; i <= currentAction; i++)
+            catch(Exception e)
             {
-                actionList[i].Apply(this);
-            }
-
-            // Сохранение dsl-документа
-            if (dslDocument != null)
-            {
-                File.WriteAllText(DslPath + ".diagram", String.Empty);
-                dslDocument.Save(DslPath);
-                dslDocument = null;
+                Debug.Indent();
+                Debug.WriteLine(e.TargetSite + ": " + e.Message);
+                Debug.WriteLine(e.StackTrace);
+                Debug.Unindent();
             }
         }
 
