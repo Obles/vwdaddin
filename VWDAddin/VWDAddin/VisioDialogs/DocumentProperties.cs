@@ -73,7 +73,7 @@ namespace VWDAddin
                 // Переделать, так как если пользователь нажмет отмену, то файл все равно создается
                 if (File.Exists("EmptyDoc.docx"))
                 {
-                    File.Copy("EmptyDoc.docx", WordPath.Text);
+                    File.Copy("EmptyDoc.docx", WordPath.Text, true);
                 }
                 else
                 {

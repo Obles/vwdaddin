@@ -175,6 +175,7 @@ namespace VWDAddin
                     this.Save(_partDocumentXML.GetStream(FileMode.Create, FileAccess.Write));
                     _pkgOutputDoc.Flush();
                     _pkgOutputDoc.Close();
+                    IsAssociated = false;
                 }
             }
             catch (Exception e)

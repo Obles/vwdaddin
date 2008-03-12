@@ -147,5 +147,10 @@ namespace VWDAddin
         {
             return GetDSLPath(Document) + "~";
         }
+
+        public static String GetTempWordPath(Document Document)
+        {
+            return GetWordPath(Document) + "~";
+        }
     }
 }
