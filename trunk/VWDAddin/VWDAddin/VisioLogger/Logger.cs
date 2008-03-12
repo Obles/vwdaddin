@@ -95,7 +95,10 @@ namespace VWDAddin.VisioLogger
 
         public void ApplyChanges()
         {
-            Trace.WriteLine("Applying Changes in " + associatedDocument.Name);
+            Trace.WriteLine("Applying Changes in " + associatedDocument.Name + (Active ? "" : " Refused"));
+
+            if (!Active) return;
+
             Trace.Indent();
             try
             {
