@@ -17,6 +17,7 @@ namespace VWDAddin
             (short)VisEventCodes.visEvtShape + Constants.visEvtAdd,
             (short)VisEventCodes.visEvtCodeShapeExitTextEdit,
             (short)VisEventCodes.visEvtConnect + Constants.visEvtAdd,
+            (short)VisEventCodes.visEvtConnect + (short)VisEventCodes.visEvtDel, 
         };
 
         public ShapeEventHandler(EventManager manager)
@@ -111,7 +112,11 @@ namespace VWDAddin
                     }
                     break;
                 }
-
+                case (short)VisEventCodes.visEvtConnect + (short)VisEventCodes.visEvtDel:
+                {
+                    EventHandler.UnhandledEvent(eventCode);
+                    break;
+                }
                 default:
                     EventHandler.UnhandledEvent(eventCode);
                     break;
