@@ -111,6 +111,18 @@ namespace VWDAddin
                     vc.Attributes = attrs.Trim();
                     // ... ... ...
                 }
+                foreach (DomainClass dc in dslDocument.Dsl.Classes)
+                {
+                    if (dc.BaseClass != null)
+                    {
+                        Shape vc = VisioHelpers.GetShapeByGUID(dc.GUID, Logger.Document);
+                        Shape bc = VisioHelpers.GetShapeByGUID(
+                            dslDocument.Dsl.Classes[dc.BaseClass].GUID,
+                            Logger.Document
+                        );
+                        VisioMaster.DropConnection(vc, bc, Constants.Generalization);
+                    }
+                }
                 foreach (DomainRelationship dr in dslDocument.Dsl.Relationships)
                 {
                     VisioConnector vc = new VisioConnector(VisioMaster.DropConnection(
