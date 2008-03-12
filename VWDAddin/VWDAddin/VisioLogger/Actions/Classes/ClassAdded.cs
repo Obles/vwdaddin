@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Office.Interop.Visio;
 using System.Text;
 using VWDAddin.VisioWrapper;
+using VWDAddin.DslWrapper;
 
 namespace VWDAddin.VisioLogger.Actions
 {
@@ -17,7 +18,10 @@ namespace VWDAddin.VisioLogger.Actions
         {
             if (Logger.DslDocument != null)
             {
-                Logger.DslDocument.Dsl.CreateDomainClass(ClassShape.Name, ClassShape.Name);
+                Dsl Dsl = Logger.DslDocument.Dsl;
+                DomainClass dc = Dsl.CreateDomainClass(ClassShape.Name, ClassShape.Name);
+                dc.GUID = ClassShape.GUID;
+                Dsl.XmlSerializationBehavior.ClassData.Append(new XmlClassData(dc));                
             }
             if (Logger.WordDocument.IsAssociated)
             {
