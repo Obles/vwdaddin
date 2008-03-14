@@ -31,6 +31,11 @@ namespace VWDAddin.VisioWrapper
             return null;
         }
 
+        public Shape this[String type]
+        {
+            get { return GetSubshape(type); }
+        }
+
         public StaticShape ToStaticShape()
         {
             return new StaticShape(Shape);

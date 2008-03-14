@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
+using VWDAddin.VisioWrapper;
 
 namespace VWDAddin
 {
@@ -19,7 +20,7 @@ namespace VWDAddin
             InitializeComponent();
         }
 
-        private void SetCheckBoxFromShape(CheckBox checkBox, Shape shape, string cellName)
+        private static void SetCheckBoxFromShape(CheckBox checkBox, Shape shape, string cellName)
         {
             if (shape.get_Cells(cellName).Formula.Equals("TRUE"))
                 checkBox.Checked = false;
@@ -27,7 +28,7 @@ namespace VWDAddin
                 checkBox.Checked = true;
         }
 
-        private void SetShapeFromCheckBox(CheckBox checkBox, Shape shape, string cellName)
+        private static void SetShapeFromCheckBox(CheckBox checkBox, Shape shape, string cellName)
         {
             if (checkBox.Checked == true)
                 shape.get_Cells("HideText").Formula = "FALSE";
@@ -39,33 +40,15 @@ namespace VWDAddin
         {
             try
             {
-
                 InitializeComponent();
                 if (shape != null)
                 {
-                    m_shape = shape;
+                    m_shape = new VisioClass(shape);
                     SetCheckBoxFromShape(DisplayName, shape, "HideText");
-                    foreach (Shape childShape in shape.Shapes)
-                    {
-                        string type = VisioHelpers.GetShapeType(childShape);
-                        switch (type)
-                        {
-                            case "end1_name":
-                                SetCheckBoxFromShape(DisplayEnd1Name, childShape, "HideText");
-                                break;
-                            case "end2_name":
-                                SetCheckBoxFromShape(DisplayEnd2Name, childShape, "HideText");
-                                break;
-                            case "end1_mp":
-                                SetCheckBoxFromShape(DisplayEnd1MP, childShape, "HideText");
-                                break;
-                            case "end2_mp":
-                                SetCheckBoxFromShape(DisplayEnd2MP, childShape, "HideText");
-                                break;
-                            default:
-                                break;
-                        }
-                    }
+                    SetCheckBoxFromShape(DisplayEnd1Name, m_shape["end1_name"], "HideText");
+                    SetCheckBoxFromShape(DisplayEnd2Name, m_shape["end2_name"], "HideText");
+                    SetCheckBoxFromShape(DisplayEnd1MP, m_shape["end1_mp"], "HideText");
+                    SetCheckBoxFromShape(DisplayEnd2MP, m_shape["end2_mp"], "HideText");
                 }
             }
             catch (Exception e)
@@ -76,34 +59,37 @@ namespace VWDAddin
 
         private void OKButton_Click(object sender, EventArgs e)
         {
-            SetShapeFromCheckBox(DisplayName, m_shape, "HideText");
-            foreach (Shape childShape in m_shape.Shapes)
-            {
-                string type = VisioHelpers.GetShapeType(childShape);
-                switch (type)
-                {
-                    case "end1_name":
-                        SetShapeFromCheckBox(DisplayEnd1Name, childShape, "HideText");
-                        break;
-                    case "end2_name":
-                        SetShapeFromCheckBox(DisplayEnd2Name, childShape, "HideText");
-                        break;
-                    case "end1_mp":
-                        SetShapeFromCheckBox(DisplayEnd1MP, childShape, "HideText");
-                        break;
-                    case "end2_mp":
-                        SetShapeFromCheckBox(DisplayEnd2MP, childShape, "HideText");
-                        break;
-                    default:
-                        break;
-                }
-            }
-            this.Close();
+            this.DialogResult = DialogResult.OK;
         }        
 
         private void CancelButton_Click(object sender, EventArgs e)
         {
-            this.Close();
+            this.DialogResult = DialogResult.Cancel;
+        }
+
+        private void DisplayName_CheckedChanged(object sender, EventArgs e)
+        {
+            SetShapeFromCheckBox(DisplayName, m_shape.Shape, "HideText");
+        }
+
+        private void DisplayEnd1Name_CheckedChanged(object sender, EventArgs e)
+        {
+            SetShapeFromCheckBox(DisplayEnd1Name, m_shape["end1_name"], "HideText");
+        }
+
+        private void DisplayEnd2Name_CheckedChanged(object sender, EventArgs e)
+        {
+            SetShapeFromCheckBox(DisplayEnd2Name, m_shape["end2_name"], "HideText");
+        }
+
+        private void DisplayEnd1MP_CheckedChanged(object sender, EventArgs e)
+        {
+            SetShapeFromCheckBox(DisplayEnd1MP, m_shape["end1_mp"], "HideText");
+        }
+
+        private void DisplayEnd2MP_CheckedChanged(object sender, EventArgs e)
+        {
+            SetShapeFromCheckBox(DisplayEnd2MP, m_shape["end2_mp"], "HideText");
         }
     }
 }

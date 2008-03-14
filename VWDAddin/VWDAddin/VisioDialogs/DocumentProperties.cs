@@ -138,12 +138,12 @@ namespace VWDAddin
                 Logger = Logger.LoggerManager.ResetLogger(Logger.Document);
             }
             VisioHelpers.SetWordPath(Logger.Document, WordPath.Text);
-            this.Close();
+            this.DialogResult = DialogResult.OK;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            this.Close();
+            this.DialogResult = DialogResult.Cancel;
         }
 
     }

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Office.Interop.Visio;
 using System.Diagnostics;
+using Form = System.Windows.Forms.Form;
+using DialogResult = System.Windows.Forms.DialogResult;
 
 namespace VWDAddin
 {
@@ -40,14 +42,14 @@ namespace VWDAddin
                             string type = VisioHelpers.GetShapeType(selectedShape);
                             if (type.Equals("association"))
                             {
-                                new AssociationDisplayOptions(selectedShape).Show();
+                                Show(new AssociationDisplayOptions(selectedShape), application);
                             }
                         }
                         break;
                     }
                     case DocumentProperties.MarkerName:
                     {
-                        new DocumentProperties(GetLogger(application.ActiveDocument)).Show();
+                        Show(new DocumentProperties(GetLogger(application.ActiveDocument)), application);
                         break;
                     }
                     default:
@@ -57,6 +59,14 @@ namespace VWDAddin
             }
             else EventHandler.UnhandledEvent(eventCode);
             return true;
+        }
+
+        private static void Show(Form Form, Application App)
+        {
+            App.EndUndoScope(
+                App.BeginUndoScope("Show Dialog"),
+                Form.ShowDialog() == DialogResult.OK
+            );
         }
     }
 }
