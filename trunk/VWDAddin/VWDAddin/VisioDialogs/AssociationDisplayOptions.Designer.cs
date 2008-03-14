@@ -1,4 +1,5 @@
 using Microsoft.Office.Interop.Visio;
+using VWDAddin.VisioWrapper;
 namespace VWDAddin
 {
     partial class AssociationDisplayOptions
@@ -47,6 +48,7 @@ namespace VWDAddin
             this.DisplayName.TabIndex = 0;
             this.DisplayName.Text = "Display association name";
             this.DisplayName.UseVisualStyleBackColor = true;
+            this.DisplayName.CheckedChanged += new System.EventHandler(this.DisplayName_CheckedChanged);
             // 
             // OKButton
             // 
@@ -77,6 +79,7 @@ namespace VWDAddin
             this.DisplayEnd2Name.TabIndex = 3;
             this.DisplayEnd2Name.Text = "Display end2 name";
             this.DisplayEnd2Name.UseVisualStyleBackColor = true;
+            this.DisplayEnd2Name.CheckedChanged += new System.EventHandler(this.DisplayEnd2Name_CheckedChanged);
             // 
             // DisplayEnd1Name
             // 
@@ -87,6 +90,7 @@ namespace VWDAddin
             this.DisplayEnd1Name.TabIndex = 4;
             this.DisplayEnd1Name.Text = "Display end1 name";
             this.DisplayEnd1Name.UseVisualStyleBackColor = true;
+            this.DisplayEnd1Name.CheckedChanged += new System.EventHandler(this.DisplayEnd1Name_CheckedChanged);
             // 
             // DisplayEnd1MP
             // 
@@ -97,6 +101,7 @@ namespace VWDAddin
             this.DisplayEnd1MP.TabIndex = 5;
             this.DisplayEnd1MP.Text = "Display end1 multiplicity";
             this.DisplayEnd1MP.UseVisualStyleBackColor = true;
+            this.DisplayEnd1MP.CheckedChanged += new System.EventHandler(this.DisplayEnd1MP_CheckedChanged);
             // 
             // DisplayEnd2MP
             // 
@@ -107,6 +112,7 @@ namespace VWDAddin
             this.DisplayEnd2MP.TabIndex = 6;
             this.DisplayEnd2MP.Text = "Display end2 multiplicity";
             this.DisplayEnd2MP.UseVisualStyleBackColor = true;
+            this.DisplayEnd2MP.CheckedChanged += new System.EventHandler(this.DisplayEnd2MP_CheckedChanged);
             // 
             // AssociationDisplayOptions
             // 
@@ -136,6 +142,6 @@ namespace VWDAddin
         private System.Windows.Forms.CheckBox DisplayEnd1Name;
         private System.Windows.Forms.CheckBox DisplayEnd1MP;
         private System.Windows.Forms.CheckBox DisplayEnd2MP;
-        private Shape m_shape;
+        private VisioShape m_shape;
     }
 }
