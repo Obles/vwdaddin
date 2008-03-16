@@ -25,12 +25,12 @@ namespace VWDAddin.DslWrapper
 
         public DslElementList SourceDirectives
         {
-            get { return new DslElementList(typeof(DomainProperty), GetChildNode("LinkConnectDirective/SourceDirectives")); }
+            get { return new DslElementList(typeof(RolePlayerConnectDirective), GetChildNode("LinkConnectDirective/SourceDirectives")); }
         }
 
         public DslElementList TargetDirectives
         {
-            get { return new DslElementList(typeof(DomainProperty), GetChildNode("LinkConnectDirective/TargetDirectives")); }
+            get { return new DslElementList(typeof(RolePlayerConnectDirective), GetChildNode("LinkConnectDirective/TargetDirectives")); }
         }
     }
 }
