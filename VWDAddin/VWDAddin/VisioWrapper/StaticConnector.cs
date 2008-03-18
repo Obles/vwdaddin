@@ -12,6 +12,7 @@ namespace VWDAddin.VisioWrapper
             : base(Shape)
         {
             this.GUID = base.GUID;
+            this.Type = base.Type;
             this.Name = base.Name;
             this.Source = base.Source == null ? null : new StaticClass(base.Source);
             this.Target = base.Target == null ? null : new StaticClass(base.Target);
@@ -22,6 +23,7 @@ namespace VWDAddin.VisioWrapper
         }
 
         new public String GUID;
+        new public String Type;
 
         /// <summary>Физическое имя коннектора</summary>
         new public String Name;

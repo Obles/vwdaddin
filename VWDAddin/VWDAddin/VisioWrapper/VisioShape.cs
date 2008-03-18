@@ -40,5 +40,10 @@ namespace VWDAddin.VisioWrapper
         {
             return new StaticShape(Shape);
         }
+
+        public String Type
+        {
+            get { return VisioHelpers.GetShapeType(Shape); }
+        }
     }
 }

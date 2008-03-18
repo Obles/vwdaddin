@@ -12,8 +12,10 @@ namespace VWDAddin.VisioWrapper
             : base(Shape)
         {
             this.GUID = base.GUID;
+            this.Type = base.Type;
         }
 
         new public String GUID;
+        new public String Type;
     }
 }
