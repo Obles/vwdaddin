@@ -23,12 +23,13 @@ namespace VWDAddin
         {
             try
             {
-                _pkgOutputDoc = Package.Open(fileName, FileMode.OpenOrCreate, FileAccess.ReadWrite);
+                _pkgOutputDoc = Package.Open(fileName, FileMode.Open, FileAccess.ReadWrite);
                 Uri uri = new Uri("/word/document.xml", UriKind.Relative);
                 _partDocumentXML = _pkgOutputDoc.GetPart(uri);
-                this.Load(_partDocumentXML.GetStream(FileMode.Open, FileAccess.Read));
+                this.Load(_partDocumentXML.GetStream(FileMode.Open, FileAccess.ReadWrite));
                 Root = this.SelectSingleNode("//w:body/w:customXml[@w:element='body']", NamespaceManager);
                 XmlNodeList nodeList = this.SelectNodes("//w:body/w:customXml/w:customXml[@w:element='class']", NamespaceManager);
+                _classList.Clear();
                 foreach (XmlNode node in nodeList)
                 {
                     _classList.Add(new ClassNode(this, node));
@@ -172,7 +173,7 @@ namespace VWDAddin
             {
                 if (IsAssociated)
                 {
-                    this.Save(_partDocumentXML.GetStream(FileMode.Create, FileAccess.Write));
+                    this.Save(_partDocumentXML.GetStream(FileMode.Create));
                     _pkgOutputDoc.Flush();
                     _pkgOutputDoc.Close();
                     IsAssociated = false;

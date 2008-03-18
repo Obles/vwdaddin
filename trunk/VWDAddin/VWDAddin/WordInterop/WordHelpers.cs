@@ -62,7 +62,7 @@ namespace VWDAddin
             
             XmlNode attrSecondNode = doc.CreateNode(XmlNodeType.Element, "w:attr", Definitions.WORD_PROCESSING_ML);
             XmlAttribute attrSecondName = doc.CreateAttribute("w:name", Definitions.WORD_PROCESSING_ML);
-            attrSecondName.Value = "Connection Type";
+            attrSecondName.Value = "CONNECTION_TYPE";
             XmlAttribute attrType = doc.CreateAttribute("w:val", Definitions.WORD_PROCESSING_ML);
             attrType.Value = connectionType;
             attrSecondNode.Attributes.Append(attrSecondName);

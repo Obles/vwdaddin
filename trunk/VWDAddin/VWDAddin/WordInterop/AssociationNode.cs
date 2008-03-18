@@ -19,7 +19,7 @@ namespace VWDAddin
                     {
                         AssociationGUID = attribute.Attributes[1].Value;
                     }
-                    else if (attribute.Attributes[0].Value.Equals("Connection Type"))
+                    else if (attribute.Attributes[0].Value.Equals("CONNECTION_TYPE"))
                     {
                         AssociationConnectionType = attribute.Attributes[1].Value;
                     }

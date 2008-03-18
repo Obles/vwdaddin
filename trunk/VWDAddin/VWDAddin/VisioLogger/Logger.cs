@@ -119,6 +119,7 @@ namespace VWDAddin.VisioLogger
                 if (File.Exists(wordPath) && File.Exists(tempWordPath))
                 {
                     File.Copy(tempWordPath, wordPath, true);
+                    //WordDocument = new WordDocument();
                     WordDocument.ParseDocx(wordPath);                                        
                 }
 
