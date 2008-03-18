@@ -32,6 +32,16 @@ namespace VWDAddin.DslWrapper
             return null;
         }
 
+        public XmlClassData GetClassData(DomainRelationship Relationship)
+        {
+            String Name = Relationship.Xml.GetAttribute("Name");
+            foreach (XmlClassData xcd in ClassData)
+            {
+                if (xcd.DomainRelationshipMoniker == Name) return xcd;
+            }
+            return null;
+        }
+
         public XmlClassData Find(String Name)
         {
             foreach (XmlClassData xcd in ClassData)

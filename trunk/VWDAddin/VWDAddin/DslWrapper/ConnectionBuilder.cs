@@ -17,6 +17,12 @@ namespace VWDAddin.DslWrapper
         {
         }
 
+        public ConnectionBuilder(DomainRelationship Relationship)
+            : base(Relationship.OwnerDocument.CreateElement("ConnectionBuilder"))
+        {
+            Update(Relationship);
+        }
+
         public String LinkConnectDirective
         {
             get { return Moniker.Get(this, "LinkConnectDirective", "DomainRelationshipMoniker"); }
@@ -31,6 +37,13 @@ namespace VWDAddin.DslWrapper
         public DslElementList TargetDirectives
         {
             get { return new DslElementList(typeof(RolePlayerConnectDirective), GetChildNode("LinkConnectDirective/TargetDirectives")); }
+        }
+
+        public void Update(DomainRelationship Relationship)
+        {
+            String Name = Relationship.Xml.GetAttribute("Name");
+            Xml.SetAttribute("Name", Name + "Builder");
+            LinkConnectDirective = Name;
         }
     }
 }
