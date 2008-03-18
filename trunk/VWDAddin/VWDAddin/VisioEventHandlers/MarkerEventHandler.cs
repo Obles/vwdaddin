@@ -40,10 +40,11 @@ namespace VWDAddin
                         if (selectedShape != null)
                         {
                             string type = VisioHelpers.GetShapeType(selectedShape);
-                            if (type.Equals(Constants.Association))
+                            if (type == Constants.Association || type == Constants.Composition)
                             {
                                 Show(new AssociationDisplayOptions(selectedShape), application);
                             }
+                            else Debug.WriteLine("Undefined type: " + type);
                         }
                         break;
                     }

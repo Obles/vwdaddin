@@ -32,7 +32,7 @@ namespace VWDAddin.DslWrapper
         public void Update(DomainProperty Property)
         {
             String Name = Property.Xml.GetAttribute("Name");
-            String subName = Name.Substring(0, 1).ToLower() + Name.Substring(1);
+            String subName = Dsl.SubName(Name);
             String Parent = Property.Parent.Xml.GetAttribute("Name");
             Xml.SetAttribute("XmlName", subName);
 

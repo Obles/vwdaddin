@@ -70,6 +70,7 @@
     <Compile Include="DslWrapper\RolePlayerConnectDirective.cs" />
     <Compile Include="DslWrapper\XmlClassData.cs" />
     <Compile Include="DslWrapper\XmlPropertyData.cs" />
+    <Compile Include="DslWrapper\XmlRelationshipData.cs" />
     <Compile Include="DslWrapper\XmlSerializationBehavior.cs" />
     <Compile Include="VisioDialogs\DocumentProperties.cs">
       <SubType>Form</SubType>

@@ -17,10 +17,21 @@ namespace VWDAddin.DslWrapper
         {
         }
 
+        public RolePlayerConnectDirective(DomainClass Class)
+            : base(Class.OwnerDocument.CreateElement("RolePlayerConnectDirective"))
+        {
+            Update(Class);
+        }
+
         public String AcceptingClass
         {
             get { return Moniker.Get(this, "AcceptingClass", "DomainClassMoniker"); }
             set { Moniker.Set(this, "AcceptingClass", "DomainClassMoniker", value); }
+        }
+
+        public void Update(DomainClass Class)
+        {
+            AcceptingClass = Class.Xml.GetAttribute("Name");
         }
     }
 }
