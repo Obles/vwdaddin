@@ -49,7 +49,7 @@ namespace VWDAddin.DslWrapper
         public void Update(DomainClass Class)
         {
             String Name = Class.Xml.GetAttribute("Name");
-            String subName = Name.Substring(0, 1).ToLower() + Name.Substring(1);
+            String subName = Dsl.SubName(Name);
             Xml.SetAttribute("TypeName", Name);
             Xml.SetAttribute("MonikerAttributeName", "");
             Xml.SetAttribute("MonikerElementName", subName + "Moniker");
@@ -62,7 +62,7 @@ namespace VWDAddin.DslWrapper
         public void Update(DomainRelationship Relationship)
         {
             String Name = Relationship.Xml.GetAttribute("Name");
-            String subName = Name.Substring(0, 1).ToLower() + Name.Substring(1);
+            String subName = Dsl.SubName(Name);
             Xml.SetAttribute("TypeName", Name);
             Xml.SetAttribute("MonikerAttributeName", "");
             Xml.SetAttribute("MonikerElementName", subName + "Moniker");
@@ -74,12 +74,18 @@ namespace VWDAddin.DslWrapper
 
         public XmlPropertyData GetPropertyData(DomainProperty Property)
         {
+            //TODO этот метод работает неверно, тк в ElementData могут находиться не только XmlPropertyData
             String Name = DomainClassMoniker + "/" + Property.Xml.GetAttribute("Name");
             foreach (XmlPropertyData xpd in ElementData)
             {
                 if (xpd.DomainPropertyMoniker == Name) return xpd;
             }
             return null;
+        }
+        public XmlRelationshipData GetRelationshipData(DomainRelationship Relationship)
+        {
+            //TODO реализовать метод GetRelationshipData
+            throw new NotImplementedException();
         }
     }
 }

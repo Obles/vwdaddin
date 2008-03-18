@@ -24,12 +24,15 @@ namespace VWDAddin.VisioLogger.Actions.Associations
                 {
                 case Constants.Association:
                     {
-                        DomainRelationship dr = new DomainRelationship(Logger.DslDocument);
+                        DomainRelationship dr = Dsl.Relationships.Find(Connector.GUID) as DomainRelationship;
+                        XmlClassData xcd = Dsl.XmlSerializationBehavior.GetClassData(dr);
+                        ConnectionBuilder cb = Dsl.GetConnectionBuilder(dr);
+
                         dr.Xml.SetAttribute("Name", Connector.Name);
                         dr.Xml.SetAttribute("DisplayName", Connector.Name);
 
-                        Dsl.XmlSerializationBehavior.GetClassData(dr).Update(dr);
-                        Dsl.GetConnectionBuilder(dr).Update(dr);
+                        xcd.Update(dr);
+                        cb.Update(dr);
 
                         //TODO еще надо править моникеры Source, Target классов
                         break;

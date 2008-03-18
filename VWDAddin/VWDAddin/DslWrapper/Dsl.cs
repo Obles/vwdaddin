@@ -90,7 +90,24 @@ namespace VWDAddin.DslWrapper
         }
         public ConnectionBuilder GetConnectionBuilder(DomainRelationship Relationship)
         {
-            return ConnectionBuilders[Relationship.Xml.GetAttribute("Name") + "Builder"] as ConnectionBuilder;
+            String Name = Relationship.Xml.GetAttribute("Name");
+            foreach (ConnectionBuilder cb in ConnectionBuilders)
+            {
+                if (cb.LinkConnectDirective == Name) return cb;
+            }
+            return null;
+        }
+
+        public static String SubName(String Name)
+        {
+            try
+            {
+                return Name.Substring(0, 1).ToLower() + Name.Substring(1);
+            }
+            catch
+            {
+                return Name;
+            }
         }
     }
 }

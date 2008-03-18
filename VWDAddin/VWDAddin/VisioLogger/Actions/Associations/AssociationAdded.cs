@@ -31,6 +31,7 @@ namespace VWDAddin.VisioLogger.Actions.Associations
                         dr.Source = new DomainRole(Logger.DslDocument);
                         dr.Target = new DomainRole(Logger.DslDocument);
 
+                        Dsl.Relationships.Append(dr);
                         Dsl.XmlSerializationBehavior.ClassData.Append(new XmlClassData(dr));
                         Dsl.ConnectionBuilders.Append(new ConnectionBuilder(dr));
                         break;

@@ -46,6 +46,14 @@ namespace VWDAddin
                         case Constants.Class:
                             GetLogger(shape.Document).Add(new ClassAdded(new VisioClass(shape)));
                             break;
+                        case Constants.Association:
+                        case Constants.Composition:
+                        case Constants.Generalization:
+                            GetLogger(shape.Document).Add(new AssociationAdded(new VisioConnector(shape)));
+                            break;
+                        default:
+                            EventHandler.UnhandledEvent(eventCode);
+                            break;
                     }
                     break;
                 }
@@ -66,6 +74,7 @@ namespace VWDAddin
                             GetLogger(shape.Document).Add(new AssociationDeleted(new VisioConnector(shape)));
                             break;
                         default:
+                            EventHandler.UnhandledEvent(eventCode);
                             break;
                     }
                     break;
@@ -80,7 +89,8 @@ namespace VWDAddin
                         case "attr_section":
                             GetLogger(shape.Document).Add(new ClassAttributesChanged(new VisioClass(shape.Parent as Shape)));
                             break;
-                        case "association":
+                        case Constants.Association:
+                        case Constants.Composition:
                             GetLogger(shape.Document).Add(new AssociationNameChanged(new VisioConnector(shape)));
                             break;
                         case "end1_name":
@@ -96,6 +106,7 @@ namespace VWDAddin
                             GetLogger(shape.Document).Add(new AssociationTargetMPChanged(new VisioConnector(shape.Parent as Shape)));
                             break;
                         default:
+                            EventHandler.UnhandledEvent(eventCode);
                             break;
                     }
                     break;
