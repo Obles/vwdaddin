@@ -43,13 +43,8 @@ namespace VWDAddin
 
                     switch (VisioHelpers.GetShapeType(shape))
                     {
-                        case "class":
+                        case Constants.Class:
                             GetLogger(shape.Document).Add(new ClassAdded(new VisioClass(shape)));
-                            break;
-                        case "association":
-                            //GetLogger(shape.Document).Add(new AssociationAdded(new VisioConnector(shape)));
-                            break;
-                        default:
                             break;
                     }
                     break;
@@ -58,10 +53,16 @@ namespace VWDAddin
                 {
                     switch (VisioHelpers.GetShapeType(shape))
                     {
-                        case "class":
+                        case Constants.Class:
                             GetLogger(shape.Document).Add(new ClassDeleted(new VisioClass(shape)));
                             break;
-                        case "association":
+                        case Constants.Association:
+                            GetLogger(shape.Document).Add(new AssociationDeleted(new VisioConnector(shape)));
+                            break;
+                        case Constants.Composition:
+                            GetLogger(shape.Document).Add(new AssociationDeleted(new VisioConnector(shape)));
+                            break;
+                        case Constants.Generalization:
                             GetLogger(shape.Document).Add(new AssociationDeleted(new VisioConnector(shape)));
                             break;
                         default:
