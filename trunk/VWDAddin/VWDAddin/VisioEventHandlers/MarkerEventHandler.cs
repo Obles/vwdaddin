@@ -49,7 +49,13 @@ namespace VWDAddin
                     }
                     case DocumentProperties.MarkerName:
                     {
-                        Show(new DocumentProperties(GetLogger(application.ActiveDocument)), application);
+                        //TODO информация для размышления
+                        // В данном случае Show(...) не прокатывает, так как 
+                        // из-за Undo-секции, а может и из-за ShowDialog(), все события 
+                        // создания классов\ассоциаций\итп приходят значительно позже. 
+                        // Надо подумать над этим...
+                        //Show(new DocumentProperties(GetLogger(application.ActiveDocument)), application);
+                        new DocumentProperties(GetLogger(application.ActiveDocument)).Show();
                         break;
                     }
                     default:
