@@ -48,6 +48,7 @@ namespace VWDAddin.DslWrapper
         public Multiplicity Multiplicity
         {
             get { return MultiplicityHelper.Parse(Xml.GetAttribute("Multiplicity")); }
+            set { Xml.SetAttribute("Multiplicity", value.ToString()); }
         }
     }
 }

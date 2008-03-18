@@ -88,5 +88,9 @@ namespace VWDAddin.DslWrapper
                 Console.WriteLine();
             }
         }
+        public ConnectionBuilder GetConnectionBuilder(DomainRelationship Relationship)
+        {
+            return ConnectionBuilders[Relationship.Xml.GetAttribute("Name") + "Builder"] as ConnectionBuilder;
+        }
     }
 }
