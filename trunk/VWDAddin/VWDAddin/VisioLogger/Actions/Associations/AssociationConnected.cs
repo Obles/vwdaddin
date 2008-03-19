@@ -53,6 +53,7 @@ namespace VWDAddin.VisioLogger.Actions.Associations
                                 ).GetRelationshipData(dr).Update(dr);
                             }
                         }
+                        FixRolePropertyNames(dr);
                         break;
                     }
                 case Constants.Composition:
