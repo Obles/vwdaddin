@@ -118,8 +118,9 @@ namespace VWDAddin.VisioLogger
                 String tempWordPath = VisioHelpers.GetTempWordPath(associatedDocument);
                 if (File.Exists(wordPath) && File.Exists(tempWordPath))
                 {
+                    if (WordDocument.IsAssociated)
+                        WordDocument.CloseWordDocument();
                     File.Copy(tempWordPath, wordPath, true);
-                    //WordDocument = new WordDocument();
                     WordDocument.ParseDocx(wordPath);                                        
                 }
 

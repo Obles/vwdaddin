@@ -15,11 +15,11 @@ namespace VWDAddin
             {
                 foreach (XmlNode attribute in property.ChildNodes)
                 {
-                    if (attribute.Attributes[0].Value.Equals("GUID"))
+                    if (attribute.Attributes[0].Value.Equals(Definitions.ATTR_GUID))
                     {
                         AssociationGUID = attribute.Attributes[1].Value;
                     }
-                    else if (attribute.Attributes[0].Value.Equals("CONNECTION_TYPE"))
+                    else if (attribute.Attributes[0].Value.Equals(Definitions.ATTR_CONNECTION_TYPE))
                     {
                         AssociationConnectionType = attribute.Attributes[1].Value;
                     }
@@ -32,44 +32,44 @@ namespace VWDAddin
             AssociationGUID = guid;
             AssociationConnectionType = connectionType;
 
-            AssociationXmlNode = WordHelpers.CreateCustomNode(doc, "assoc_section", guid, connectionType);
-            XmlNode assocNameNode = WordHelpers.CreateCustomNode(doc, "assoc_name");
-            assocNameNode.AppendChild(WordHelpers.CreateTextChildNode(doc, Definitions.CLASS_ASSOC_NAME_PREFIX + name));
+            AssociationXmlNode = WordHelpers.CreateCustomNode(doc, Definitions.CLASS_ASSOC_SECTION, guid, connectionType);
+            XmlNode assocNameNode = WordHelpers.CreateCustomNode(doc, Definitions.CLASS_ASSOC_NAME);
+            assocNameNode.AppendChild(WordHelpers.CreateTextChildNode(doc, Definitions.CLASS_ASSOC_NAME_PREFIX + name, Definitions.CLASS_ASSOC_NAME));
             AssociationXmlNode.AppendChild(assocNameNode);
 
-            XmlNode assocDescrNode = WordHelpers.CreateCustomNode(doc, "assoc_descr");
-            assocDescrNode.AppendChild(WordHelpers.CreateTextChildNode(doc, Definitions.CLASS_ASSOC_DESCR_PREFIX));
+            XmlNode assocDescrNode = WordHelpers.CreateCustomNode(doc, Definitions.CLASS_ASSOC_DESCR);
+            assocDescrNode.AppendChild(WordHelpers.CreateTextChildNode(doc, Definitions.CLASS_ASSOC_DESCR_PREFIX, Definitions.CLASS_ASSOC_DESCR));
             AssociationXmlNode.AppendChild(assocDescrNode);
 
-            XmlNode assocNameEndNode = WordHelpers.CreateCustomNode(doc, "assoc_name_end");
-            assocNameEndNode.AppendChild(WordHelpers.CreateTextChildNode(doc, Definitions.CLASS_ASSOC_NAME_END_PREFIX + endName));
+            XmlNode assocNameEndNode = WordHelpers.CreateCustomNode(doc, Definitions.CLASS_ASSOC_NAME_END);
+            assocNameEndNode.AppendChild(WordHelpers.CreateTextChildNode(doc, Definitions.CLASS_ASSOC_NAME_END_PREFIX + endName, Definitions.CLASS_ASSOC_NAME_END));
             AssociationXmlNode.AppendChild(assocNameEndNode);
 
-            XmlNode assocMultNode = WordHelpers.CreateCustomNode(doc, "assoc_mult");
-            assocMultNode.AppendChild(WordHelpers.CreateTextChildNode(doc, Definitions.CLASS_ASSOC_MULT_PREFIX + endMP));
+            XmlNode assocMultNode = WordHelpers.CreateCustomNode(doc, Definitions.CLASS_ASSOC_MULT);
+            assocMultNode.AppendChild(WordHelpers.CreateTextChildNode(doc, Definitions.CLASS_ASSOC_MULT_PREFIX + endMP, Definitions.CLASS_ASSOC_MULT));
             AssociationXmlNode.AppendChild(assocMultNode);
 
-            XmlNode assocTypeNode = WordHelpers.CreateCustomNode(doc, "assoc_type");
-            assocTypeNode.AppendChild(WordHelpers.CreateTextChildNode(doc, Definitions.CLASS_ASSOC_TYPE_PREFIX + associationType));
+            XmlNode assocTypeNode = WordHelpers.CreateCustomNode(doc, Definitions.CLASS_ASSOC_TYPE);
+            assocTypeNode.AppendChild(WordHelpers.CreateTextChildNode(doc, Definitions.CLASS_ASSOC_TYPE_PREFIX + associationType, Definitions.CLASS_ASSOC_TYPE));
             AssociationXmlNode.AppendChild(assocTypeNode);
         }
 
         public void ChangeAssociationName(string newName)
         {
-            XmlNode nodeText = WordHelpers.GetCustomChild(AssociationXmlNode, "assoc_name");
-            nodeText.FirstChild.FirstChild.FirstChild.FirstChild.Value = Definitions.CLASS_ASSOC_NAME_PREFIX + newName;
+            XmlNode nodeText = WordHelpers.GetFirstTextNode(WordHelpers.GetCustomChild(AssociationXmlNode, Definitions.CLASS_ASSOC_NAME));
+            nodeText.Value = Definitions.CLASS_ASSOC_NAME_PREFIX + newName;
         }
 
         public void ChangeAssociationEndName(string newName)
         {
-            XmlNode nodeText = WordHelpers.GetCustomChild(AssociationXmlNode, "assoc_name_end");
-            nodeText.FirstChild.FirstChild.FirstChild.FirstChild.Value = Definitions.CLASS_ASSOC_NAME_END_PREFIX + newName;
+            XmlNode nodeText = WordHelpers.GetFirstTextNode(WordHelpers.GetCustomChild(AssociationXmlNode, Definitions.CLASS_ASSOC_NAME_END));
+            nodeText.Value = Definitions.CLASS_ASSOC_NAME_END_PREFIX + newName;
         }
 
         public void ChangeAssociationMP(string newName)
         {
-            XmlNode nodeText = WordHelpers.GetCustomChild(AssociationXmlNode, "assoc_mult");
-            nodeText.FirstChild.FirstChild.FirstChild.FirstChild.Value = Definitions.CLASS_ASSOC_MULT_PREFIX + newName;
+            XmlNode nodeText = WordHelpers.GetFirstTextNode(WordHelpers.GetCustomChild(AssociationXmlNode, Definitions.CLASS_ASSOC_MULT));
+            nodeText.Value = Definitions.CLASS_ASSOC_MULT_PREFIX + newName;
         }        
 
         private string _associationGUID;
