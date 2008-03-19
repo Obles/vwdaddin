@@ -102,6 +102,7 @@
     <Compile Include="VisioLogger\Actions\Associations\AssociationAdded.cs" />
     <Compile Include="VisioLogger\Actions\Associations\AssociationConnected.cs" />
     <Compile Include="VisioLogger\Actions\Associations\AssociationDeleted.cs" />
+    <Compile Include="VisioLogger\Actions\Associations\AssociationDisconnected.cs" />
     <Compile Include="VisioLogger\Actions\Associations\AssociationNameChanged.cs" />
     <Compile Include="VisioLogger\Actions\Associations\AssociationSourceMPChanged.cs" />
     <Compile Include="VisioLogger\Actions\Associations\AssociationSourceNameChanged.cs" />
