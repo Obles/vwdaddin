@@ -31,7 +31,7 @@ namespace VWDAddin.DslWrapper
 
         public DslElementList ElementData
         {
-            get { return new DslElementList(typeof(XmlPropertyData), GetChildNode("ElementData")); }
+            get { return new DslElementList(typeof(DslElement), GetChildNode("ElementData")); }
         }
 
         public String DomainClassMoniker
@@ -74,18 +74,25 @@ namespace VWDAddin.DslWrapper
 
         public XmlPropertyData GetPropertyData(DomainProperty Property)
         {
-            //TODO этот метод работает неверно, тк в ElementData могут находиться не только XmlPropertyData
             String Name = DomainClassMoniker + "/" + Property.Xml.GetAttribute("Name");
-            foreach (XmlPropertyData xpd in ElementData)
+            foreach (DslElement element in ElementData)
             {
-                if (xpd.DomainPropertyMoniker == Name) return xpd;
+                XmlPropertyData xpd = new XmlPropertyData(element.Xml);
+                if (xpd.IsValid &&
+                    xpd.DomainPropertyMoniker == Name) return xpd;
             }
             return null;
         }
         public XmlRelationshipData GetRelationshipData(DomainRelationship Relationship)
         {
-            //TODO реализовать метод GetRelationshipData
-            throw new NotImplementedException();
+            String Name = Relationship.Xml.GetAttribute("Name");
+            foreach (DslElement element in ElementData)
+            {
+                XmlRelationshipData xrd = new XmlRelationshipData(element.Xml);
+                if (xrd.IsValid &&
+                    xrd.DomainRelationshipMoniker == Name) return xrd;
+            }
+            return null;
         }
     }
 }

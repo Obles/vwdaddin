@@ -73,5 +73,10 @@ namespace VWDAddin.DslWrapper
             get { return Xml.GetAttribute("Id"); }
             set { Xml.SetAttribute("Id", value); }
         }
+
+        public bool IsValid
+        {
+            get { return Xml != null; }
+        }
     }
 }

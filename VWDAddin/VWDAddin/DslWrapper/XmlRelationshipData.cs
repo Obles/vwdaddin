@@ -37,6 +37,11 @@ namespace VWDAddin.DslWrapper
             Xml.SetAttribute("RoleElementName", subName);
 
             DomainRelationshipMoniker = Relationship.Xml.GetAttribute("Name");
-          }
+        }
+
+        new public bool IsValid
+        {
+            get { return base.IsValid && Xml.Name == "XmlRelationshipData"; }
+        }
     }
 }

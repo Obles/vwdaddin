@@ -37,6 +37,11 @@ namespace VWDAddin.DslWrapper
             Xml.SetAttribute("XmlName", subName);
 
             DomainPropertyMoniker = Parent + "/" + Name;
-          }
+        }
+
+        new public bool IsValid
+        {
+            get { return base.IsValid && Xml.Name == "XmlPropertyData"; }
+        }
     }
 }
