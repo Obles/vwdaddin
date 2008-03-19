@@ -26,10 +26,40 @@ namespace VWDAddin
         public const string CLASS_ASSOC_NAME_END_PREFIX = "Имя конца: ";
         public const string CLASS_ASSOC_MULT_PREFIX = "Множественность: ";
         public const string CLASS_ASSOC_TYPE_PREFIX = "Тип: ";
+        public const string CLASS_ATTR_PART_PREFIX = "Атрибуты";
+        public const string CLASS_ASSOC_PART_PREFIX = "Ассоциации";
 
+        public const string CLASS_NAME_STYLE = "Heading1";
+        public const string CLASS_PARENT_STYLE = "Heading3";
+        public const string CLASS_NAME_DESCR_STYLE = "Normal";
+        public const string CLASS_ATTR_NAME_STYLE = "Heading4";
+        public const string CLASS_ATTR_NAME_DESCR_STYLE = "Normal";
+        public const string CLASS_ASSOC_NAME_STYLE = "Heading4";
+        public const string CLASS_ASSOC_DESCR_STYLE = "Normal";
+        public const string CLASS_ASSOC_NAME_END_STYLE = "Normal";
+        public const string CLASS_ASSOC_MULT_STYLE = "Normal";
+        public const string CLASS_ASSOC_TYPE_STYLE = "Normal";
+        public const string CLASS_DEFAULT_STYLE = "Normal";
+        public const string CLASS_ATTR_PART_STYLE = "Heading2";
+        public const string CLASS_ASSOC_PART_STYLE = "Heading2";
 
-        #region SHAPE_NAMES
+        public const string CLASS = "class";
         public const string CLASS_NAME = "class_name";
-        #endregion
+        public const string CLASS_PARENT = "class_parent";
+        public const string CLASS_DESCR = "class_descr";
+        public const string CLASS_ATTR_PART = "attr_part";
+        public const string CLASS_ATTR_SECTION = "attr_section";
+        public const string CLASS_ATTR_NAME = "attr_name";
+        public const string CLASS_ATTR_DESCR = "attr_descr";
+        public const string CLASS_ASSOC_PART = "assoc_part";
+        public const string CLASS_ASSOC_SECTION = "assoc_section";
+        public const string CLASS_ASSOC_NAME = "assoc_name";
+        public const string CLASS_ASSOC_DESCR = "assoc_descr";
+        public const string CLASS_ASSOC_NAME_END = "assoc_name_end";
+        public const string CLASS_ASSOC_MULT = "assoc_mult";
+        public const string CLASS_ASSOC_TYPE = "assoc_type";
+
+        public const string ATTR_GUID = "GUID";
+        public const string ATTR_CONNECTION_TYPE = "CONNECTION_TYPE";
     }
 }
