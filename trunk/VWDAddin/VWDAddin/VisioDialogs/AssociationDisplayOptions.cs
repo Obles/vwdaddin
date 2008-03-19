@@ -36,6 +36,28 @@ namespace VWDAddin
                 shape.get_Cells("HideText").Formula = "TRUE";
         }
 
+        private static void SetArrowCheckBoxFromShape(CheckBox checkBox, Shape shape, string cellName)
+        {
+            if (shape.get_Cells(cellName).Formula.Equals("0"))
+                checkBox.Checked = false;
+            else
+                checkBox.Checked = true;
+        }
+
+        private static void SetShapeFromArrowCheckBox(CheckBox checkBox, Shape shape)
+        {
+            if (checkBox.Checked == true)
+            {
+                shape.get_Cells("BeginArrow").Formula = "1";
+                shape.get_Cells("EndArrow").Formula = "1";
+            }
+            else
+            {
+                shape.get_Cells("BeginArrow").Formula = "0";
+                shape.get_Cells("EndArrow").Formula = "0";
+            }
+        }
+
         public AssociationDisplayOptions(Shape shape)
         {
             try
@@ -49,6 +71,7 @@ namespace VWDAddin
                     SetCheckBoxFromShape(DisplayEnd2Name, m_shape["end2_name"], "HideText");
                     SetCheckBoxFromShape(DisplayEnd1MP, m_shape["end1_mp"], "HideText");
                     SetCheckBoxFromShape(DisplayEnd2MP, m_shape["end2_mp"], "HideText");
+                    SetArrowCheckBoxFromShape(DisplayArrows, m_shape.Shape, "BeginArrow");
                 }
             }
             catch (Exception e)
@@ -90,6 +113,11 @@ namespace VWDAddin
         private void DisplayEnd2MP_CheckedChanged(object sender, EventArgs e)
         {
             SetShapeFromCheckBox(DisplayEnd2MP, m_shape["end2_mp"], "HideText");
+        }
+
+        private void DisplayArrows_CheckedChanged(object sender, EventArgs e)
+        {
+            SetShapeFromArrowCheckBox(DisplayArrows, m_shape.Shape);
         }
     }
 }

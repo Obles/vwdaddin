@@ -37,12 +37,13 @@ namespace VWDAddin
             this.DisplayEnd1Name = new System.Windows.Forms.CheckBox();
             this.DisplayEnd1MP = new System.Windows.Forms.CheckBox();
             this.DisplayEnd2MP = new System.Windows.Forms.CheckBox();
+            this.DisplayArrows = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // DisplayName
             // 
             this.DisplayName.AutoSize = true;
-            this.DisplayName.Location = new System.Drawing.Point(12, 12);
+            this.DisplayName.Location = new System.Drawing.Point(12, 47);
             this.DisplayName.Name = "DisplayName";
             this.DisplayName.Size = new System.Drawing.Size(145, 17);
             this.DisplayName.TabIndex = 0;
@@ -52,7 +53,7 @@ namespace VWDAddin
             // 
             // OKButton
             // 
-            this.OKButton.Location = new System.Drawing.Point(12, 145);
+            this.OKButton.Location = new System.Drawing.Point(12, 147);
             this.OKButton.Name = "OKButton";
             this.OKButton.Size = new System.Drawing.Size(75, 23);
             this.OKButton.TabIndex = 1;
@@ -62,7 +63,7 @@ namespace VWDAddin
             // 
             // CancelButton
             // 
-            this.CancelButton.Location = new System.Drawing.Point(222, 145);
+            this.CancelButton.Location = new System.Drawing.Point(222, 147);
             this.CancelButton.Name = "CancelButton";
             this.CancelButton.Size = new System.Drawing.Size(75, 23);
             this.CancelButton.TabIndex = 2;
@@ -73,7 +74,7 @@ namespace VWDAddin
             // DisplayEnd2Name
             // 
             this.DisplayEnd2Name.AutoSize = true;
-            this.DisplayEnd2Name.Location = new System.Drawing.Point(160, 47);
+            this.DisplayEnd2Name.Location = new System.Drawing.Point(160, 82);
             this.DisplayEnd2Name.Name = "DisplayEnd2Name";
             this.DisplayEnd2Name.Size = new System.Drawing.Size(116, 17);
             this.DisplayEnd2Name.TabIndex = 3;
@@ -84,7 +85,7 @@ namespace VWDAddin
             // DisplayEnd1Name
             // 
             this.DisplayEnd1Name.AutoSize = true;
-            this.DisplayEnd1Name.Location = new System.Drawing.Point(12, 47);
+            this.DisplayEnd1Name.Location = new System.Drawing.Point(12, 82);
             this.DisplayEnd1Name.Name = "DisplayEnd1Name";
             this.DisplayEnd1Name.Size = new System.Drawing.Size(116, 17);
             this.DisplayEnd1Name.TabIndex = 4;
@@ -95,7 +96,7 @@ namespace VWDAddin
             // DisplayEnd1MP
             // 
             this.DisplayEnd1MP.AutoSize = true;
-            this.DisplayEnd1MP.Location = new System.Drawing.Point(12, 81);
+            this.DisplayEnd1MP.Location = new System.Drawing.Point(12, 117);
             this.DisplayEnd1MP.Name = "DisplayEnd1MP";
             this.DisplayEnd1MP.Size = new System.Drawing.Size(137, 17);
             this.DisplayEnd1MP.TabIndex = 5;
@@ -106,7 +107,7 @@ namespace VWDAddin
             // DisplayEnd2MP
             // 
             this.DisplayEnd2MP.AutoSize = true;
-            this.DisplayEnd2MP.Location = new System.Drawing.Point(160, 81);
+            this.DisplayEnd2MP.Location = new System.Drawing.Point(160, 117);
             this.DisplayEnd2MP.Name = "DisplayEnd2MP";
             this.DisplayEnd2MP.Size = new System.Drawing.Size(137, 17);
             this.DisplayEnd2MP.TabIndex = 6;
@@ -114,11 +115,23 @@ namespace VWDAddin
             this.DisplayEnd2MP.UseVisualStyleBackColor = true;
             this.DisplayEnd2MP.CheckedChanged += new System.EventHandler(this.DisplayEnd2MP_CheckedChanged);
             // 
+            // DisplayArrows
+            // 
+            this.DisplayArrows.AutoSize = true;
+            this.DisplayArrows.Location = new System.Drawing.Point(12, 12);
+            this.DisplayArrows.Name = "DisplayArrows";
+            this.DisplayArrows.Size = new System.Drawing.Size(94, 17);
+            this.DisplayArrows.TabIndex = 7;
+            this.DisplayArrows.Text = "Display arrows";
+            this.DisplayArrows.UseVisualStyleBackColor = true;
+            this.DisplayArrows.CheckedChanged += new System.EventHandler(this.DisplayArrows_CheckedChanged);
+            // 
             // AssociationDisplayOptions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(304, 180);
+            this.ClientSize = new System.Drawing.Size(302, 182);
+            this.Controls.Add(this.DisplayArrows);
             this.Controls.Add(this.DisplayEnd2MP);
             this.Controls.Add(this.DisplayEnd1MP);
             this.Controls.Add(this.DisplayEnd1Name);
@@ -143,5 +156,6 @@ namespace VWDAddin
         private System.Windows.Forms.CheckBox DisplayEnd1MP;
         private System.Windows.Forms.CheckBox DisplayEnd2MP;
         private VisioShape m_shape;
+        private System.Windows.Forms.CheckBox DisplayArrows;
     }
 }
