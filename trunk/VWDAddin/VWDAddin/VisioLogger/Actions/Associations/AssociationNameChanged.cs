@@ -27,6 +27,13 @@ namespace VWDAddin.VisioLogger.Actions.Associations
                         DomainRelationship dr = Dsl.Relationships.Find(Connector.GUID) as DomainRelationship;
                         XmlClassData xcd = Dsl.XmlSerializationBehavior.GetClassData(dr);
                         ConnectionBuilder cb = Dsl.GetConnectionBuilder(dr);
+                        XmlRelationshipData xrd = null;
+
+                        if (Connector.Source != null)
+                        {
+                            DomainClass dc = Dsl.Classes.Find(Connector.Source.GUID) as DomainClass;
+                            xrd = Dsl.XmlSerializationBehavior.GetClassData(dc).GetRelationshipData(dr);
+                        }
 
                         dr.Xml.SetAttribute("Name", Connector.Name);
                         dr.Xml.SetAttribute("DisplayName", Connector.Name);
@@ -34,7 +41,7 @@ namespace VWDAddin.VisioLogger.Actions.Associations
                         xcd.Update(dr);
                         cb.Update(dr);
 
-                        //TODO еще надо править моникеры Source, Target классов
+                        if (xrd != null) xrd.Update(dr);
                         break;
                     }
                 case Constants.Composition:
