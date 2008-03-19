@@ -36,6 +36,7 @@ namespace VWDAddin
                 case (short)VisEventCodes.visEvtCodeDocSaveAs:
                 {
                     GetLogger(subject as Document).ApplyChanges();
+                    GetLogger(subject as Document).WordDocument.Syncronize(subject as Document, VisioHelpers.GetWordPath(subject as Document));
                     break;
                 }
                 case (short)VisEventCodes.visEvtDel + (short)VisEventCodes.visEvtDoc:

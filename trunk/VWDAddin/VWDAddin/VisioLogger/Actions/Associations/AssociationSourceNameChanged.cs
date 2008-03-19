@@ -25,7 +25,7 @@ namespace VWDAddin.VisioLogger.Actions.Associations
             }
             if (Logger.WordDocument.IsAssociated)
             {
-                Logger.WordDocument.ChangeAssociationEndName(Connector.GUID, Connector.SourceText, ConnectionTypes.BeginConnected.ToString());
+                //Logger.WordDocument.ChangeAssociationEndName(Connector.GUID, Connector.SourceText, ConnectionTypes.BeginConnected.ToString());
             }
         }
     }

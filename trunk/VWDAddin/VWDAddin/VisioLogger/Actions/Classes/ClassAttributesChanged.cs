@@ -56,7 +56,7 @@ namespace VWDAddin.VisioLogger.Actions
             }
             if (Logger.WordDocument.IsAssociated)
             {
-                Logger.WordDocument.ChangeClassAttributes(ClassShape.GUID, ClassShape.Attributes);
+                //Logger.WordDocument.ChangeClassAttributes(ClassShape.GUID, ClassShape.Attributes);
             }
         }
     }    
