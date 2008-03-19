@@ -21,7 +21,8 @@ namespace VWDAddin
         public const string CLASS_NAME_DESCR_PREFIX = "Описание: ";
         public const string CLASS_ATTR_NAME_PREFIX = "Атрибут: ";
         public const string CLASS_ATTR_NAME_DESCR_PREFIX = "Описание: ";
-        public const string CLASS_ASSOC_NAME_PREFIX = "Ассоциация: ";
+        public const string CLASS_ASSOC_NAME_PREFIX =       "Ассоциация: "; // WARNING! Don't change this line! These two lines must have same length. Current length is 12
+        public const string CLASS_COMPOSITION_NAME_PREFIX = "Композиция: "; // WARNING! Don't change this line! These two lines must have same length. Current length is 12
         public const string CLASS_ASSOC_DESCR_PREFIX = "Описание: ";
         public const string CLASS_ASSOC_NAME_END_PREFIX = "Имя конца: ";
         public const string CLASS_ASSOC_MULT_PREFIX = "Множественность: ";

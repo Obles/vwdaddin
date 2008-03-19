@@ -114,15 +114,15 @@ namespace VWDAddin.VisioLogger
                 }
 
                 // Инициализация word-документа и возврат к контрольной точке
-                String wordPath = VisioHelpers.GetWordPath(associatedDocument);
-                String tempWordPath = VisioHelpers.GetTempWordPath(associatedDocument);
-                if (File.Exists(wordPath) && File.Exists(tempWordPath))
-                {
-                    if (WordDocument.IsAssociated)
-                        WordDocument.CloseWordDocument();
-                    File.Copy(tempWordPath, wordPath, true);
-                    WordDocument.ParseDocx(wordPath);                                        
-                }
+                //String wordPath = VisioHelpers.GetWordPath(associatedDocument);
+                //String tempWordPath = VisioHelpers.GetTempWordPath(associatedDocument);
+                //if (File.Exists(wordPath) && File.Exists(tempWordPath))
+                //{
+                //    if (WordDocument.IsAssociated)
+                //        WordDocument.CloseWordDocument();
+                //    File.Copy(tempWordPath, wordPath, true);
+                //    WordDocument.ParseDocx(wordPath);                                        
+                //}
 
                 // Внесение изменений
                 for (int i = 0; i <= currentAction; i++)
@@ -140,7 +140,7 @@ namespace VWDAddin.VisioLogger
                 }
 
                 // Сохранение word-документа
-                WordDocument.CloseWordDocument();
+                //WordDocument.CloseWordDocument();
             }
             catch(Exception e)
             {
@@ -177,21 +177,21 @@ namespace VWDAddin.VisioLogger
 
         private void CreateWordControlPoint()
         {
-            String wordPath = VisioHelpers.GetWordPath(associatedDocument);
-            if (File.Exists(wordPath))
-            {
-                File.Copy(wordPath, VisioHelpers.GetTempWordPath(associatedDocument), true);                
-            }
+            //String wordPath = VisioHelpers.GetWordPath(associatedDocument);
+            //if (File.Exists(wordPath))
+            //{
+            //    File.Copy(wordPath, VisioHelpers.GetTempWordPath(associatedDocument), true);                
+            //}
         }
 
         private void RemoveWordControlPoint()
         {
-            WordDocument.CloseWordDocument();
-            String tempWordPath = VisioHelpers.GetTempWordPath(associatedDocument);
-            if (File.Exists(tempWordPath))
-            {
-                File.Delete(tempWordPath);
-            }
+            //WordDocument.CloseWordDocument();
+            //String tempWordPath = VisioHelpers.GetTempWordPath(associatedDocument);
+            //if (File.Exists(tempWordPath))
+            //{
+            //    File.Delete(tempWordPath);
+            //}
         }
 
         new public String ToString()

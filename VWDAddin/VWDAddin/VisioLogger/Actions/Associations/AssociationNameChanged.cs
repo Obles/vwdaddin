@@ -59,7 +59,7 @@ namespace VWDAddin.VisioLogger.Actions.Associations
             }
             if (Logger.WordDocument.IsAssociated)
             {
-                Logger.WordDocument.ChangeAssociationName(Connector.GUID, Connector.Name);
+                //Logger.WordDocument.ChangeAssociationName(Connector.GUID, Connector.Name);
             }
         }
 

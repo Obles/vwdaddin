@@ -27,7 +27,7 @@ namespace VWDAddin.VisioLogger.Actions
             }
             if (Logger.WordDocument.IsAssociated)
             {
-                Logger.WordDocument.ChangeClassName(ClassShape.GUID, ClassShape.Name);
+                //Logger.WordDocument.ChangeClassName(ClassShape.GUID, ClassShape.Name);
             }
         }
     }

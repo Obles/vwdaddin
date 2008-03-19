@@ -48,7 +48,7 @@ namespace VWDAddin.VisioLogger.Actions.Associations
 
             if (Logger.WordDocument.IsAssociated)
             {
-                Logger.WordDocument.DeleteAssociation(Connector.GUID);
+                //Logger.WordDocument.DeleteAssociation(Connector.GUID);
             }
         }
     }

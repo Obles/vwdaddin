@@ -13,7 +13,7 @@ namespace VWDAddin
             if (node.ChildNodes.Count > 0)
             {
                 string attrString = WordHelpers.GetFirstTextNode(WordHelpers.GetCustomChild(AttributeXMLNode, Definitions.CLASS_ATTR_NAME)).Value;
-                if(attrString != null)
+                if (attrString != null && attrString.Length > Definitions.CLASS_ATTR_NAME_PREFIX.Length)
                     AttrName = attrString.Substring(Definitions.CLASS_ATTR_NAME_PREFIX.Length);
             }
         }

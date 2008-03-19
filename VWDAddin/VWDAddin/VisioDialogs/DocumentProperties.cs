@@ -71,14 +71,14 @@ namespace VWDAddin
                 WordPath.Text = saveFileDialog.FileName;
                 // создание документа
                 // Переделать, так как если пользователь нажмет отмену, то файл все равно создается
-                if (File.Exists("EmptyDoc.docx"))
-                {
-                    File.Copy("EmptyDoc.docx", WordPath.Text, true);
-                }
-                else
-                {
-                    // MAYBE - Manually generate empty file
-                }
+                //if (File.Exists("EmptyDoc.docx"))
+                //{
+                //    File.Copy("EmptyDoc.docx", WordPath.Text, true);
+                //}
+                //else
+                //{
+                //    // MAYBE - Manually generate empty file
+                //}
             }
         }
 

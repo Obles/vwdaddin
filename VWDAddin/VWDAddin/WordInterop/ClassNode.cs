@@ -11,6 +11,7 @@ namespace VWDAddin
         {
             Init();
             ClassXmlNode = node;
+            IsRemained = false;
             XmlNode property = WordHelpers.GetCustomXmlPropertyNode(node);
             if (property !=null)
             {
@@ -80,12 +81,14 @@ namespace VWDAddin
             ClassXmlNode.AppendChild(classAssocNode);
 
             ClassID = id;
+            IsRemained = true;
         }
 
         public void ChangeName(string newName)
         {
             XmlNode nodeText = WordHelpers.GetFirstTextNode(WordHelpers.GetCustomChild(ClassXmlNode, Definitions.CLASS_NAME));
             nodeText.Value = Definitions.CLASS_NAME_PREFIX + newName;
+            IsRemained = true;
         }
 
         public void ChangeAttributes(WordDocument doc, string newAttrs)
@@ -113,6 +116,7 @@ namespace VWDAddin
                 _attributes.Add(newAttr);
                 WordHelpers.GetCustomChild(ClassXmlNode, Definitions.CLASS_ATTR_PART).AppendChild(attrNode.AttributeXMLNode);
             }
+            IsRemained = true;
         }
 
         public void DeleteAttribute(string name)
@@ -129,6 +133,7 @@ namespace VWDAddin
 
         public void AppendAssociation(AssociationNode assocNode)
         {
+            assocNode.IsRemained = true;
             WordHelpers.GetCustomChild(ClassXmlNode, Definitions.CLASS_ASSOC_PART).AppendChild(assocNode.AssociationXmlNode);
             _assocList.Add(assocNode);
         }
@@ -214,26 +219,40 @@ namespace VWDAddin
             }
         }
 
-        public void ChangeAssociationEndName(string associationGuid, string newName)
+        public void ChangeAssociationEndName(string associationGuid, string newName, string connectionType)
         {
             foreach (AssociationNode node in _assocList)
             {
-                if (node.AssociationGUID == associationGuid)
+                if (node.AssociationGUID == associationGuid && node.AssociationConnectionType == connectionType)
                 {
                     node.ChangeAssociationEndName(newName);
                 }
             }
         }
 
-        public void ChangeAssociationMP(string associationGuid, string newName)
+        public void ChangeAssociationMP(string associationGuid, string newName, string connectionType)
         {
             foreach (AssociationNode node in _assocList)
             {
-                if (node.AssociationGUID == associationGuid)
+                if (node.AssociationGUID == associationGuid && node.AssociationConnectionType == connectionType)
                 {
                     node.ChangeAssociationMP(newName);
                 }
             }
+        }
+
+        public void DeleteAssociations()
+        {
+            List<string> deletingAssocs = new List<string>();
+            foreach (AssociationNode node in _assocList)
+            {
+                if (!node.IsRemained)
+                {
+                    deletingAssocs.Add(node.AssociationGUID);
+                }
+            }
+            foreach (string id in deletingAssocs)
+                RemoveAssociation(id);
         }
 
         private void Init()
@@ -248,6 +267,7 @@ namespace VWDAddin
 
         public XmlNode ClassXmlNode;
         public string ClassID;
+        public bool IsRemained;
         private List<AttributeNode> _attrList;
         private List<String> _attributes;
         private List<AssociationNode> _assocList;

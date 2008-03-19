@@ -27,7 +27,7 @@ namespace VWDAddin.VisioLogger.Actions
             }
             if (Logger.WordDocument.IsAssociated)
             {
-                Logger.WordDocument.DeleteClass(ClassShape.GUID);
+                //Logger.WordDocument.DeleteClass(ClassShape.GUID);
             }
         }
 
