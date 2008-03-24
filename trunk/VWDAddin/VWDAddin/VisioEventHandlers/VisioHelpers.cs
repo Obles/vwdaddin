@@ -2,6 +2,7 @@ using Microsoft.Office.Interop.Visio;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Diagnostics;
 
 namespace VWDAddin
@@ -55,12 +56,8 @@ namespace VWDAddin
 
         public static String GetConnectedClassName(string connectionString)
         {
-            string prefix = "PAR(PNT(";
-            if (connectionString.Length > 20 && connectionString.StartsWith(prefix))
-            {
-                return connectionString.Substring(prefix.Length).Split('!')[0];
-            }
-            return string.Empty;
+            Regex regex = new Regex(@"\(([^!]+?)!");
+            return regex.Match(connectionString).Groups[1].Value;
         }
 
         public static void ParseClassShape(Shape shape, out String guid, out String className, out String attributes)

@@ -24,14 +24,14 @@ namespace VWDAddin.VisioWrapper
         /// *Это там, где ромбик - для композиции* 
         public Shape Source
         {
-            get { return FindConnectedShape(Shape.get_Cells("BeginX").Formula); }
+            get { return FindConnectedShape(Shape.get_Cells("BegTrigger").Formula); }
             set { SetSource(value, ClassConnections.Undef); }
         }
 
         /// <summary>Получение элемента в котором заканчивается коннектор</summary>
         public Shape Target
         {
-            get { return FindConnectedShape(Shape.get_Cells("EndX").Formula); }
+            get { return FindConnectedShape(Shape.get_Cells("EndTrigger").Formula); }
             set { SetTarget(value, ClassConnections.Undef); }
         }
 
@@ -42,7 +42,8 @@ namespace VWDAddin.VisioWrapper
             {
                 if (suspiciousShape.Name == searchName)
                 {
-                    return suspiciousShape;
+                    return VisioHelpers.GetShapeType(suspiciousShape) 
+                        == Constants.Class ? suspiciousShape : null;
                 }
             }
             return null;
