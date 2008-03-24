@@ -16,8 +16,7 @@ namespace VWDAddin
             (short)VisEventCodes.visEvtDel + (short)VisEventCodes.visEvtShape,
             (short)VisEventCodes.visEvtShape + Constants.visEvtAdd,
             (short)VisEventCodes.visEvtCodeShapeExitTextEdit,
-            (short)VisEventCodes.visEvtConnect + Constants.visEvtAdd,
-            (short)VisEventCodes.visEvtConnect + (short)VisEventCodes.visEvtDel, 
+            (short)VisEventCodes.visEvtFormula + (short)VisEventCodes.visEvtMod, 
         };
 
         public ShapeEventHandler(EventManager manager)
@@ -111,22 +110,45 @@ namespace VWDAddin
                     }
                     break;
                 }
-                case (short)VisEventCodes.visEvtConnect + Constants.visEvtAdd:
+                case (short)VisEventCodes.visEvtFormula + (short)VisEventCodes.visEvtMod:
                 {
-                    VisioConnector connector = new VisioConnector((subject as Connects).FromSheet);
-                    if (connector.Source != null && (subject as Connects).ToSheet.Name.Equals(connector.Source.Name))
+                    Cell cell = subject as Cell;
+                    if (cell.Name == "EndTrigger")
                     {
-                        GetLogger(connector.Shape.Document).Add(new AssociationConnected(connector, Constants.ConnectionTypes.BeginConnected));
+                        VisioConnector connector = new VisioConnector(cell.Shape);
+                        if (connector.Target != null)
+                        {
+                            Debug.WriteLine("ConnectionAdded " + connector.Shape.Name + " Target " + connector.Target.Name);
+                            GetLogger(connector.Shape.Document).Add(
+                                new AssociationConnected(connector, Constants.ConnectionTypes.EndConnected)
+                            );
+                        }
+                        else
+                        {
+                            Debug.WriteLine("ConnectionDeleted " + connector.Shape.Name + " Target");
+                            GetLogger(connector.Shape.Document).Add(
+                                new AssociationDisconnected(connector, Constants.ConnectionTypes.EndConnected)
+                            );
+                        }
                     }
-                    else
+                    else if (cell.Name == "BegTrigger")
                     {
-                        GetLogger(connector.Shape.Document).Add(new AssociationConnected(connector, Constants.ConnectionTypes.EndConnected));
+                        VisioConnector connector = new VisioConnector(cell.Shape);
+                        if (connector.Source != null)
+                        {
+                            Debug.WriteLine("ConnectionAdded " + connector.Shape.Name + " Source " + connector.Source.Name);
+                            GetLogger(connector.Shape.Document).Add(
+                                new AssociationConnected(connector, Constants.ConnectionTypes.BeginConnected)
+                            );
+                        }
+                        else
+                        {
+                            Debug.WriteLine("ConnectionDeleted " + connector.Shape.Name + " Source");
+                            GetLogger(connector.Shape.Document).Add(
+                                new AssociationDisconnected(connector, Constants.ConnectionTypes.BeginConnected)
+                            );
+                        }
                     }
-                    break;
-                }
-                case (short)VisEventCodes.visEvtConnect + (short)VisEventCodes.visEvtDel:
-                {
-                    EventHandler.UnhandledEvent(eventCode);
                     break;
                 }
                 default:

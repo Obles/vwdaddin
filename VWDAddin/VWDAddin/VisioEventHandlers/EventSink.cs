@@ -57,6 +57,44 @@ namespace VWDAddin
             object returnValue = true;
 
             #region Debug information
+            if (eventCode != (short)VisEventCodes.visEvtFormula + (short)VisEventCodes.visEvtMod)
+            {
+                ShowDebugInfo(eventCode, source, eventId, eventSequenceNumber, subject, moreInformation);
+            }
+            #endregion
+
+            if (Owner.Application.IsUndoingOrRedoing)
+            {
+                System.Diagnostics.Trace.WriteLine("Is Undoing or Redoing");
+                return returnValue;
+            }
+
+            foreach (EventHandler EventHandler in EventHandlers)
+            {
+                if (EventHandler.HandlesEvent(eventCode))
+                {
+                    returnValue = EventHandler.VisEventProc(
+                        eventCode,
+                        source,
+                        eventId,
+                        eventSequenceNumber,
+                        subject,
+                        moreInformation
+                    );
+                    break;
+                }
+            }
+            return returnValue;
+        }
+
+        public void ShowDebugInfo(
+            short eventCode,
+            object source,
+            int eventId,
+            int eventSequenceNumber,
+            object subject,
+            object moreInformation)
+        {
             string tab = "\t";
             string message = "";
             string name = "";
@@ -340,30 +378,6 @@ namespace VWDAddin
             {
                 System.Diagnostics.Debug.WriteLine(err.Message);
             }
-            #endregion
-
-            if (Owner.Application.IsUndoingOrRedoing)
-            {
-                System.Diagnostics.Trace.WriteLine("Is Undoing or Redoing");
-                return returnValue;
-            }
-
-            foreach (EventHandler EventHandler in EventHandlers)
-            {
-                if (EventHandler.HandlesEvent(eventCode))
-                {
-                    returnValue = EventHandler.VisEventProc(
-                        eventCode,
-                        source,
-                        eventId,
-                        eventSequenceNumber,
-                        subject,
-                        moreInformation
-                    );
-                    break;
-                }
-            }
-            return returnValue;
         }
     }
 }
