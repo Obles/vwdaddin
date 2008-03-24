@@ -49,6 +49,16 @@ namespace VWDAddin
 		/// <seealso class='IDTExtensibility2' />
         public void OnConnection(object application, Extensibility.ext_ConnectMode connectMode, object addInInst, ref System.Array custom)
         {
+            if (Constants.LogFile != String.Empty)
+            {
+                DebugListener = new TextWriterTraceListener(
+                    new System.IO.FileStream(Constants.LogFile, System.IO.FileMode.OpenOrCreate)
+                );
+                Debug.Listeners.Add(DebugListener);
+                Debug.AutoFlush = true;
+                Trace.AutoFlush = true;
+            }
+
             Trace.WriteLine("-----------[ Add-In Connecting ]-----------");
             try
             {
@@ -83,6 +93,12 @@ namespace VWDAddin
 		/// <seealso class='IDTExtensibility2' />
 		public void OnDisconnection(Extensibility.ext_DisconnectMode disconnectMode, ref System.Array custom)
 		{
+            if (DebugListener != null)
+            {
+                Debug.Flush();
+                Trace.Flush();
+                DebugListener.Flush();
+            }
 		}
 
 		/// <summary>
@@ -124,5 +140,6 @@ namespace VWDAddin
         private EventManager EventManager;
         private Application visApplication;
         private object addInInstance;
+        private TextWriterTraceListener DebugListener = null;
 	}
 }
