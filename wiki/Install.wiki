@@ -1,0 +1,9 @@
+#summary Описание процесса развёртывания системы.
+
+= Установка =
+
+ # Устанавливаем [Visio]
+ # Устанавливаем [Word]
+ # Устанавливаем [http://go.microsoft.com/fwlink/?LinkId=70848 .Net Framework 3]
+ # Устанавливаем [http://code.google.com/p/vwdaddin/downloads/list VWD Add-in]
+ # Устанавливаем [VisioTemplateInstall шаблоны]
