@@ -51,7 +51,29 @@ namespace VWDAddin.VisioLogger.Actions.Associations
                     }
                 case Constants.Composition:
                     {
-                        //TODO удаление композиции
+                        DomainRelationship dr = Dsl.Relationships.Find(Connector.GUID) as DomainRelationship;
+                        XmlClassData xcd;
+
+                        String Name = dr.Source.RolePlayer;
+                        if (Name != null)
+                        {
+                            DomainClass dc = Dsl.Classes[Name] as DomainClass;
+                            xcd = Dsl.XmlSerializationBehavior.GetClassData(dc);
+                            xcd.ElementData.Remove(xcd.GetRelationshipData(dr));
+
+                            Name = dr.Target.RolePlayer;
+                            if (Name != null)
+                            {
+                                dc.ElementMergeDirectives.Remove(
+                                    dc.GetElementMergeDirective(Name)
+                                );
+                            }
+                        }
+
+                        xcd = Dsl.XmlSerializationBehavior.GetClassData(dr);
+
+                        Dsl.Relationships.Remove(dr);
+                        Dsl.XmlSerializationBehavior.ClassData.Remove(xcd);
                         break;
                     }
                 case Constants.Generalization:

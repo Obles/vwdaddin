@@ -48,6 +48,11 @@ namespace VWDAddin.DslWrapper
             return Properties.Append(new DomainProperty(OwnerDocument, Type, Name, DisplayName)) as DomainProperty;
         }
 
+        public DslElementList ElementMergeDirectives
+        {
+            get { return new DslElementList(typeof(ElementMergeDirective), GetChildNode("ElementMergeDirectives")); }
+        }
+
         public void Print(String t)
         {
             PrintNodeName(t + "Class");
@@ -59,6 +64,15 @@ namespace VWDAddin.DslWrapper
             {
                 dp.Print(t + t);
             }
+        }
+
+        public ElementMergeDirective GetElementMergeDirective(String Name)
+        {
+            foreach (ElementMergeDirective emd in ElementMergeDirectives)
+            {
+                if (emd.Index == Name) return emd;
+            }
+            return null;
         }
     }
 }

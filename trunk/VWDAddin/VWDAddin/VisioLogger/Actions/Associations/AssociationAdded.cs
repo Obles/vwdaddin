@@ -38,7 +38,17 @@ namespace VWDAddin.VisioLogger.Actions.Associations
                     }
                 case Constants.Composition:
                     {
-                        //TODO создание композиции
+                        DomainRelationship dr = new DomainRelationship(Logger.DslDocument);
+                        dr.GUID = Connector.GUID;
+                        dr.Xml.SetAttribute("Name", Connector.Name);
+                        dr.Xml.SetAttribute("DisplayName", Connector.Name);
+                        dr.IsEmbedding = true;
+
+                        dr.Source = new DomainRole(Logger.DslDocument);
+                        dr.Target = new DomainRole(Logger.DslDocument);
+
+                        Dsl.Relationships.Append(dr);
+                        Dsl.XmlSerializationBehavior.ClassData.Append(new XmlClassData(dr));
                         break;
                     }
                 case Constants.Generalization:

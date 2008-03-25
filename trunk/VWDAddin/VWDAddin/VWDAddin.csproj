@@ -65,6 +65,7 @@
     <Compile Include="DslWrapper\DslDocument.cs" />
     <Compile Include="DslWrapper\DslElement.cs" />
     <Compile Include="DslWrapper\DslElementList.cs" />
+    <Compile Include="DslWrapper\ElementMergeDirective.cs" />
     <Compile Include="DslWrapper\Moniker.cs" />
     <Compile Include="DslWrapper\Multiplicity.cs" />
     <Compile Include="DslWrapper\RolePlayerConnectDirective.cs" />
