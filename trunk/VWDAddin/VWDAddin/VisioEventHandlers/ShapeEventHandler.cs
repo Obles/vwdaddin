@@ -120,14 +120,14 @@ namespace VWDAddin
                         {
                             Debug.WriteLine("ConnectionAdded " + connector.Shape.Name + " Target " + connector.Target.Name);
                             GetLogger(connector.Shape.Document).Add(
-                                new AssociationConnected(connector, Constants.ConnectionTypes.EndConnected)
+                                new AssociationConnected(connector, Constants.ConnectionTypes.End)
                             );
                         }
                         else
                         {
                             Debug.WriteLine("ConnectionDeleted " + connector.Shape.Name + " Target");
                             GetLogger(connector.Shape.Document).Add(
-                                new AssociationDisconnected(connector, Constants.ConnectionTypes.EndConnected)
+                                new AssociationDisconnected(connector, Constants.ConnectionTypes.End)
                             );
                         }
                     }
@@ -138,14 +138,14 @@ namespace VWDAddin
                         {
                             Debug.WriteLine("ConnectionAdded " + connector.Shape.Name + " Source " + connector.Source.Name);
                             GetLogger(connector.Shape.Document).Add(
-                                new AssociationConnected(connector, Constants.ConnectionTypes.BeginConnected)
+                                new AssociationConnected(connector, Constants.ConnectionTypes.Begin)
                             );
                         }
                         else
                         {
                             Debug.WriteLine("ConnectionDeleted " + connector.Shape.Name + " Source");
                             GetLogger(connector.Shape.Document).Add(
-                                new AssociationDisconnected(connector, Constants.ConnectionTypes.BeginConnected)
+                                new AssociationDisconnected(connector, Constants.ConnectionTypes.Begin)
                             );
                         }
                     }

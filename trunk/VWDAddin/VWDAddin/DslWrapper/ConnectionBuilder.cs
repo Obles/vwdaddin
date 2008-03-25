@@ -45,5 +45,25 @@ namespace VWDAddin.DslWrapper
             Xml.SetAttribute("Name", Name + "Builder");
             LinkConnectDirective = Name;
         }
+
+        private static RolePlayerConnectDirective GetRolePlayerConnectDirective(DomainClass Class, DslElementList Directives)
+        {
+            String ClassName = Class.Xml.GetAttribute("Name");
+            foreach (RolePlayerConnectDirective rpcd in Directives)
+            {
+                if (rpcd.AcceptingClass == ClassName) return rpcd;
+            }
+            return null;
+        }
+
+        public RolePlayerConnectDirective GetTargetConnectDirective(DomainClass Class)
+        {
+            return GetRolePlayerConnectDirective(Class, TargetDirectives);
+        }
+
+        public RolePlayerConnectDirective GetSourceConnectDirective(DomainClass Class)
+        {
+            return GetRolePlayerConnectDirective(Class, SourceDirectives);
+        }
     }
 }

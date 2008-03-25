@@ -21,8 +21,8 @@ namespace VWDAddin
 
         public enum ConnectionTypes
         {
-            BeginConnected,
-            EndConnected,            
+            Begin,
+            End,
         }
     }
 }
