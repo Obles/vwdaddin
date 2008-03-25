@@ -10,11 +10,6 @@ namespace VWDAddin.DslWrapper
         public DomainClass(XmlElement Node)
             : base(Node)
         {
-            if (this.Xml != null)
-            {
-                XmlNode x = this.SelectSingleNode("p:ElementMergeDirectives");
-                if (x != null) Node.RemoveChild(x);
-            }
         }
 
         public DomainClass(DslDocument Doc)
@@ -37,6 +32,11 @@ namespace VWDAddin.DslWrapper
             get { return new DslElementList(typeof(DomainProperty), GetChildNode("Properties")); }
         }
 
+        public DslElementList ElementMergeDirectives
+        {
+            get { return new DslElementList(typeof(ElementMergeDirective), GetChildNode("ElementMergeDirectives")); }
+        }
+
         public String BaseClass
         {
             get { return Moniker.Get(this, "BaseClass", "DomainClassMoniker"); }
@@ -46,11 +46,6 @@ namespace VWDAddin.DslWrapper
         public DomainProperty CreateProperty(String Type, String Name, String DisplayName)
         {
             return Properties.Append(new DomainProperty(OwnerDocument, Type, Name, DisplayName)) as DomainProperty;
-        }
-
-        public DslElementList ElementMergeDirectives
-        {
-            get { return new DslElementList(typeof(ElementMergeDirective), GetChildNode("ElementMergeDirectives")); }
         }
 
         public void Print(String t)
