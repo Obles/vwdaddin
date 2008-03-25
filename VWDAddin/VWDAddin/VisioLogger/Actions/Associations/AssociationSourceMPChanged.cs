@@ -22,10 +22,6 @@ namespace VWDAddin.VisioLogger.Actions.Associations
                 DomainRelationship dr = Dsl.Relationships.Find(Connector.GUID) as DomainRelationship;
                 dr.Source.Multiplicity = MultiplicityHelper.Compatible(Connector.SourceMultiplicity);
             }
-            if (Logger.WordDocument.IsAssociated)
-            {
-                //Logger.WordDocument.ChangeAssociationMP(Connector.GUID, Connector.SourceMultiplicity, ConnectionTypes.BeginConnected.ToString());
-            }
         }
     }
 }

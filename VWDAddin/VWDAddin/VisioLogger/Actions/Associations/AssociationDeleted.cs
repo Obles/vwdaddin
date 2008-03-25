@@ -45,11 +45,6 @@ namespace VWDAddin.VisioLogger.Actions.Associations
                 default: throw new NotSupportedException();
                 }
             }
-
-            if (Logger.WordDocument.IsAssociated)
-            {
-                //Logger.WordDocument.DeleteAssociation(Connector.GUID);
-            }
         }
     }
 }
