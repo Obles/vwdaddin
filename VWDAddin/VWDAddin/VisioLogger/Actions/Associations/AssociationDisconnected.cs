@@ -17,6 +17,7 @@ namespace VWDAddin.VisioLogger.Actions.Associations
 
         override public void Apply(Logger Logger)
         {
+            return;
             if (Logger.DslDocument != null)
             {
                 Dsl Dsl = Logger.DslDocument.Dsl;
@@ -25,7 +26,41 @@ namespace VWDAddin.VisioLogger.Actions.Associations
                 {
                     case Constants.Association:
                         {
-                            //TODO отсоединение ассоциации
+                            DomainRelationship dr = Dsl.Relationships.Find(Connector.GUID) as DomainRelationship;
+                            ConnectionBuilder cb = Dsl.GetConnectionBuilder(dr);
+
+                            if (ConnectType == ConnectionTypes.Begin)
+                            {
+                                DomainClass dc = Dsl.Classes[dr.Source.RolePlayer] as DomainClass;
+                                dr.Source.RolePlayer = null;
+
+                                cb.SourceDirectives.Remove(
+                                    cb.GetSourceConnectDirective(dc)
+                                );
+
+                                XmlClassData xcd = Dsl.XmlSerializationBehavior.GetClassData(dc);
+                                xcd.ElementData.Remove(xcd.GetRelationshipData(dr));
+                            }
+                            else
+                            {
+                                DomainClass dc = Dsl.Classes[dr.Target.RolePlayer] as DomainClass;
+                                dr.Target.RolePlayer = null;
+
+                                XmlClassData xcd = Dsl.XmlSerializationBehavior.GetClassData(dc);
+                                xcd.Xml.RemoveAttribute("SerializeId");
+
+                                cb.TargetDirectives.Remove(
+                                    cb.GetTargetConnectDirective(dc)
+                                );
+
+                                if (dr.Source.RolePlayer != null)
+                                {
+                                    Dsl.XmlSerializationBehavior.GetClassData(
+                                        Dsl.Classes[dr.Source.RolePlayer] as DomainClass
+                                    ).GetRelationshipData(dr).Update(dr);
+                                }
+                            }
+                            FixRolePropertyNames(dr);
                             break;
                         }
                     case Constants.Composition:

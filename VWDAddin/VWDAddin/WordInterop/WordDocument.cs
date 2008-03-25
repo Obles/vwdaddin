@@ -262,8 +262,8 @@ namespace VWDAddin
                             }
                             if (sourceGUID != null && targetGUID != null)
                             {
-                                AddAssociation(sourceGUID, assocGUID, name, sourceName, sourceMP, VisioHelpers.GetShapeType(shape), Constants.ConnectionTypes.BeginConnected.ToString());
-                                AddAssociation(targetGUID, assocGUID, name, targetName, targetMP, VisioHelpers.GetShapeType(shape), Constants.ConnectionTypes.EndConnected.ToString());
+                                AddAssociation(sourceGUID, assocGUID, name, sourceName, sourceMP, VisioHelpers.GetShapeType(shape), Constants.ConnectionTypes.Begin.ToString());
+                                AddAssociation(targetGUID, assocGUID, name, targetName, targetMP, VisioHelpers.GetShapeType(shape), Constants.ConnectionTypes.End.ToString());
                             }
                             break;
                         default:
