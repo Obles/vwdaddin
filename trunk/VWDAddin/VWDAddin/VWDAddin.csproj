@@ -57,6 +57,7 @@
     <Compile Include="Connections.cs" />
     <Compile Include="DslWrapper\ConnectionBuilder.cs" />
     <Compile Include="DslWrapper\DomainClass.cs" />
+    <Compile Include="DslWrapper\DomainPath.cs" />
     <Compile Include="DslWrapper\DomainProperty.cs" />
     <Compile Include="DslWrapper\DomainRelationship.cs" />
     <Compile Include="DslWrapper\DomainRole.cs" />

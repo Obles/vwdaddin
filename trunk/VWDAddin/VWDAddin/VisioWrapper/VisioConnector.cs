@@ -55,6 +55,7 @@ namespace VWDAddin.VisioWrapper
             String s = Connections.Create(source, sourcePoint);
             Shape.get_Cells("BeginX").Formula = s;
             Shape.get_Cells("BeginY").Formula = s;
+            Shape.get_Cells("BegTrigger").Formula = Connections.CreateTrigger(source);
         }
 
         /// <summary>Установка элемента в котором заканчивается коннектор</summary>
@@ -63,6 +64,7 @@ namespace VWDAddin.VisioWrapper
             String s = Connections.Create(target, targetPoint);
             Shape.get_Cells("EndX").Formula = s;
             Shape.get_Cells("EndY").Formula = s;
+            Shape.get_Cells("EndTrigger").Formula = Connections.CreateTrigger(target);
         }
 
         public String SourceMultiplicity

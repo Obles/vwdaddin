@@ -23,5 +23,21 @@ namespace VWDAddin.DslWrapper
             set { Moniker.Set(this, "Index", "DomainClassMoniker", value); }
         }
 
+        public DslElementList LinkCreationPaths
+        {
+            get { return new DslElementList(typeof(DomainPath), GetChildNode("LinkCreationPaths")); }
+        }
+
+        public void ChangePaths(String from, String to)
+        {
+            String prefix = from + ".";
+            foreach (DomainPath path in LinkCreationPaths)
+            {
+                if (path.Value.StartsWith(prefix))
+                {
+                    path.Value = to + "." + path.Value.Substring(prefix.Length);
+                }
+            }
+        }
     }
 }

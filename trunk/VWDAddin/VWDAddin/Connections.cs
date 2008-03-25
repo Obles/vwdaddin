@@ -30,6 +30,11 @@ namespace VWDAddin
         {
             return "PAR(PNT(" + shape.Name + "!Connections.X" + (int)con + "," 
                 + shape.Name + "!Connections.Y" + (int)con +"))";
-        }        
+        }
+
+        public static String CreateTrigger(Shape shape)
+        {
+            return "_XFTRIGGER(" + shape.Name + "!EventXFMod)";
+        }
     }
 }
