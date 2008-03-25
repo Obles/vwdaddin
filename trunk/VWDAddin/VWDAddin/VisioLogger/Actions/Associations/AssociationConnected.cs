@@ -69,17 +69,6 @@ namespace VWDAddin.VisioLogger.Actions.Associations
                 default: throw new NotSupportedException();
                 }
             }
-            if (Logger.WordDocument.IsAssociated)
-            {
-                //if (ConnectType == ConnectionTypes.BeginConnected)
-                //{
-                //    Logger.WordDocument.AddAssociation(Connector.Source.GUID, Connector.GUID, Connector.Name, Connector.SourceText, Connector.SourceMultiplicity, "association", ConnectType.ToString());
-                //}
-                //else
-                //{
-                //    Logger.WordDocument.AddAssociation(Connector.Target.GUID, Connector.GUID, Connector.Name, Connector.TargetText, Connector.TargetMultiplicity, "association", ConnectType.ToString());
-                //}
-            }
         }
 
         private ConnectionTypes _connectType;

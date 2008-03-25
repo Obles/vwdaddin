@@ -23,10 +23,6 @@ namespace VWDAddin.VisioLogger.Actions.Associations
                 dr.Target.Xml.SetAttribute("Name", Connector.TargetText);
                 dr.Target.Xml.SetAttribute("DisplayName", Connector.TargetText);
             }
-            if (Logger.WordDocument.IsAssociated)
-            {
-                //Logger.WordDocument.ChangeAssociationEndName(Connector.GUID, Connector.TargetText, ConnectionTypes.EndConnected.ToString());
-            }
         }
     }
 }
