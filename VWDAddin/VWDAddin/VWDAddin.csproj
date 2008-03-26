@@ -116,6 +116,8 @@
     <Compile Include="VisioWrapper\StaticConnector.cs" />
     <Compile Include="VisioWrapper\StaticShape.cs" />
     <Compile Include="VisioWrapper\VisioConnector.cs" />
+    <Compile Include="VisioWrapper\VisioList.cs" />
+    <Compile Include="VisioWrapper\VisioPage.cs" />
     <Compile Include="VisioWrapper\VisioShape.cs" />
     <Compile Include="VisioWrapper\VisioClass.cs" />
     <Compile Include="WordInterop\AssociationNode.cs" />
