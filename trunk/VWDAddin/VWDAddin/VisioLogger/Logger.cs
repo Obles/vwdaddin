@@ -5,6 +5,7 @@ using Microsoft.Office.Interop.Visio;
 using System.Diagnostics;
 using System.IO;
 using VWDAddin.VisioLogger.Actions;
+using VWDAddin.Synchronize;
 using VWDAddin.DslWrapper;
 
 namespace VWDAddin.VisioLogger
@@ -111,16 +112,19 @@ namespace VWDAddin.VisioLogger
                     dslDocument.Load(DslPath);
                 }
 
-                // Внесение изменений
-                for (int i = 0; i <= currentAction; i++)
-                {
-                    Trace.WriteLine("Apply " + actionList[i].ToString());
-                    actionList[i].Apply(this);
-                }
-
-                // Сохранение dsl-документа
                 if (dslDocument != null)
                 {
+                    // Внесение изменений
+                    for (int i = 0; i <= currentAction; i++)
+                    {
+                        Trace.WriteLine("Apply " + actionList[i].ToString());
+                        actionList[i].Apply(this);
+                    }
+
+                    // Синхронизация всего остального
+                    new DslSync(this).Synchronize();
+
+                    // Сохранение dsl-документа
                     File.WriteAllText(DslPath + ".diagram", String.Empty);
                     dslDocument.Save(DslPath);
                     dslDocument = null;
