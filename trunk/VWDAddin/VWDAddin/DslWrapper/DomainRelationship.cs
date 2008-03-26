@@ -96,5 +96,58 @@ namespace VWDAddin.DslWrapper
             PrintValue(t + "Target", "\n");
             Target.Print(t + t);
         }
+
+        /// <summary>Уничтожить всю дополнительную информацию о соединении</summary>
+        public void Disconnect()
+        {
+            Dsl Dsl = OwnerDocument.Dsl;
+
+            DomainClass source = Dsl.Classes[Source.RolePlayer] as DomainClass;
+            DomainClass target = Dsl.Classes[Target.RolePlayer] as DomainClass;
+
+            XmlClassData xcd = Dsl.XmlSerializationBehavior.GetClassData(source);
+            xcd.ElementData.Remove(xcd.GetRelationshipData(this));
+
+            if (this.IsEmbedding)
+            {
+                source.ElementMergeDirectives.Remove(
+                    source.GetElementMergeDirective(target.Xml.GetAttribute("Name"))
+                );
+            }
+            else
+            {
+                xcd = Dsl.XmlSerializationBehavior.GetClassData(target);
+                xcd.Xml.RemoveAttribute("SerializeId");
+
+                ConnectionBuilder cb = Dsl.GetConnectionBuilder(this);
+                cb.SourceDirectives.Remove(cb.GetSourceConnectDirective(source));
+                cb.TargetDirectives.Remove(cb.GetTargetConnectDirective(target));
+            }
+        }
+
+        /// <summary>Построить дополнительную информацию о соединении между классами</summary>
+        public void Connect(DomainClass source, DomainClass target)
+        {
+            Dsl Dsl = this.OwnerDocument.Dsl;
+            Dsl.XmlSerializationBehavior.GetClassData(source).ElementData.Append(
+                new XmlRelationshipData(this)
+            );
+
+            this.Source.RolePlayer = source.Xml.GetAttribute("Name");
+            this.Target.RolePlayer = target.Xml.GetAttribute("Name");
+
+            if (this.IsEmbedding)
+            {
+                source.ElementMergeDirectives.Append(new ElementMergeDirective(this));
+            }
+            else
+            {
+                Dsl.XmlSerializationBehavior.GetClassData(target).Xml.SetAttribute("SerializeId", "true");
+
+                ConnectionBuilder cb = Dsl.GetConnectionBuilder(this);
+                cb.SourceDirectives.Append(new RolePlayerConnectDirective(source));
+                cb.TargetDirectives.Append(new RolePlayerConnectDirective(target));
+            }
+        }
     }
 }

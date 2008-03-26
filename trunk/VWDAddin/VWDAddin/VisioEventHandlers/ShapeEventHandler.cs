@@ -14,6 +14,7 @@ namespace VWDAddin
     {
         public static short[] HandleEvents = {
             (short)VisEventCodes.visEvtDel + (short)VisEventCodes.visEvtShape,
+            (short)VisEventCodes.visEvtShape + Constants.visEvtAdd,
         };
 
         public ShapeEventHandler(EventManager manager)
@@ -50,6 +51,11 @@ namespace VWDAddin
                         EventHandler.UnhandledEvent(eventCode);
                         break;
                 }
+            }
+            else if (eventCode == (short)VisEventCodes.visEvtShape + Constants.visEvtAdd)
+            {
+                VisioShape vs = new VisioShape(subject as Shape);
+                if (vs.GUID == String.Empty) vs.GUID = Guid.NewGuid().ToString();
             }
             else EventHandler.UnhandledEvent(eventCode);
             return true;

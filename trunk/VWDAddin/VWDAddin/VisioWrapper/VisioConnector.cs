@@ -97,5 +97,10 @@ namespace VWDAddin.VisioWrapper
         {
             return new StaticConnector(Shape);
         }
+
+        public bool IsComposition
+        {
+            get { return this.Type == Constants.Composition; }
+        }
     }
 }
