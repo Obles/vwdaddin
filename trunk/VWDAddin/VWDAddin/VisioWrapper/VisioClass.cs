@@ -29,7 +29,16 @@ namespace VWDAddin.VisioWrapper
         /// <summary>Исходящая стрелка наследования</summary>
         public Shape Generalization
         {
-            get { return null; /*throw new NotImplementedException();*/ }
+            get 
+            {
+                VisioPage page = new VisioPage(Shape.Document.Pages[1]);
+                foreach (VisioConnector vc in page.Inheritances)
+                {
+                    if (vc.Source.ID == Shape.ID) 
+                        return vc.Shape;
+                }
+                return null;
+            }
         }
 
         public StaticClass ToStaticClass()
