@@ -17,6 +17,12 @@ namespace VWDAddin.DslWrapper
         {
         }
 
+        public DomainPath(DslDocument Doc, String path)
+            : base(Doc.CreateElement("DomainPath"))
+        {
+            Value = path;
+        }
+
         public String Value
         {
             get { return Xml.InnerText; }

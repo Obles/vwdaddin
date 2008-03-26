@@ -28,8 +28,11 @@ namespace VWDAddin.VisioWrapper
 
             foreach (Shape shape in Shapes)
             {
-                obj[0] = shape;
-                yield return ElemType.GetConstructor(types).Invoke(obj) as T;
+                if (IsListElement(shape))
+                {
+                    obj[0] = shape;
+                    yield return ElemType.GetConstructor(types).Invoke(obj) as T;
+                }
             }
         }
     }

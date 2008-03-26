@@ -17,6 +17,18 @@ namespace VWDAddin.DslWrapper
         {
         }
 
+        public ElementMergeDirective(DomainRelationship Relationship)
+            : base(Relationship.OwnerDocument.CreateElement("ElementMergeDirective"))
+        {
+            Index = Relationship.Target.RolePlayer;
+
+            LinkCreationPaths.Append(new DomainPath(
+                Relationship.OwnerDocument,
+                Relationship.Xml.GetAttribute("Name") + "." + 
+                    Relationship.Source.Xml.GetAttribute("PropertyName")
+            ));
+        }
+
         public String Index
         {
             get { return Moniker.Get(this, "Index", "DomainClassMoniker"); }

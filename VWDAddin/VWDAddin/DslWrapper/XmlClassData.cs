@@ -51,7 +51,7 @@ namespace VWDAddin.DslWrapper
             String Name = Class.Xml.GetAttribute("Name");
             String subName = Dsl.SubName(Name);
             Xml.SetAttribute("TypeName", Name);
-            Xml.SetAttribute("MonikerAttributeName", "");
+            Xml.SetAttribute("MonikerAttributeName", Xml.GetAttribute("MonikerAttributeName"));
             Xml.SetAttribute("MonikerElementName", subName + "Moniker");
             Xml.SetAttribute("ElementName", subName);
             Xml.SetAttribute("MonikerTypeName", Name + "Moniker");
@@ -64,7 +64,7 @@ namespace VWDAddin.DslWrapper
             String Name = Relationship.Xml.GetAttribute("Name");
             String subName = Dsl.SubName(Name);
             Xml.SetAttribute("TypeName", Name);
-            Xml.SetAttribute("MonikerAttributeName", "");
+            Xml.SetAttribute("MonikerAttributeName", Xml.GetAttribute("MonikerAttributeName"));
             Xml.SetAttribute("MonikerElementName", subName + "Moniker");
             Xml.SetAttribute("ElementName", subName);
             Xml.SetAttribute("MonikerTypeName", Name + "Moniker");

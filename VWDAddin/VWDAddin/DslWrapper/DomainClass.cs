@@ -16,6 +16,7 @@ namespace VWDAddin.DslWrapper
             : base(Doc.CreateElement("DomainClass"))
         {
             this.Xml.SetAttribute("Id", Guid.NewGuid().ToString());
+            this.Xml.SetAttribute("Namespace", this.OwnerDocument.Dsl.Xml.GetAttribute("Namespace"));
         }
 
         public DomainClass(DslDocument Doc, String Name, String DisplayName)

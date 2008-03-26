@@ -31,7 +31,7 @@ namespace VWDAddin.DslWrapper
 
         public void Update(DomainRelationship Relationship)
         {
-            String Name = Relationship.Target.RolePlayer;
+            String Name = Relationship.Source.Xml.GetAttribute("PropertyName");
             String subName = Dsl.SubName(Name);
 
             Xml.SetAttribute("RoleElementName", subName);
