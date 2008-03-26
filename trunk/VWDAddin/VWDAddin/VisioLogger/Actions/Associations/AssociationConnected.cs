@@ -58,7 +58,21 @@ namespace VWDAddin.VisioLogger.Actions.Associations
                     }
                 case Constants.Composition:
                     {
-                        //TODO перевешивание композиции
+                        DomainRelationship dr = Dsl.Relationships.Find(Connector.GUID) as DomainRelationship;
+
+                        if (ConnectType == ConnectionTypes.Begin)
+                        {
+                            DomainClass dc = Dsl.Classes.Find(Connector.Source.GUID) as DomainClass;
+                            dr.Source.RolePlayer = dc.Xml.GetAttribute("Name");                            
+
+                            XmlClassData xcd = Dsl.XmlSerializationBehavior.GetClassData(dc);
+                            xcd.ElementData.Append(new XmlRelationshipData(dr));
+                        }
+                        else
+                        {
+                            //TODO перевешивание композиции
+                        }
+                        FixRolePropertyNames(dr);
                         break;
                     }
                 case Constants.Generalization:
