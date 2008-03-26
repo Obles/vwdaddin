@@ -25,10 +25,6 @@ namespace VWDAddin.VisioLogger.Actions
                 dc.Xml.SetAttribute("Name", ClassShape.Name);
                 xcd.Update(dc);
             }
-            if (Logger.WordDocument.IsAssociated)
-            {
-                //Logger.WordDocument.ChangeClassName(ClassShape.GUID, ClassShape.Name);
-            }
         }
     }
 }

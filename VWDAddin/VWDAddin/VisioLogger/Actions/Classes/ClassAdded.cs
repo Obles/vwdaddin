@@ -23,10 +23,6 @@ namespace VWDAddin.VisioLogger.Actions
                 dc.GUID = ClassShape.GUID;
                 Dsl.XmlSerializationBehavior.ClassData.Append(new XmlClassData(dc));                
             }
-            if (Logger.WordDocument.IsAssociated)
-            {
-                //Logger.WordDocument.AddClass(ClassShape.Name, ClassShape.Attributes, ClassShape.GUID);
-            }
         }
     }
 }
