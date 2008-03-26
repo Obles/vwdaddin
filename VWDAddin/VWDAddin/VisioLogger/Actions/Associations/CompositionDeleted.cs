@@ -6,9 +6,9 @@ using VWDAddin.DslWrapper;
 
 namespace VWDAddin.VisioLogger.Actions.Associations
 {
-    class AssociationDeleted : AssociationAction
+    class CompositionDeleted : AssociationAction
     {
-        public AssociationDeleted(VisioConnector targetShape)
+        public CompositionDeleted(VisioConnector targetShape)
             : base(targetShape)
         {            
         }
@@ -20,27 +20,26 @@ namespace VWDAddin.VisioLogger.Actions.Associations
             DomainRelationship dr = Dsl.Relationships.Find(Connector.GUID) as DomainRelationship;
             XmlClassData xcd;
 
-            String srcName = dr.Source.RolePlayer;
-            if (srcName != null)
+            String Name = dr.Source.RolePlayer;
+            if (Name != null)
             {
-                DomainClass dc = Dsl.Classes[srcName] as DomainClass;
+                DomainClass dc = Dsl.Classes[Name] as DomainClass;
                 xcd = Dsl.XmlSerializationBehavior.GetClassData(dc);
                 xcd.ElementData.Remove(xcd.GetRelationshipData(dr));
-            }
-            String dstName = dr.Target.RolePlayer;
-            if (dstName != null)
-            {
-                DomainClass dc = Dsl.Classes[dstName] as DomainClass;
-                xcd = Dsl.XmlSerializationBehavior.GetClassData(dc);
-                xcd.Xml.RemoveAttribute("SerializeId");
+
+                Name = dr.Target.RolePlayer;
+                if (Name != null)
+                {
+                    dc.ElementMergeDirectives.Remove(
+                        dc.GetElementMergeDirective(Name)
+                    );
+                }
             }
 
             xcd = Dsl.XmlSerializationBehavior.GetClassData(dr);
-            ConnectionBuilder cb = Dsl.GetConnectionBuilder(dr);
 
             Dsl.Relationships.Remove(dr);
             Dsl.XmlSerializationBehavior.ClassData.Remove(xcd);
-            Dsl.ConnectionBuilders.Remove(cb);
         }
     }
 }

@@ -16,15 +16,12 @@ namespace VWDAddin.VisioLogger.Actions
 
         override public void Apply(Logger Logger)
         {
-            if (Logger.DslDocument != null)
-            {
-                Dsl Dsl = Logger.DslDocument.Dsl;
-                DomainClass dc = Dsl.Classes.Find(ClassShape.GUID) as DomainClass;
-                XmlClassData xcd = Dsl.XmlSerializationBehavior.GetClassData(dc);
+            Dsl Dsl = Logger.DslDocument.Dsl;
+            DomainClass dc = Dsl.Classes.Find(ClassShape.GUID) as DomainClass;
+            XmlClassData xcd = Dsl.XmlSerializationBehavior.GetClassData(dc);
 
-                Dsl.Classes.Remove(dc);
-                Dsl.XmlSerializationBehavior.ClassData.Remove(xcd);
-            }
+            Dsl.Classes.Remove(dc);
+            Dsl.XmlSerializationBehavior.ClassData.Remove(xcd);
         }
 
     }
