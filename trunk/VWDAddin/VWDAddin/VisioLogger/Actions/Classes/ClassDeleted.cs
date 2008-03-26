@@ -25,10 +25,6 @@ namespace VWDAddin.VisioLogger.Actions
                 Dsl.Classes.Remove(dc);
                 Dsl.XmlSerializationBehavior.ClassData.Remove(xcd);
             }
-            if (Logger.WordDocument.IsAssociated)
-            {
-                //Logger.WordDocument.DeleteClass(ClassShape.GUID);
-            }
         }
 
     }
