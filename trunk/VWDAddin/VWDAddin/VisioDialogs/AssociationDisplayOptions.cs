@@ -71,7 +71,15 @@ namespace VWDAddin
                     SetCheckBoxFromShape(DisplayEnd2Name, m_shape["end2_name"], "HideText");
                     SetCheckBoxFromShape(DisplayEnd1MP, m_shape["end1_mp"], "HideText");
                     SetCheckBoxFromShape(DisplayEnd2MP, m_shape["end2_mp"], "HideText");
-                    SetArrowCheckBoxFromShape(DisplayArrows, m_shape.Shape, "BeginArrow");
+                    if (VisioHelpers.GetShapeType(shape) == Constants.Composition)
+                    {
+                        DisplayArrows.Visible = false;
+                    }
+                    else
+                    {
+                        DisplayArrows.Visible = true;
+                        SetArrowCheckBoxFromShape(DisplayArrows, m_shape.Shape, "BeginArrow");
+                    }
                 }
             }
             catch (Exception e)

@@ -76,6 +76,18 @@
     <Compile Include="DslWrapper\XmlSerializationBehavior.cs" />
     <Compile Include="Synchronize\DslSync.cs" />
     <Compile Include="Synchronize\VisioSync.cs" />
+    <Compile Include="VisioDialogs\ChangeValue.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VisioDialogs\ChangeValue.Designer.cs">
+      <DependentUpon>ChangeValue.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VisioDialogs\ClassProperties.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VisioDialogs\ClassProperties.Designer.cs">
+      <DependentUpon>ClassProperties.cs</DependentUpon>
+    </Compile>
     <Compile Include="VisioDialogs\DocumentProperties.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -169,6 +181,14 @@
     <EmbeddedResource Include="VisioDialogs\AssociationDisplayOptions.resx">
       <SubType>Designer</SubType>
       <DependentUpon>AssociationDisplayOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VisioDialogs\ChangeValue.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ChangeValue.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VisioDialogs\ClassProperties.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ClassProperties.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VisioDialogs\DocumentProperties.resx">
       <SubType>Designer</SubType>

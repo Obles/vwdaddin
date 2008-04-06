@@ -64,7 +64,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_30916B5890A94433B103F261E1E99D7C"
+        "OwnerKey" = "8:_FB696EC08F1C901CB5404E12F2A36CFB"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -76,13 +76,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_FB696EC08F1C901CB5404E12F2A36CFB"
+        "OwnerKey" = "8:_59505E2A81B92812F9328D5F0E2D6995"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_59505E2A81B92812F9328D5F0E2D6995"
+        "OwnerKey" = "8:_30916B5890A94433B103F261E1E99D7C"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -211,7 +211,7 @@
             "SourcePath" = "8:..\\..\\Template\\EmptyDoc.docx"
             "TargetName" = "8:EmptyDoc.docx"
             "Tag" = "8:"
-            "Folder" = "8:_26BD260F01014356861A2ACE802FF1BD"
+            "Folder" = "8:_F4122EF17EEC446483172C6319C86EED"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -336,17 +336,6 @@
                 {
                 }
             }
-            "{1525181F-901A-416C-8A58-119130FE478E}:_26BD260F01014356861A2ACE802FF1BD"
-            {
-            "Name" = "8:#1910"
-            "AlwaysCreate" = "11:FALSE"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Property" = "8:CommonFilesFolder"
-                "Folders"
-                {
-                }
-            }
             "{3C67513D-01DD-4637-8A68-80971EB9504F}:_A661E735FE7C4B56BC632FF9A3E3E463"
             {
             "DefaultLocation" = "8:[ProgramFilesFolder]\\VWDAddin"
@@ -370,6 +359,17 @@
                 {
                 }
             }
+            "{1525181F-901A-416C-8A58-119130FE478E}:_F4122EF17EEC446483172C6319C86EED"
+            {
+            "Name" = "8:#1915"
+            "AlwaysCreate" = "11:FALSE"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Property" = "8:AppDataFolder"
+                "Folders"
+                {
+                }
+            }
         }
         "LaunchCondition"
         {
@@ -386,7 +386,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:VWDAddinSetup"
         "ProductCode" = "8:{03EAA7FC-CC28-4EDF-B691-0F1A065E8E52}"
-        "PackageCode" = "8:{21AABBA5-569B-4A95-A9CD-F3D912B17573}"
+        "PackageCode" = "8:{6FB236D7-6A8B-44ED-8A2D-A660771905C2}"
         "UpgradeCode" = "8:{C49B1B6B-E44E-424F-A953-189FCD60995B}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"

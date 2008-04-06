@@ -71,9 +71,10 @@ namespace VWDAddin
                 WordPath.Text = saveFileDialog.FileName;
                 // создание документа
                 // Переделать, так как если пользователь нажмет отмену, то файл все равно создается
-                if (File.Exists("C:\\Program Files\\Common Files\\EmptyDoc.docx"))
+                string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\EmptyDoc.docx";
+                if (File.Exists(path))
                 {
-                    File.Copy("C:\\Program Files\\Common Files\\EmptyDoc.docx", saveFileDialog.FileName, true);
+                    File.Copy(path, saveFileDialog.FileName, true);
                 }
                 else
                 {   

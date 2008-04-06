@@ -32,7 +32,7 @@ namespace VWDAddin
         {
             this.DisplayName = new System.Windows.Forms.CheckBox();
             this.OKButton = new System.Windows.Forms.Button();
-            this.CancelButton = new System.Windows.Forms.Button();
+            this.CancelBtn = new System.Windows.Forms.Button();
             this.DisplayEnd2Name = new System.Windows.Forms.CheckBox();
             this.DisplayEnd1Name = new System.Windows.Forms.CheckBox();
             this.DisplayEnd1MP = new System.Windows.Forms.CheckBox();
@@ -46,7 +46,7 @@ namespace VWDAddin
             this.DisplayName.Location = new System.Drawing.Point(12, 47);
             this.DisplayName.Name = "DisplayName";
             this.DisplayName.Size = new System.Drawing.Size(145, 17);
-            this.DisplayName.TabIndex = 0;
+            this.DisplayName.TabIndex = 1;
             this.DisplayName.Text = "Display association name";
             this.DisplayName.UseVisualStyleBackColor = true;
             this.DisplayName.CheckedChanged += new System.EventHandler(this.DisplayName_CheckedChanged);
@@ -56,20 +56,21 @@ namespace VWDAddin
             this.OKButton.Location = new System.Drawing.Point(12, 147);
             this.OKButton.Name = "OKButton";
             this.OKButton.Size = new System.Drawing.Size(75, 23);
-            this.OKButton.TabIndex = 1;
+            this.OKButton.TabIndex = 6;
             this.OKButton.Text = "OK";
             this.OKButton.UseVisualStyleBackColor = true;
             this.OKButton.Click += new System.EventHandler(this.OKButton_Click);
             // 
-            // CancelButton
+            // CancelBtn
             // 
-            this.CancelButton.Location = new System.Drawing.Point(222, 147);
-            this.CancelButton.Name = "CancelButton";
-            this.CancelButton.Size = new System.Drawing.Size(75, 23);
-            this.CancelButton.TabIndex = 2;
-            this.CancelButton.Text = "Cancel";
-            this.CancelButton.UseVisualStyleBackColor = true;
-            this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
+            this.CancelBtn.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.CancelBtn.Location = new System.Drawing.Point(209, 147);
+            this.CancelBtn.Name = "CancelBtn";
+            this.CancelBtn.Size = new System.Drawing.Size(75, 23);
+            this.CancelBtn.TabIndex = 7;
+            this.CancelBtn.Text = "Cancel";
+            this.CancelBtn.UseVisualStyleBackColor = true;
+            this.CancelBtn.Click += new System.EventHandler(this.CancelButton_Click);
             // 
             // DisplayEnd2Name
             // 
@@ -88,7 +89,7 @@ namespace VWDAddin
             this.DisplayEnd1Name.Location = new System.Drawing.Point(12, 82);
             this.DisplayEnd1Name.Name = "DisplayEnd1Name";
             this.DisplayEnd1Name.Size = new System.Drawing.Size(116, 17);
-            this.DisplayEnd1Name.TabIndex = 4;
+            this.DisplayEnd1Name.TabIndex = 2;
             this.DisplayEnd1Name.Text = "Display end1 name";
             this.DisplayEnd1Name.UseVisualStyleBackColor = true;
             this.DisplayEnd1Name.CheckedChanged += new System.EventHandler(this.DisplayEnd1Name_CheckedChanged);
@@ -99,7 +100,7 @@ namespace VWDAddin
             this.DisplayEnd1MP.Location = new System.Drawing.Point(12, 117);
             this.DisplayEnd1MP.Name = "DisplayEnd1MP";
             this.DisplayEnd1MP.Size = new System.Drawing.Size(137, 17);
-            this.DisplayEnd1MP.TabIndex = 5;
+            this.DisplayEnd1MP.TabIndex = 4;
             this.DisplayEnd1MP.Text = "Display end1 multiplicity";
             this.DisplayEnd1MP.UseVisualStyleBackColor = true;
             this.DisplayEnd1MP.CheckedChanged += new System.EventHandler(this.DisplayEnd1MP_CheckedChanged);
@@ -110,7 +111,7 @@ namespace VWDAddin
             this.DisplayEnd2MP.Location = new System.Drawing.Point(160, 117);
             this.DisplayEnd2MP.Name = "DisplayEnd2MP";
             this.DisplayEnd2MP.Size = new System.Drawing.Size(137, 17);
-            this.DisplayEnd2MP.TabIndex = 6;
+            this.DisplayEnd2MP.TabIndex = 5;
             this.DisplayEnd2MP.Text = "Display end2 multiplicity";
             this.DisplayEnd2MP.UseVisualStyleBackColor = true;
             this.DisplayEnd2MP.CheckedChanged += new System.EventHandler(this.DisplayEnd2MP_CheckedChanged);
@@ -121,26 +122,29 @@ namespace VWDAddin
             this.DisplayArrows.Location = new System.Drawing.Point(12, 12);
             this.DisplayArrows.Name = "DisplayArrows";
             this.DisplayArrows.Size = new System.Drawing.Size(94, 17);
-            this.DisplayArrows.TabIndex = 7;
+            this.DisplayArrows.TabIndex = 0;
             this.DisplayArrows.Text = "Display arrows";
             this.DisplayArrows.UseVisualStyleBackColor = true;
             this.DisplayArrows.CheckedChanged += new System.EventHandler(this.DisplayArrows_CheckedChanged);
             // 
             // AssociationDisplayOptions
             // 
+            this.AcceptButton = this.OKButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(302, 182);
+            this.CancelButton = this.CancelBtn;
+            this.ClientSize = new System.Drawing.Size(296, 176);
             this.Controls.Add(this.DisplayArrows);
             this.Controls.Add(this.DisplayEnd2MP);
             this.Controls.Add(this.DisplayEnd1MP);
             this.Controls.Add(this.DisplayEnd1Name);
             this.Controls.Add(this.DisplayEnd2Name);
-            this.Controls.Add(this.CancelButton);
+            this.Controls.Add(this.CancelBtn);
             this.Controls.Add(this.OKButton);
             this.Controls.Add(this.DisplayName);
             this.Name = "AssociationDisplayOptions";
             this.Text = "Association Display Options";
+            this.TopMost = true;
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -150,7 +154,7 @@ namespace VWDAddin
 
         private System.Windows.Forms.CheckBox DisplayName;
         private System.Windows.Forms.Button OKButton;
-        private new System.Windows.Forms.Button CancelButton;
+        private System.Windows.Forms.Button CancelBtn;
         private System.Windows.Forms.CheckBox DisplayEnd2Name;
         private System.Windows.Forms.CheckBox DisplayEnd1Name;
         private System.Windows.Forms.CheckBox DisplayEnd1MP;
