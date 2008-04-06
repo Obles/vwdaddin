@@ -23,6 +23,10 @@ namespace VWDAddin
                     }
                 }
             }
+            else
+            {
+                throw new Exception("NULL property in class node");
+            }
             XmlNode nodeAttrPart = WordHelpers.GetCustomChild(ClassXmlNode, Definitions.CLASS_ATTR_PART);
             foreach (XmlNode attrNode in nodeAttrPart.ChildNodes)
             {
@@ -50,9 +54,12 @@ namespace VWDAddin
             Init();
             ClassXmlNode = WordHelpers.CreateCustomNode(doc, Definitions.CLASS, id);
             doc.Root.AppendChild(ClassXmlNode);
+
+            ClassXmlNode.AppendChild(WordHelpers.CreateBookmarkStart(doc, id));
             XmlNode classNameNode = WordHelpers.CreateCustomNode(doc, Definitions.CLASS_NAME);
             classNameNode.AppendChild(WordHelpers.CreateTextChildNode(doc, Definitions.CLASS_NAME_PREFIX + name, Definitions.CLASS_NAME));
             ClassXmlNode.AppendChild(classNameNode);
+            ClassXmlNode.AppendChild(WordHelpers.CreateBookmarkEnd(doc, id));
 
             XmlNode classDescrNode = WordHelpers.CreateCustomNode(doc, Definitions.CLASS_DESCR);
             classDescrNode.AppendChild(WordHelpers.CreateTextChildNode(doc, Definitions.CLASS_NAME_DESCR_PREFIX, Definitions.CLASS_DESCR));
@@ -208,13 +215,13 @@ namespace VWDAddin
             return false;
         }
 
-        public void ChangeAssociationName(string associationGuid, string newName)
+        public void ChangeAssociationName(string associationGuid, string newName, string associationType)
         {
             foreach (AssociationNode node in _assocList)
             {
                 if (node.AssociationGUID == associationGuid)
                 {
-                    node.ChangeAssociationName(newName);
+                    node.ChangeAssociationName(newName, associationType);
                 }
             }
         }
