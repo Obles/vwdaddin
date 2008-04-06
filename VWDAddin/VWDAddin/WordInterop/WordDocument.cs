@@ -190,7 +190,7 @@ namespace VWDAddin
                 {
                     if (MessageBox.Show("Не существует привязанного файла, вы хотите создать новый ассоциированный документ?", "Создание нового файла", MessageBoxButtons.OKCancel) == DialogResult.OK)
                     {
-                        string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\EmptyDoc.docx";
+                        string path = Environment.GetFolderPath(Environment.SpecialFolder.Templates) + "\\EmptyDoc.docx";
                         if (File.Exists(path))
                         {
                             File.Copy(path, pathToDoc, true);
