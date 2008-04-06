@@ -55,7 +55,9 @@ namespace VWDAddin
             else if (eventCode == (short)VisEventCodes.visEvtShape + Constants.visEvtAdd)
             {
                 VisioShape vs = new VisioShape(subject as Shape);
-                if (vs.GUID == String.Empty) vs.GUID = Guid.NewGuid().ToString();
+                // bug
+                //if (vs.GUID == String.Empty) vs.GUID = Guid.NewGuid().ToString();
+                vs.GUID = Guid.NewGuid().ToString();
             }
             else EventHandler.UnhandledEvent(eventCode);
             return true;

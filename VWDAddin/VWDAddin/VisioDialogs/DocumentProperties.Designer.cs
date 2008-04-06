@@ -31,15 +31,15 @@ namespace VWDAddin
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.btnSelectDSL = new System.Windows.Forms.Button();
-            this.DSLPath = new System.Windows.Forms.TextBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnCreateDSL = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.WordPath = new System.Windows.Forms.TextBox();
-            this.btnSelectWord = new System.Windows.Forms.Button();
+            this.DSLPath = new System.Windows.Forms.TextBox();
+            this.btnSelectDSL = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnCreateWord = new System.Windows.Forms.Button();
+            this.btnSelectWord = new System.Windows.Forms.Button();
+            this.WordPath = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.groupBox1.SuspendLayout();
@@ -52,7 +52,7 @@ namespace VWDAddin
             this.btnOK.Location = new System.Drawing.Point(324, 131);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
-            this.btnOK.TabIndex = 0;
+            this.btnOK.TabIndex = 6;
             this.btnOK.Text = "OK";
             this.btnOK.UseVisualStyleBackColor = true;
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
@@ -63,7 +63,7 @@ namespace VWDAddin
             this.btnCancel.Location = new System.Drawing.Point(405, 131);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 1;
+            this.btnCancel.TabIndex = 7;
             this.btnCancel.Text = "Отмена";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
@@ -83,14 +83,25 @@ namespace VWDAddin
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "DSL Tools";
             // 
-            // label1
+            // btnCreateDSL
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 22);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(102, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Путь к dsl-проекту:";
+            this.btnCreateDSL.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCreateDSL.Location = new System.Drawing.Point(387, 19);
+            this.btnCreateDSL.Name = "btnCreateDSL";
+            this.btnCreateDSL.Size = new System.Drawing.Size(75, 20);
+            this.btnCreateDSL.TabIndex = 2;
+            this.btnCreateDSL.Text = "Создать";
+            this.btnCreateDSL.UseVisualStyleBackColor = true;
+            this.btnCreateDSL.Click += new System.EventHandler(this.btnCreateDSL_Click);
+            // 
+            // DSLPath
+            // 
+            this.DSLPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.DSLPath.Location = new System.Drawing.Point(114, 19);
+            this.DSLPath.Name = "DSLPath";
+            this.DSLPath.Size = new System.Drawing.Size(235, 20);
+            this.DSLPath.TabIndex = 0;
             // 
             // btnSelectDSL
             // 
@@ -103,14 +114,14 @@ namespace VWDAddin
             this.btnSelectDSL.UseVisualStyleBackColor = true;
             this.btnSelectDSL.Click += new System.EventHandler(this.btnSelectDSL_Click);
             // 
-            // DSLPath
+            // label1
             // 
-            this.DSLPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.DSLPath.Location = new System.Drawing.Point(114, 19);
-            this.DSLPath.Name = "DSLPath";
-            this.DSLPath.Size = new System.Drawing.Size(235, 20);
-            this.DSLPath.TabIndex = 0;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 22);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(102, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Путь к dsl-проекту:";
             // 
             // groupBox2
             // 
@@ -127,34 +138,16 @@ namespace VWDAddin
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Word";
             // 
-            // btnCreateDSL
+            // btnCreateWord
             // 
-            this.btnCreateDSL.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCreateDSL.Location = new System.Drawing.Point(387, 19);
-            this.btnCreateDSL.Name = "btnCreateDSL";
-            this.btnCreateDSL.Size = new System.Drawing.Size(75, 20);
-            this.btnCreateDSL.TabIndex = 2;
-            this.btnCreateDSL.Text = "Создать";
-            this.btnCreateDSL.UseVisualStyleBackColor = true;
-            this.btnCreateDSL.Click += new System.EventHandler(this.btnCreateDSL_Click);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 22);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(99, 13);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Путь к документу:";
-            // 
-            // WordPath
-            // 
-            this.WordPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.WordPath.Location = new System.Drawing.Point(114, 19);
-            this.WordPath.Name = "WordPath";
-            this.WordPath.Size = new System.Drawing.Size(235, 20);
-            this.WordPath.TabIndex = 3;
+            this.btnCreateWord.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCreateWord.Location = new System.Drawing.Point(387, 18);
+            this.btnCreateWord.Name = "btnCreateWord";
+            this.btnCreateWord.Size = new System.Drawing.Size(75, 20);
+            this.btnCreateWord.TabIndex = 5;
+            this.btnCreateWord.Text = "Создать";
+            this.btnCreateWord.UseVisualStyleBackColor = true;
+            this.btnCreateWord.Click += new System.EventHandler(this.btnCreateWord_Click);
             // 
             // btnSelectWord
             // 
@@ -167,22 +160,29 @@ namespace VWDAddin
             this.btnSelectWord.UseVisualStyleBackColor = true;
             this.btnSelectWord.Click += new System.EventHandler(this.btnSelectWord_Click);
             // 
-            // btnCreateWord
+            // WordPath
             // 
-            this.btnCreateWord.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCreateWord.Location = new System.Drawing.Point(387, 18);
-            this.btnCreateWord.Name = "btnCreateWord";
-            this.btnCreateWord.Size = new System.Drawing.Size(75, 20);
-            this.btnCreateWord.TabIndex = 5;
-            this.btnCreateWord.Text = "Создать";
-            this.btnCreateWord.UseVisualStyleBackColor = true;
-            this.btnCreateWord.Click += new System.EventHandler(this.btnCreateWord_Click);
+            this.WordPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.WordPath.Location = new System.Drawing.Point(114, 19);
+            this.WordPath.Name = "WordPath";
+            this.WordPath.Size = new System.Drawing.Size(235, 20);
+            this.WordPath.TabIndex = 3;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(9, 22);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(99, 13);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Путь к документу:";
             // 
             // DocumentProperties
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(492, 166);
+            this.ClientSize = new System.Drawing.Size(492, 169);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnCancel);
@@ -190,6 +190,7 @@ namespace VWDAddin
             this.MinimumSize = new System.Drawing.Size(500, 200);
             this.Name = "DocumentProperties";
             this.Text = "Свойства документа";
+            this.TopMost = true;
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

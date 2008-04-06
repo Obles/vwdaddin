@@ -48,6 +48,21 @@ namespace VWDAddin
                         }
                         break;
                     }
+                    case ClassProperties.MarkerName:
+                    {
+                        int id = Convert.ToInt32(Params[1]);
+                        Shape selectedShape = VisioHelpers.GetShapeByID(id, application);
+                        if (selectedShape != null)
+                        {
+                            string type = VisioHelpers.GetShapeType(selectedShape);
+                            if (type == Constants.Class)
+                            {
+                                Show(new ClassProperties(selectedShape), application);
+                            }
+                            else Debug.WriteLine("Undefined type: " + type);
+                        }
+                        break;
+                    }
                     case DocumentProperties.MarkerName:
                     {
                         //TODO информация для размышления

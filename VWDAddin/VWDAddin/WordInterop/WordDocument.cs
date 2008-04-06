@@ -184,15 +184,16 @@ namespace VWDAddin
                 if (IsAssociated)
                     CloseWordDocument();
                 if (File.Exists(pathToDoc))
-                {
+                {                    
                 }
                 else
                 {
                     if (MessageBox.Show("Не существует привязанного файла, вы хотите создать новый ассоциированный документ?", "Создание нового файла", MessageBoxButtons.OKCancel) == DialogResult.OK)
                     {
-                        if (File.Exists("C:\\Program Files\\Common Files\\EmptyDoc.docx"))
+                        string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\EmptyDoc.docx";
+                        if (File.Exists(path))
                         {
-                            File.Copy("C:\\Program Files\\Common Files\\EmptyDoc.docx", pathToDoc, true);
+                            File.Copy(path, pathToDoc, true);
                         }
                         else
                         {
