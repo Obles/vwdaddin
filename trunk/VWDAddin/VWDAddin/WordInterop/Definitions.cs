@@ -62,5 +62,7 @@ namespace VWDAddin
 
         public const string ATTR_GUID = "GUID";
         public const string ATTR_CONNECTION_TYPE = "CONNECTION_TYPE";
+
+        public const string VALIDATION_FAILED = "Прикрепленный документ не соответствует схеме. ";
     }
 }

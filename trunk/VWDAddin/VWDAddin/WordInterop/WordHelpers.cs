@@ -214,6 +214,27 @@ namespace VWDAddin
             return false;
         }
 
+        public static XmlNode CreateBookmarkStart(WordDocument doc, string classID)
+        {
+            XmlNode bookmarkNode = doc.CreateNode(XmlNodeType.Element, "w:bookmarkStart", Definitions.WORD_PROCESSING_ML);
+            XmlAttribute id = doc.CreateAttribute("w:id", Definitions.WORD_PROCESSING_ML);
+            XmlAttribute name = doc.CreateAttribute("w:name", Definitions.WORD_PROCESSING_ML);
+            id.Value = name.Value = classID;
+            bookmarkNode.Attributes.Append(id);
+            bookmarkNode.Attributes.Append(name);
+            return bookmarkNode;
+        }
+
+        public static XmlNode CreateBookmarkEnd(WordDocument doc, string classID)
+        {
+            XmlNode bookmarkNode = doc.CreateNode(XmlNodeType.Element, "w:bookmarkStart", Definitions.WORD_PROCESSING_ML);
+            XmlAttribute id = doc.CreateAttribute("w:id", Definitions.WORD_PROCESSING_ML);
+            id.Value = classID;
+            bookmarkNode.Attributes.Append(id);
+            return bookmarkNode;
+        }
+
+
         public static string[] ConvertListToArray(List<string> list)
         {
             string[] result = new string[list.Count];

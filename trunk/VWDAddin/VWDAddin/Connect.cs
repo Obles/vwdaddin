@@ -69,6 +69,7 @@ namespace VWDAddin
                 MessageBox.Show("TypeCast Error");
                 return;
             }
+           
             addInInstance = addInInst;
 
             Trace.WriteLine("Name: " + visApplication.Name + " Version: " + visApplication.Version);

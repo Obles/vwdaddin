@@ -6,6 +6,7 @@ using System.IO;
 using System.IO.Packaging;
 using Microsoft.Office.Interop.Visio;
 using System.Diagnostics;
+using System.Windows.Forms;
 
 namespace VWDAddin
 {
@@ -40,6 +41,7 @@ namespace VWDAddin
             catch (Exception e)
             {
                 Debug.WriteLine(e.Message);
+                MessageBox.Show(Definitions.VALIDATION_FAILED);
                 throw e;
             }
         }
@@ -102,7 +104,7 @@ namespace VWDAddin
                 }
                 else
                 {
-                    ChangeAssociationName(associationGuid, name);
+                    ChangeAssociationName(associationGuid, name, associationType);
                     ChangeAssociationEndName(associationGuid, endName, connectionType);
                     ChangeAssociationMP(associationGuid, endMP, connectionType);
                 }
@@ -129,13 +131,13 @@ namespace VWDAddin
             return null;
         }
 
-        public void ChangeAssociationName(string associationGuid, string newName)
+        public void ChangeAssociationName(string associationGuid, string newName, string associationType)
         {            
             foreach (ClassNode node in _classList)
             {
                 if (node.CheckAssociation(associationGuid))
                 {
-                    node.ChangeAssociationName(associationGuid, newName);
+                    node.ChangeAssociationName(associationGuid, newName, associationType);
                 }
             }
         }
@@ -186,14 +188,18 @@ namespace VWDAddin
                 }
                 else
                 {
-                    if (File.Exists("EmptyDoc.docx"))
+                    if (MessageBox.Show("Не существует привязанного файла, вы хотите создать новый ассоциированный документ?", "Создание нового файла", MessageBoxButtons.OKCancel) == DialogResult.OK)
                     {
-                        File.Copy("EmptyDoc.docx", pathToDoc, true);
-                    }
-                    else
-                    {
-                        Debug.WriteLine("WORD_INTEROP.SYNCRONIZE : EmptyDoc not found");
-                        return;
+                        if (File.Exists("C:\\Program Files\\Common Files\\EmptyDoc.docx"))
+                        {
+                            File.Copy("C:\\Program Files\\Common Files\\EmptyDoc.docx", pathToDoc, true);
+                        }
+                        else
+                        {
+                            Debug.WriteLine("WORD_INTEROP.SYNCRONIZE : EmptyDoc not found");
+                            MessageBox.Show("EmptyDoc not found");
+                            throw new Exception("WORD_INTEROP.SYNCRONIZE : EmptyDoc not found");
+                        }
                     }
                 }
                 this.ParseDocx(pathToDoc);
@@ -253,8 +259,8 @@ namespace VWDAddin
                             }
                             string sourceGUID = null;
                             string targetGUID = null;
-                            Shape source = FindConnectedShape(shape, shape.get_Cells("BeginX").Formula);
-                            Shape target = FindConnectedShape(shape, shape.get_Cells("EndX").Formula);
+                            Shape source = FindConnectedShape(shape, shape.get_Cells("BegTrigger").Formula);
+                            Shape target = FindConnectedShape(shape, shape.get_Cells("EndTrigger").Formula);
                             if (source != null && target != null)
                             {
                                 sourceGUID = VisioHelpers.FromString(source.get_Cells("User.GUID.Value").Formula);
@@ -275,7 +281,8 @@ namespace VWDAddin
             }
             catch (Exception e)
             {
-                Debug.WriteLine(e.Message);                
+                Debug.WriteLine(e.Message);
+                MessageBox.Show("Ошибка: Сохранение документа {0} не произошло", pathToDoc);
             }
         }
 
@@ -286,7 +293,8 @@ namespace VWDAddin
             {
                 if (suspiciousShape.Name == searchName)
                 {
-                    return suspiciousShape;
+                    return VisioHelpers.GetShapeType(suspiciousShape)
+                        == Constants.Class ? suspiciousShape : null;
                 }
             }
             return null;
