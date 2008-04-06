@@ -45,8 +45,20 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_6C6B7230E5BF4FC7AA351D75BCAEDDD8"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_ACB57726A7239F5EDA2BB03616F469C6"
         "OwnerKey" = "8:_30916B5890A94433B103F261E1E99D7C"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_ACE5E38085FD4F7C9B2AEAD233DD9774"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -211,7 +223,7 @@
             "SourcePath" = "8:..\\..\\Template\\EmptyDoc.docx"
             "TargetName" = "8:EmptyDoc.docx"
             "Tag" = "8:"
-            "Folder" = "8:_F4122EF17EEC446483172C6319C86EED"
+            "Folder" = "8:_CAD4EC24A92D4501B01B70456BBECE88"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -257,6 +269,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6C6B7230E5BF4FC7AA351D75BCAEDDD8"
+            {
+            "SourcePath" = "8:..\\..\\Template\\Domain-Specific Modeling\\Stencil.vss"
+            "TargetName" = "8:Stencil.vss"
+            "Tag" = "8:"
+            "Folder" = "8:_CAD4EC24A92D4501B01B70456BBECE88"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_ACB57726A7239F5EDA2BB03616F469C6"
             {
             "AssemblyRegister" = "3:1"
@@ -286,6 +318,26 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_ACE5E38085FD4F7C9B2AEAD233DD9774"
+            {
+            "SourcePath" = "8:..\\..\\Template\\Domain-Specific Modeling\\TestTemplate.vtx"
+            "TargetName" = "8:TestTemplate.vtx"
+            "Tag" = "8:"
+            "Folder" = "8:_CAD4EC24A92D4501B01B70456BBECE88"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_FB696EC08F1C901CB5404E12F2A36CFB"
@@ -359,13 +411,13 @@
                 {
                 }
             }
-            "{1525181F-901A-416C-8A58-119130FE478E}:_F4122EF17EEC446483172C6319C86EED"
+            "{1525181F-901A-416C-8A58-119130FE478E}:_CAD4EC24A92D4501B01B70456BBECE88"
             {
-            "Name" = "8:#1915"
+            "Name" = "8:#1922"
             "AlwaysCreate" = "11:FALSE"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
-            "Property" = "8:AppDataFolder"
+            "Property" = "8:TemplateFolder"
                 "Folders"
                 {
                 }
@@ -385,14 +437,14 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:VWDAddinSetup"
-        "ProductCode" = "8:{03EAA7FC-CC28-4EDF-B691-0F1A065E8E52}"
-        "PackageCode" = "8:{6FB236D7-6A8B-44ED-8A2D-A660771905C2}"
+        "ProductCode" = "8:{3CC07D9C-0B6C-46F4-98FB-C5092BE72F56}"
+        "PackageCode" = "8:{D8692248-C3C5-4E97-B2FD-51E11709462B}"
         "UpgradeCode" = "8:{C49B1B6B-E44E-424F-A953-189FCD60995B}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:0.1.0"
+        "ProductVersion" = "8:0.1.124"
         "Manufacturer" = "8:Default Company Name"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
