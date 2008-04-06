@@ -4,4 +4,5 @@
 
 Что-бы шаблон появился в меню _Choose Drawing Type_ надо:
  # Открыть в меню Tools - Options - Advanced - File Paths
- # В строке Templates написать путь к папке шаблонов начинающийся с ";" (например _";C:\Andrey\Work\vwdaddin\Template"_)
+ # В строке Templates написать путь к папке шаблонов начинающийся с ";" (например _";c:\Documents and Settings\user\Шаблоны\"_)
+ # По умолчанию шаблоны инсталлируются в "c:\Documents and Settings\user\Шаблоны\", где [user] - имя учетной записи
