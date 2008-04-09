@@ -18,6 +18,7 @@ namespace VWDAddin
         public const string WORD_CONTENT_TYPE = "application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml";
 
         public const string CLASS_NAME_PREFIX = "Класс: ";
+        public const string CLASS_PARENT_PREFIX = "Предок: ";
         public const string CLASS_NAME_DESCR_PREFIX = "Описание: ";
         public const string CLASS_ATTR_NAME_PREFIX = "Атрибут: ";
         public const string CLASS_ATTR_NAME_DESCR_PREFIX = "Описание: ";

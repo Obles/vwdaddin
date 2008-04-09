@@ -76,6 +76,10 @@ namespace VWDAddin
             {
                 Debug.WriteLine("WORD_INTEROP.CHANGE CLASS NAME : UNKNOWN CLASS ID");
             }
+            foreach (ClassNode classNode in _classList)
+            {
+                classNode.RenameParent(id, newName);
+            }
         }
 
         public void ChangeClassAttributes(string id, string newAttributes)
@@ -177,6 +181,17 @@ namespace VWDAddin
             }
         }
 
+        public void AddGeneralization(string childGUID, string parentGUID, string parentName)
+        {
+            ClassNode node = WordHelpers.GetClassNodeByID(_classList, childGUID);
+            if (null != node)
+                node.AddParent(parentGUID, parentName);
+            else
+            {
+                Debug.WriteLine("WORD_INTEROP.ADD PARENT : UNKNOWN CLASS ID");
+            }
+        }
+
         public void Syncronize(Document visioDocument, string pathToDoc)
         {
             try
@@ -273,6 +288,28 @@ namespace VWDAddin
                                 AddAssociation(targetGUID, assocGUID, name, targetName, targetMP, VisioHelpers.GetShapeType(shape), Constants.ConnectionTypes.End.ToString());
                             }
                             break;
+                        case Constants.Generalization:
+                            string generalGUID = VisioHelpers.FromString(shape.get_Cells("User.GUID.Value").Formula);
+                            string childGUID = null;
+                            string parentGUID = null;
+                            string parentName = string.Empty;
+                            Shape parent = FindConnectedShape(shape, shape.get_Cells("BegTrigger").Formula);
+                            Shape child = FindConnectedShape(shape, shape.get_Cells("EndTrigger").Formula);
+                            if (child != null && parent != null)
+                            {
+                                childGUID = VisioHelpers.FromString(child.get_Cells("User.GUID.Value").Formula);
+                                parentGUID = VisioHelpers.FromString(parent.get_Cells("User.GUID.Value").Formula);
+                                foreach (Shape subshape in parent.Shapes)
+                                {
+                                    if (VisioHelpers.GetShapeType(subshape) == "class_name")
+                                        parentName = subshape.Text;
+                                }
+                            }
+                            if (childGUID != null && parentGUID != null)
+                            {
+                                AddGeneralization(childGUID, parentGUID, parentName);
+                            }
+                            break;
                         default:
                             break;
                     }
@@ -307,7 +344,10 @@ namespace VWDAddin
             foreach (ClassNode node in _classList)
             {
                 if (node.IsRemained)
+                {
                     node.DeleteAssociations();
+                    node.DeleteParent();
+                }
                 else
                     deletingClasses.Add(node.ClassID);                    
             }
