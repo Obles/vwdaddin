@@ -12,6 +12,8 @@ namespace VWDAddin
             Init();
             ClassXmlNode = node;
             IsRemained = false;
+            ParentRemained = false;
+            _doc = doc;
             XmlNode property = WordHelpers.GetCustomXmlPropertyNode(node);
             if (property !=null)
             {
@@ -52,6 +54,7 @@ namespace VWDAddin
         public ClassNode(WordDocument doc, string name, string classAttributes, string id)
         {
             Init();
+            _doc = doc;
             ClassXmlNode = WordHelpers.CreateCustomNode(doc, Definitions.CLASS, id);
             doc.Root.AppendChild(ClassXmlNode);
 
@@ -60,6 +63,9 @@ namespace VWDAddin
             classNameNode.AppendChild(WordHelpers.CreateTextChildNode(doc, Definitions.CLASS_NAME_PREFIX + name, Definitions.CLASS_NAME));
             ClassXmlNode.AppendChild(classNameNode);
             ClassXmlNode.AppendChild(WordHelpers.CreateBookmarkEnd(doc, id));
+
+            XmlNode classParentNode = WordHelpers.CreateCustomNode(doc, Definitions.CLASS_PARENT);
+            ClassXmlNode.AppendChild(classParentNode);
 
             XmlNode classDescrNode = WordHelpers.CreateCustomNode(doc, Definitions.CLASS_DESCR);
             classDescrNode.AppendChild(WordHelpers.CreateTextChildNode(doc, Definitions.CLASS_NAME_DESCR_PREFIX, Definitions.CLASS_DESCR));
@@ -93,8 +99,10 @@ namespace VWDAddin
 
         public void ChangeName(string newName)
         {
-            XmlNode nodeText = WordHelpers.GetFirstTextNode(WordHelpers.GetCustomChild(ClassXmlNode, Definitions.CLASS_NAME));
-            nodeText.Value = Definitions.CLASS_NAME_PREFIX + newName;
+            XmlNode classNameNode = WordHelpers.GetCustomChild(ClassXmlNode, Definitions.CLASS_NAME);
+            foreach (XmlNode child in classNameNode.ChildNodes)
+                classNameNode.RemoveChild(child);
+            classNameNode.AppendChild(WordHelpers.CreateTextChildNode(_doc, Definitions.CLASS_NAME_PREFIX + newName, Definitions.CLASS_NAME));
             IsRemained = true;
         }
 
@@ -248,6 +256,50 @@ namespace VWDAddin
             }
         }
 
+        public void AddParent(string parentGUID, string parentName)
+        {
+            XmlNode classParentNode = WordHelpers.GetCustomChild(ClassXmlNode, Definitions.CLASS_PARENT);
+            if (classParentNode == null)
+            {
+                classParentNode = WordHelpers.CreateCustomNode(_doc, Definitions.CLASS_PARENT);
+                ClassXmlNode.InsertAfter(classParentNode, WordHelpers.GetCustomChild(ClassXmlNode, Definitions.CLASS_NAME));
+            }
+            RemoveParent();
+            XmlNode hyperlinkNode = WordHelpers.CreateHyperlinkNode(_doc, parentGUID);
+            XmlNode textNode = WordHelpers.CreateTextChildNode(_doc, Definitions.CLASS_PARENT_PREFIX + parentName, Definitions.CLASS_PARENT);
+            hyperlinkNode.AppendChild(textNode);
+            classParentNode.AppendChild(hyperlinkNode);
+            IsRemained = ParentRemained = true;
+        }
+
+        public void RenameParent(string parentGUID, string newName)
+        {
+            XmlNode classParentNode = WordHelpers.GetCustomChild(ClassXmlNode, Definitions.CLASS_PARENT);
+            if (classParentNode == null)
+            {
+                classParentNode = WordHelpers.CreateCustomNode(_doc, Definitions.CLASS_PARENT);
+                ClassXmlNode.InsertAfter(classParentNode, WordHelpers.GetCustomChild(ClassXmlNode, Definitions.CLASS_NAME));
+            }
+            foreach (XmlNode child in classParentNode.ChildNodes)
+            {
+                if (child.Attributes.Count > 0 && child.Name == "w:hyperlink" && child.Attributes[0].Value == parentGUID)
+                    AddParent(parentGUID, newName);
+            }
+        }
+
+        public void RemoveParent()
+        {
+            XmlNode classParentNode = WordHelpers.GetCustomChild(ClassXmlNode, Definitions.CLASS_PARENT);
+            foreach (XmlNode child in classParentNode.ChildNodes)
+                classParentNode.RemoveChild(child);
+        }
+
+        public void DeleteParent()
+        {
+            if (!ParentRemained)
+                RemoveParent();
+        }
+
         public void DeleteAssociations()
         {
             List<string> deletingAssocs = new List<string>();
@@ -275,9 +327,10 @@ namespace VWDAddin
         public XmlNode ClassXmlNode;
         public string ClassID;
         public bool IsRemained;
+        public bool ParentRemained;
         private List<AttributeNode> _attrList;
         private List<String> _attributes;
         private List<AssociationNode> _assocList;
-
+        private WordDocument _doc;
     }
 }

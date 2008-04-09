@@ -227,13 +227,21 @@ namespace VWDAddin
 
         public static XmlNode CreateBookmarkEnd(WordDocument doc, string classID)
         {
-            XmlNode bookmarkNode = doc.CreateNode(XmlNodeType.Element, "w:bookmarkStart", Definitions.WORD_PROCESSING_ML);
+            XmlNode bookmarkNode = doc.CreateNode(XmlNodeType.Element, "w:bookmarkEnd", Definitions.WORD_PROCESSING_ML);
             XmlAttribute id = doc.CreateAttribute("w:id", Definitions.WORD_PROCESSING_ML);
             id.Value = classID;
             bookmarkNode.Attributes.Append(id);
             return bookmarkNode;
         }
 
+        public static XmlNode CreateHyperlinkNode(WordDocument doc, string hyperlinkedClassID)
+        {
+            XmlNode hyperlinkNode = doc.CreateNode(XmlNodeType.Element, "w:hyperlink", Definitions.WORD_PROCESSING_ML);
+            XmlAttribute anchor = doc.CreateAttribute("w:anchor", Definitions.WORD_PROCESSING_ML);
+            anchor.Value = hyperlinkedClassID;
+            hyperlinkNode.Attributes.Append(anchor);
+            return hyperlinkNode;
+        }
 
         public static string[] ConvertListToArray(List<string> list)
         {
