@@ -198,8 +198,9 @@ namespace VWDAddin
             {
                 if (IsAssociated)
                     CloseWordDocument();
-                if (File.Exists(pathToDoc))
-                {                    
+                if (!File.Exists(pathToDoc))
+                {
+                    return;
                 }
                 else
                 {
