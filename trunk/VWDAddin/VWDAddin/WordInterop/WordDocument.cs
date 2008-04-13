@@ -76,10 +76,11 @@ namespace VWDAddin
             {
                 Debug.WriteLine("WORD_INTEROP.CHANGE CLASS NAME : UNKNOWN CLASS ID");
             }
-            foreach (ClassNode classNode in _classList)
-            {
-                classNode.RenameParent(id, newName);
-            }
+            // bugged
+            //foreach (ClassNode classNode in _classList)
+            //{
+            //    classNode.RenameParent(id, newName);
+            //}
         }
 
         public void ChangeClassAttributes(string id, string newAttributes)
@@ -204,20 +205,20 @@ namespace VWDAddin
                 }
                 else
                 {
-                    if (MessageBox.Show("Не существует привязанного файла, вы хотите создать новый ассоциированный документ?", "Создание нового файла", MessageBoxButtons.OKCancel) == DialogResult.OK)
-                    {
-                        string path = Environment.GetFolderPath(Environment.SpecialFolder.Templates) + "\\EmptyDoc.docx";
-                        if (File.Exists(path))
-                        {
-                            File.Copy(path, pathToDoc, true);
-                        }
-                        else
-                        {
-                            Debug.WriteLine("WORD_INTEROP.SYNCRONIZE : EmptyDoc not found");
-                            MessageBox.Show("EmptyDoc not found");
-                            throw new Exception("WORD_INTEROP.SYNCRONIZE : EmptyDoc not found");
-                        }
-                    }
+                    //if (MessageBox.Show("Не существует привязанного файла, вы хотите создать новый ассоциированный документ?", "Создание нового файла", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                    //{
+                    //    string path = Environment.GetFolderPath(Environment.SpecialFolder.Templates) + "\\EmptyDoc.docx";
+                    //    if (File.Exists(path))
+                    //    {
+                    //        File.Copy(path, pathToDoc, true);
+                    //    }
+                    //    else
+                    //    {
+                    //        Debug.WriteLine("WORD_INTEROP.SYNCRONIZE : EmptyDoc not found");
+                    //        MessageBox.Show("EmptyDoc not found");
+                    //        throw new Exception("WORD_INTEROP.SYNCRONIZE : EmptyDoc not found");
+                    //    }
+                    //}
                 }
                 this.ParseDocx(pathToDoc);
                 foreach (Shape shape in visioDocument.Pages[1].Shapes)

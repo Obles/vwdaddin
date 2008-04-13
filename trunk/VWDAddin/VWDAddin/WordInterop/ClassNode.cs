@@ -277,8 +277,9 @@ namespace VWDAddin
             XmlNode classParentNode = WordHelpers.GetCustomChild(ClassXmlNode, Definitions.CLASS_PARENT);
             if (classParentNode == null)
             {
-                classParentNode = WordHelpers.CreateCustomNode(_doc, Definitions.CLASS_PARENT);
-                ClassXmlNode.InsertAfter(classParentNode, WordHelpers.GetCustomChild(ClassXmlNode, Definitions.CLASS_NAME));
+                return;
+                //classParentNode = WordHelpers.CreateCustomNode(_doc, Definitions.CLASS_PARENT);
+                //ClassXmlNode.InsertAfter(classParentNode, WordHelpers.GetCustomChild(ClassXmlNode, Definitions.CLASS_NAME));
             }
             foreach (XmlNode child in classParentNode.ChildNodes)
             {
