@@ -21,6 +21,7 @@ namespace VWDAddin.Synchronize
         public void Synchronize()
         {
             Trace.WriteLine("Synchronizing Visio");
+            VisioMaster.count = 0;
             //TODO сделать нормальную синхронихацию
             // сейчас это частичная генерация из Dsl-проекта
             Logger.Active = false;

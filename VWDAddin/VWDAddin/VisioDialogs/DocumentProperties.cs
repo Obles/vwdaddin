@@ -39,7 +39,8 @@ namespace VWDAddin
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 DSLPath.Text = openFileDialog.FileName;
-                //TODO синхронизация документов, если это возможно
+                VisioHelpers.SetDSLPath(Logger.Document, DSLPath.Text);
+                new VisioSync(Logger).Synchronize();
             }
         }
 
@@ -49,6 +50,7 @@ namespace VWDAddin
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 WordPath.Text = openFileDialog.FileName;
+                VisioHelpers.SetWordPath(Logger.Document, WordPath.Text);
                 //TODO синхронизация документов, если это возможно
             }
         }
@@ -59,6 +61,7 @@ namespace VWDAddin
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
                 DSLPath.Text = saveFileDialog.FileName;
+                VisioHelpers.SetDSLPath(Logger.Document, DSLPath.Text);
                 //TODO создание dsl-проекта
             }
         }
@@ -69,6 +72,7 @@ namespace VWDAddin
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
                 WordPath.Text = saveFileDialog.FileName;
+                VisioHelpers.SetWordPath(Logger.Document, WordPath.Text);
                 // создание документа
                 // Переделать, так как если пользователь нажмет отмену, то файл все равно создается
                 string path = Environment.GetFolderPath(Environment.SpecialFolder.Templates) + "\\EmptyDoc.docx";
@@ -85,21 +89,7 @@ namespace VWDAddin
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            if (VisioHelpers.GetDSLPath(Logger.Document) != DSLPath.Text)
-            {
-                VisioHelpers.SetDSLPath(Logger.Document, DSLPath.Text);
-                new VisioSync(Logger).Synchronize();
-            }
-            VisioHelpers.SetWordPath(Logger.Document, WordPath.Text);
-            this.DialogResult = DialogResult.OK;
             this.Close();
         }
-
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-            this.DialogResult = DialogResult.Cancel;
-            this.Close();
-        }
-
     }
 }
