@@ -24,14 +24,14 @@ namespace VWDAddin.VisioWrapper
         /// *Это там, где ромбик - для композиции* 
         public Shape Source
         {
-            get { return FindConnectedShape(Shape.get_Cells("BegTrigger").Formula); }
+            get { return FindConnectedShape(Shape.get_Cells("BegTrigger").FormulaU); }
             set { SetSource(value, ClassConnections.Undef); }
         }
 
         /// <summary>Получение элемента в котором заканчивается коннектор</summary>
         public Shape Target
         {
-            get { return FindConnectedShape(Shape.get_Cells("EndTrigger").Formula); }
+            get { return FindConnectedShape(Shape.get_Cells("EndTrigger").FormulaU); }
             set { SetTarget(value, ClassConnections.Undef); }
         }
 
@@ -53,18 +53,18 @@ namespace VWDAddin.VisioWrapper
         public void SetSource(Shape source, ClassConnections sourcePoint)
         {
             String s = Connections.Create(source, sourcePoint);
-            Shape.get_Cells("BeginX").Formula = s;
-            Shape.get_Cells("BeginY").Formula = s;
-            Shape.get_Cells("BegTrigger").Formula = Connections.CreateTrigger(source);
+            Shape.get_Cells("BeginX").FormulaU = s;
+            Shape.get_Cells("BeginY").FormulaU = s;
+            Shape.get_Cells("BegTrigger").FormulaU = Connections.CreateTrigger(source);
         }
 
         /// <summary>Установка элемента в котором заканчивается коннектор</summary>
         public void SetTarget(Shape target, ClassConnections targetPoint)
         {
             String s = Connections.Create(target, targetPoint);
-            Shape.get_Cells("EndX").Formula = s;
-            Shape.get_Cells("EndY").Formula = s;
-            Shape.get_Cells("EndTrigger").Formula = Connections.CreateTrigger(target);
+            Shape.get_Cells("EndX").FormulaU = s;
+            Shape.get_Cells("EndY").FormulaU = s;
+            Shape.get_Cells("EndTrigger").FormulaU = Connections.CreateTrigger(target);
         }
 
         public String SourceMultiplicity

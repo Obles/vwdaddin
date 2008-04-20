@@ -38,6 +38,47 @@ namespace VWDAddin.Synchronize
             Trace.WriteLine("DSL Synchronized");
         }
 
+        /// <summary>Синхронизация свойств классов</summary>
+        /// <param name="dc">Класс, который синхронизируем</param>
+        /// <param name="vc">Класс, с которым синхронизируем</param>
+        private void SyncProperties(DomainClass dc, VisioClass vc)
+        {
+            // Приводим в порядок атрибуты
+            String attrstr = "\n";
+            String[] attrs = vc.Attributes.Split('\n');
+            for (int i = 0; i < attrs.Length; i++)
+            {
+                attrs[i] = attrs[i].Trim();
+                attrstr += attrs[i] + "\n";
+            }
+
+            // Добавляем новые свойства
+            foreach (String attr in attrs)
+            {
+                if (attr.Length == 0) continue;
+                if (dc.Properties[attr].Xml == null)
+                {
+                    dc.CreateProperty("/System/String", attr, attr);
+                }
+            }
+
+            // Удаляем ненужные свойства
+            XmlClassData xcd = Doc.Dsl.XmlSerializationBehavior.GetClassData(dc);
+            for (int i = 0; i < dc.Properties.Count; i++)
+            {
+                DomainProperty prop = dc.Properties[i] as DomainProperty;
+                if (!attrstr.Contains("\n" + prop.Xml.GetAttribute("Name") + "\n"))
+                {
+                    if (xcd != null) // Удаляем сериализационную информацию
+                    {
+                        xcd.ElementData.Remove(xcd.GetPropertyData(prop));
+                    }
+                    dc.Properties.Remove(prop);
+                    i--;
+                }
+            }
+        }
+
         /// <summary>Создание недостающих классов\отношений</summary>
         private void CreateElements()
         {
@@ -56,7 +97,8 @@ namespace VWDAddin.Synchronize
                     Doc.Dsl.Classes.Append(dc);
                 }
 
-                //TODO синхронизация свойств
+                // Синхронизация свойств
+                SyncProperties(dc, vc);
             }
 
             // Создание недостающих ассоциаций\композиций
@@ -134,6 +176,16 @@ namespace VWDAddin.Synchronize
                     Doc.Dsl.XmlSerializationBehavior.ClassData.Append(new XmlClassData(dc));
                 }
                 else xcd.Update(dc);
+
+                foreach (DomainProperty dp in dc.Properties)
+                {
+                    XmlPropertyData xpd = xcd.GetPropertyData(dp);
+                    if (xpd == null)
+                    {
+                        xcd.ElementData.Append(new XmlPropertyData(dp));
+                    }
+                    else xpd.Update(dp);
+                }
             }
             foreach (VisioConnector vc in Page.Relationships)
             {

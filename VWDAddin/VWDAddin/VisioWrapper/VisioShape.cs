@@ -17,8 +17,8 @@ namespace VWDAddin.VisioWrapper
 
         public String GUID
         {
-            get { return VisioHelpers.FromString(Shape.get_Cells("User.GUID.Value").Formula); }
-            set { Shape.get_Cells("User.GUID.Value").Formula = VisioHelpers.ToString(value); }
+            get { return VisioHelpers.FromString(Shape.get_Cells("User.GUID.Value").FormulaU); }
+            set { Shape.get_Cells("User.GUID.Value").FormulaU = VisioHelpers.ToString(value); }
         }
 
         protected Shape GetSubshape(String type)

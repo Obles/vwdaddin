@@ -22,7 +22,7 @@ namespace VWDAddin
 
         private static void SetCheckBoxFromShape(CheckBox checkBox, Shape shape, string cellName)
         {
-            if (shape.get_Cells(cellName).Formula.Equals("TRUE"))
+            if (shape.get_Cells(cellName).FormulaU.Equals("TRUE"))
                 checkBox.Checked = false;
             else
                 checkBox.Checked = true;
@@ -31,14 +31,14 @@ namespace VWDAddin
         private static void SetShapeFromCheckBox(CheckBox checkBox, Shape shape, string cellName)
         {
             if (checkBox.Checked == true)
-                shape.get_Cells("HideText").Formula = "FALSE";
+                shape.get_Cells("HideText").FormulaU = "FALSE";
             else
-                shape.get_Cells("HideText").Formula = "TRUE";
+                shape.get_Cells("HideText").FormulaU = "TRUE";
         }
 
         private static void SetArrowCheckBoxFromShape(CheckBox checkBox, Shape shape, string cellName)
         {
-            if (shape.get_Cells(cellName).Formula.Equals("0"))
+            if (shape.get_Cells(cellName).FormulaU.Equals("0"))
                 checkBox.Checked = false;
             else
                 checkBox.Checked = true;
@@ -48,13 +48,13 @@ namespace VWDAddin
         {
             if (checkBox.Checked == true)
             {
-                shape.get_Cells("BeginArrow").Formula = "1";
-                shape.get_Cells("EndArrow").Formula = "1";
+                shape.get_Cells("BeginArrow").FormulaU = "1";
+                shape.get_Cells("EndArrow").FormulaU = "1";
             }
             else
             {
-                shape.get_Cells("BeginArrow").Formula = "0";
-                shape.get_Cells("EndArrow").Formula = "0";
+                shape.get_Cells("BeginArrow").FormulaU = "0";
+                shape.get_Cells("EndArrow").FormulaU = "0";
             }
         }
 
