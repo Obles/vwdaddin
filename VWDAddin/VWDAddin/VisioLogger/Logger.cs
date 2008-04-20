@@ -55,6 +55,7 @@ namespace VWDAddin.VisioLogger
         public DslDocument DslDocument
         {
             get { return dslDocument; }
+            set { dslDocument = value; }
         }
 
         private bool active = true;

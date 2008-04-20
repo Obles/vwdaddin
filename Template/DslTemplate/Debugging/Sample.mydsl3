@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<exampleModel dslVersion="1.0.0.0" Id="19e3ef3b-26f4-4381-b96b-c50d34a02a53" xmlns="http://schemas.microsoft.com/dsltools/Language1">
+  <elements>
+    <exampleElement name="ExampleElement1">
+      <targets>
+        <exampleElementMoniker name="/19e3ef3b-26f4-4381-b96b-c50d34a02a53/ExampleElement2" />
+      </targets>
+    </exampleElement>
+    <exampleElement name="ExampleElement2" />
+  </elements>
+</exampleModel>
