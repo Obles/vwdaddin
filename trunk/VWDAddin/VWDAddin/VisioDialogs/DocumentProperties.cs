@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using Microsoft.Office.Interop.Visio;
 using System.Diagnostics;
 using System.IO;
+using VWDAddin.DslWrapper;
 using VWDAddin.VisioWrapper;
 using VWDAddin.VisioLogger;
 using VWDAddin.Synchronize;
@@ -57,12 +58,30 @@ namespace VWDAddin
 
         private void btnCreateDSL_Click(object sender, EventArgs e)
         {
-            saveFileDialog.Filter = DSLFilter;
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
             {
-                DSLPath.Text = saveFileDialog.FileName;
-                VisioHelpers.SetDSLPath(Logger.Document, DSLPath.Text);
-                //TODO создание dsl-проекта
+                try
+                {
+                    DslTemplate dsl = new DslTemplate(folderBrowserDialog.SelectedPath);
+                    dsl.Create();
+
+                    DSLPath.Text = dsl.DslPath;
+                    VisioHelpers.SetDSLPath(Logger.Document, DSLPath.Text);
+
+                    Logger.DslDocument = new DslDocument();
+                    Logger.DslDocument.Load(dsl.DslPath);
+
+                    new DslSync(Logger).Synchronize();
+
+                    // Сохранение dsl-документа
+                    File.WriteAllText(dsl.DslPath + ".diagram", String.Empty);
+                    Logger.DslDocument.Save(dsl.DslPath);
+                    Logger.DslDocument = null;
+                }
+                catch (Exception err)
+                {
+                    MessageBox.Show(err.Message);
+                }
             }
         }
 

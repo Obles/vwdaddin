@@ -75,6 +75,7 @@
     <Compile Include="DslWrapper\XmlRelationshipData.cs" />
     <Compile Include="DslWrapper\XmlSerializationBehavior.cs" />
     <Compile Include="Synchronize\DslSync.cs" />
+    <Compile Include="Synchronize\DslTemplate.cs" />
     <Compile Include="Synchronize\VisioSync.cs" />
     <Compile Include="VisioDialogs\ChangeValue.cs">
       <SubType>Form</SubType>

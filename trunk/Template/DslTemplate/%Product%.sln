@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dsl", "Dsl\Dsl.csproj", "{47175AEE-09B1-4AEF-ABE2-655C5695934B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DslPackage", "DslPackage\DslPackage.csproj", "{41FE299D-0B21-4040-AB20-E01F92ED247A}"
+EndProject
+Global
+	GlobalSection(TextTemplating) = postSolution
+		TextTemplating = 1
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{47175AEE-09B1-4AEF-ABE2-655C5695934B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47175AEE-09B1-4AEF-ABE2-655C5695934B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47175AEE-09B1-4AEF-ABE2-655C5695934B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47175AEE-09B1-4AEF-ABE2-655C5695934B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41FE299D-0B21-4040-AB20-E01F92ED247A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41FE299D-0B21-4040-AB20-E01F92ED247A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41FE299D-0B21-4040-AB20-E01F92ED247A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41FE299D-0B21-4040-AB20-E01F92ED247A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

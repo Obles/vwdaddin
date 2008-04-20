@@ -1,0 +1,17 @@
+﻿<!--DSL Tools Language Template-->
+<VSTemplate Version="2.0.0" Type="Item" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<TemplateData>
+		<Name Package="{9004acc8-aad7-4f4e-b6c8-c0de1a806977}" ID="103"/>
+		<Description Package="{9004acc8-aad7-4f4e-b6c8-c0de1a806977}" ID="102"/>
+		<Icon Package="{9004acc8-aad7-4f4e-b6c8-c0de1a806977}" ID="201" />
+		<ProjectType>CSharp</ProjectType>
+		<SortOrder>360</SortOrder>
+		<DefaultName>Language1.mydsl3</DefaultName>
+		<AppendDefaultFileExtension>true</AppendDefaultFileExtension>
+	</TemplateData>
+	<TemplateContent>
+		<ProjectItem TargetFileName="$fileinputname$.mydsl3">mydsl3.mydsl3</ProjectItem>
+		<ProjectItem TargetFileName="$fileinputname$.mydsl3.diagram">mydsl3.diagram</ProjectItem>
+	</TemplateContent>
+</VSTemplate>
+
