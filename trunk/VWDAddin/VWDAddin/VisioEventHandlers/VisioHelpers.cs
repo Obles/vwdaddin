@@ -33,7 +33,7 @@ namespace VWDAddin
                 Guid = ToString(Guid);
                 foreach (Shape shape in Document.Pages[1].Shapes)
                 {
-                    if (shape.get_Cells("User.GUID.Value").Formula == Guid)
+                    if (shape.get_Cells("User.GUID.Value").FormulaU == Guid)
                         return shape;
                 }
             }
@@ -46,12 +46,12 @@ namespace VWDAddin
 
         public static String GetShapeType(Shape shape)
         {
-            return FromString(shape.get_Cells("user.type").Formula);
+            return FromString(shape.get_Cells("user.type").FormulaU);
         }
 
         public static String GetShapeCell(Shape shape, String cellName)
         {
-            return FromString(shape.get_Cells(cellName).Formula);
+            return FromString(shape.get_Cells(cellName).FormulaU);
         }
 
         public static String GetConnectedClassName(string connectionString)
@@ -110,7 +110,7 @@ namespace VWDAddin
         {
             try
             {
-                return FromString(GetDocumentCell(Document, "User.DSL.Value").Formula);
+                return FromString(GetDocumentCell(Document, "User.DSL.Value").FormulaU);
             }
             catch (Exception)
             {
@@ -122,7 +122,7 @@ namespace VWDAddin
         {
             try
             {
-                return FromString(GetDocumentCell(Document, "User.Word.Value").Formula);
+                return FromString(GetDocumentCell(Document, "User.Word.Value").FormulaU);
             }
             catch (Exception)
             {
@@ -132,12 +132,12 @@ namespace VWDAddin
 
         public static void SetDSLPath(Document Document, String Path)
         {
-            GetDocumentCell(Document, "User.DSL.Value").Formula = ToString(Path);
+            GetDocumentCell(Document, "User.DSL.Value").FormulaU = ToString(Path);
         }
 
         public static void SetWordPath(Document Document, String Path)
         {
-            GetDocumentCell(Document, "User.Word.Value").Formula = ToString(Path);
+            GetDocumentCell(Document, "User.Word.Value").FormulaU = ToString(Path);
         }
 
         public static String GetTempDSLPath(Document Document)
