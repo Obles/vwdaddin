@@ -137,5 +137,10 @@ namespace VWDAddin.DslWrapper
             sndStr = tmpStr;
             snd = tmp;
         }
+
+        public static bool Equals(String str, Multiplicity mul)
+        {
+            return mul.Equals(Compatible(str));
+        }
     }
 }

@@ -36,6 +36,16 @@ namespace VWDAddin.VisioWrapper
                     return VisioHelpers.GetShapeType(shape) == Constants.Generalization;
                 }
             );
+            this.connectors = new VisioList<VisioConnector>(
+                Page.Shapes,
+                delegate(Shape shape)
+                {
+                    String type = VisioHelpers.GetShapeType(shape);
+                    return type == Constants.Association
+                        || type == Constants.Composition
+                        || type == Constants.Generalization;
+                }
+            );
         }
 
         public Shape Find(String Guid)
@@ -64,6 +74,22 @@ namespace VWDAddin.VisioWrapper
         public VisioList<VisioConnector> Inheritances
         {
             get { return inheritances; }
+        }
+
+        private VisioList<VisioConnector> connectors;
+        public VisioList<VisioConnector> Connectors
+        {
+            get { return connectors; }
+        }
+
+        public Shapes Shapes
+        {
+            get { return Page.Shapes; }
+        }
+
+        public Document Document
+        {
+            get { return Page.Document; }
         }
     }
 }

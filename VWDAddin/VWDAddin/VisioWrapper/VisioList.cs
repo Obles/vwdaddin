@@ -35,5 +35,31 @@ namespace VWDAddin.VisioWrapper
                 }
             }
         }
+
+        public T this[int Index]
+        {
+            get 
+            {
+                if(Index < 0) return null;
+                foreach (T item in this)
+                {
+                    if (Index-- == 0) return item;
+                }
+                return null;
+            }
+        }
+
+        public int Count
+        {
+            get
+            {
+                int count = 0;
+                foreach (T item in this)
+                {
+                    count++;
+                }
+                return count;
+            }
+        }
     }
 }

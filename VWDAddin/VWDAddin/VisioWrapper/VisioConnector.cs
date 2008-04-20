@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Office.Interop.Visio;
 using System.Diagnostics;
+using VWDAddin.DslWrapper;
 
 namespace VWDAddin.VisioWrapper
 {
@@ -101,6 +102,22 @@ namespace VWDAddin.VisioWrapper
         public bool IsComposition
         {
             get { return this.Type == Constants.Composition; }
+        }
+
+        public void SetSourceMultiplicity(Multiplicity multiplicity)
+        {
+            if (!MultiplicityHelper.Equals(SourceMultiplicity, multiplicity))
+            {
+                SourceMultiplicity = MultiplicityHelper.AsDigits(multiplicity);
+            }
+        }
+
+        public void SetTargetMultiplicity(Multiplicity multiplicity)
+        {
+            if (!MultiplicityHelper.Equals(TargetMultiplicity, multiplicity))
+            {
+                TargetMultiplicity = MultiplicityHelper.AsDigits(multiplicity);
+            }
         }
     }
 }
