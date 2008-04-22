@@ -62,8 +62,7 @@
     <Compile Include="DslWrapper\DomainRelationship.cs" />
     <Compile Include="DslWrapper\DomainRole.cs" />
     <Compile Include="DslWrapper\Dsl.cs" />
-    <Compile Include="DslWrapper\Monikers\MonikersCollection.cs" />
-    <Compile Include="DslWrapper\Monikers\MonikerTypes.cs" />
+    <Compile Include="DslWrapper\MonikersCollection.cs" />
     <Compile Include="Synchronize\DslCompare.cs" />
     <Compile Include="DslWrapper\DslDocument.cs" />
     <Compile Include="DslWrapper\DslElement.cs" />
@@ -119,8 +118,6 @@
     <Compile Include="VisioEventHandlers\ShapeEventHandler.cs" />
     <Compile Include="VisioEventHandlers\VisioHelpers.cs" />
     <Compile Include="VisioLogger\Actions\Associations\AssociationDeleted.cs" />
-    <Compile Include="VisioLogger\Actions\Associations\CompositionDeleted.cs" />
-    <Compile Include="VisioLogger\Actions\Associations\GeneralizationDeleted.cs" />
     <Compile Include="VisioLogger\Actions\BaseAction.cs" />
     <Compile Include="VisioLogger\Actions\Classes\ClassDeleted.cs" />
     <Compile Include="VisioLogger\LoggerManager.cs" />

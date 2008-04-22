@@ -39,13 +39,8 @@ namespace VWDAddin
                         GetLogger(shape.Document).Add(new ClassDeleted(new VisioClass(shape)));
                         break;
                     case Constants.Association:
-                        GetLogger(shape.Document).Add(new AssociationDeleted(new VisioConnector(shape)));
-                        break;
                     case Constants.Composition:
-                        GetLogger(shape.Document).Add(new CompositionDeleted(new VisioConnector(shape)));
-                        break;
-                    case Constants.Generalization:
-                        GetLogger(shape.Document).Add(new GeneralizationDeleted(new VisioConnector(shape)));
+                        GetLogger(shape.Document).Add(new AssociationDeleted(new VisioConnector(shape)));
                         break;
                     default:
                         EventHandler.UnhandledEvent(eventCode);

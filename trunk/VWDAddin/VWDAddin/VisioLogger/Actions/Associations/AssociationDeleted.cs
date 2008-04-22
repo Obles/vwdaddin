@@ -16,31 +16,12 @@ namespace VWDAddin.VisioLogger.Actions.Associations
         override public void Apply(Logger Logger)
         {
             Dsl Dsl = Logger.DslDocument.Dsl;
-
             DomainRelationship dr = Dsl.Relationships.Find(Connector.GUID) as DomainRelationship;
-            XmlClassData xcd;
 
-            String srcName = dr.Source.RolePlayer;
-            if (srcName != null)
+            if (dr.IsValid)
             {
-                DomainClass dc = Dsl.Classes[srcName] as DomainClass;
-                xcd = Dsl.XmlSerializationBehavior.GetClassData(dc);
-                xcd.ElementData.Remove(xcd.GetRelationshipData(dr));
+                Dsl.Relationships.RemoveLinked(dr);
             }
-            String dstName = dr.Target.RolePlayer;
-            if (dstName != null)
-            {
-                DomainClass dc = Dsl.Classes[dstName] as DomainClass;
-                xcd = Dsl.XmlSerializationBehavior.GetClassData(dc);
-                xcd.Xml.RemoveAttribute("SerializeId");
-            }
-
-            xcd = Dsl.XmlSerializationBehavior.GetClassData(dr);
-            ConnectionBuilder cb = Dsl.GetConnectionBuilder(dr);
-
-            Dsl.Relationships.Remove(dr);
-            Dsl.XmlSerializationBehavior.ClassData.Remove(xcd);
-            Dsl.ConnectionBuilders.Remove(cb);
         }
     }
 }
