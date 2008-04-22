@@ -107,20 +107,18 @@ namespace VWDAddin.DslWrapper
 
         public void RemoveLinked(DslElement Node)
         {
-            String Name = Node.Xml.GetAttribute("Name");
-            String Type = Node.Xml.Name;
-            Remove(Node);
-
-            if (Name == String.Empty) return;
-
-            MonikersCollection dcms = new MonikersCollection(Node.OwnerDocument, Type);
-            foreach (DslElement el in dcms)
+            if (Node.Xml.HasAttribute("Name"))
             {
-                if (el.References(Name))
+                MonikersCollection dcms = new MonikersCollection(Node.OwnerDocument, Node.Xml.Name);
+                foreach (DslElement el in dcms)
                 {
-                    el.OwnerElement.DisposeLinked();
+                    if (el.References(Node))
+                    {
+                        el.OwnerElement.DisposeLinked();
+                    }
                 }
             }
+            Remove(Node);
         }
     }
 }
