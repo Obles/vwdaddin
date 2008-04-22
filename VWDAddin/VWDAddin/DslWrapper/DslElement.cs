@@ -151,8 +151,19 @@ namespace VWDAddin.DslWrapper
         /// При этом мы считаем, что данный узел - моникер</summary>
         /// <param name="Name">Имя, которое хотим проверить</param>
         /// <returns>Ссылается или нет</returns>
-        public bool References(String Name)
+        public bool References(DslElement Node)
         {
+            String Name = Node.Xml.GetAttribute("Name");
+
+            if (Node.Xml.Name == "DomainProperty")
+            {
+                Name = (Node.Xml.ParentNode.ParentNode as XmlElement).GetAttribute("Name") + "[^a-zA-Z0-9]" + Name;
+            }
+            else if (Node.Xml.Name == "DomainClass" || Node.Xml.Name == "DomainRelationship")
+            {
+                return Name.Equals(Xml.GetAttribute("Name"));
+            }
+
             Regex regex = new Regex("([^a-zA-Z0-9])" + Name + "([^a-zA-Z0-9])");
             return regex.IsMatch("<" + Xml.GetAttribute("Name") + ">");
         }
