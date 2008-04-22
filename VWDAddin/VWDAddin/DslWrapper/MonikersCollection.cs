@@ -7,17 +7,17 @@ namespace VWDAddin.DslWrapper
 {
     public class MonikersCollection
     {
-        public MonikersCollection(DslDocument OwnerDocument, MonikerTypes MonikerType)
+        public MonikersCollection(DslDocument OwnerDocument, String MonikerType)
         {
             this.ownerDocument = OwnerDocument;
-            this.monikerType = MonikerType;
+            this.monikerType = MonikerType + "Moniker";
         }
 
         private DslDocument ownerDocument;
         public DslDocument OwnerDocument { get { return ownerDocument; } }
 
-        private MonikerTypes monikerType;
-        private MonikerTypes MonikerType { get { return monikerType; } }
+        private String monikerType;
+        private String MonikerType { get { return monikerType; } }
 
         public IEnumerator<DslElement> GetEnumerator()
         {
@@ -29,7 +29,7 @@ namespace VWDAddin.DslWrapper
                 DslElement root = Queue.Dequeue();
                 if (root.IsValid)
                 {
-                    if (root.Xml.Name == monikerType.ToString())
+                    if (root.Xml.Name == monikerType)
                     {
                         yield return root;
                     }

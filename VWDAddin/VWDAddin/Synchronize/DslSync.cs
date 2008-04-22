@@ -63,17 +63,12 @@ namespace VWDAddin.Synchronize
             }
 
             // Удаляем ненужные свойства
-            XmlClassData xcd = Doc.Dsl.XmlSerializationBehavior.GetClassData(dc);
             for (int i = 0; i < dc.Properties.Count; i++)
             {
                 DomainProperty prop = dc.Properties[i] as DomainProperty;
                 if (!attrstr.Contains("\n" + prop.Xml.GetAttribute("Name") + "\n"))
                 {
-                    if (xcd != null) // Удаляем сериализационную информацию
-                    {
-                        xcd.ElementData.Remove(xcd.GetPropertyData(prop));
-                    }
-                    dc.Properties.Remove(prop);
+                    dc.Properties.RemoveLinked(prop);
                     i--;
                 }
             }

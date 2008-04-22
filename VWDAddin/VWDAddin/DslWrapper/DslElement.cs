@@ -127,7 +127,7 @@ namespace VWDAddin.DslWrapper
                     }
                     else node = node.ParentNode as XmlElement;
                 }
-                return null; 
+                return new DslElement(this.Xml.ParentNode as XmlElement); 
             }
         }
 
@@ -136,8 +136,25 @@ namespace VWDAddin.DslWrapper
         /// <returns>Да, если узел является коллекцией</returns>
         private bool IsCollection(XmlNode xmlNode)
         {
+            if (xmlNode.Name == "RolePlayer" || xmlNode.Name == "PropertyPath") return true;
             if (xmlNode.Name.EndsWith("s") && !xmlNode.Name.EndsWith("ss")) return true;
             return xmlNode.Name.EndsWith("Data") && !xmlNode.Name.StartsWith("Xml");
+        }
+
+        /// <summary>Уничтожить текущий узел вместе со всей связанной ниформацией</summary>
+        public void DisposeLinked()
+        {
+            new DslElementList(typeof(DslElement), Xml.ParentNode).RemoveLinked(this);
+        }
+
+        /// <summary>Ссылается ли данный узел на заданное имя. 
+        /// При этом мы считаем, что данный узел - моникер</summary>
+        /// <param name="Name">Имя, которое хотим проверить</param>
+        /// <returns>Ссылается или нет</returns>
+        public bool References(String Name)
+        {
+            Regex regex = new Regex("([^a-zA-Z0-9])" + Name + "([^a-zA-Z0-9])");
+            return regex.IsMatch("<" + Xml.GetAttribute("Name") + ">");
         }
     }
 }
