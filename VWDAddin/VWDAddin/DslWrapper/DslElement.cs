@@ -9,12 +9,12 @@ namespace VWDAddin.DslWrapper
 
     public class DslElement
     {
-        private XmlElement XmlElement;
-        public XmlElement Xml { get { return XmlElement; } }
+        private XmlElement xmlElement;
+        public XmlElement Xml { get { return xmlElement; } }
 
         public DslElement(XmlElement xml)
         {
-            XmlElement = xml;
+            xmlElement = xml;
 //            if (xml == null) throw new NullReferenceException();
         }
 
@@ -111,6 +111,33 @@ namespace VWDAddin.DslWrapper
             {
                 Xml.SetAttribute(name, value);
             }
+        }
+
+        /// <summary>Конструкция из некоторой коллекции, которая содержит внутри себя текущий элемент</summary>
+        public DslElement OwnerElement
+        {
+            get 
+            {
+                XmlElement node = this.Xml;
+                while (node != null)
+                {
+                    if (IsCollection(node.ParentNode))
+                    {
+                        return new DslElement(node);
+                    }
+                    else node = node.ParentNode as XmlElement;
+                }
+                return null; 
+            }
+        }
+
+        /// <summary>Проверяем, является ли узел коллекцией</summary>
+        /// <param name="xmlNode">Проверяемый узел</param>
+        /// <returns>Да, если узел является коллекцией</returns>
+        private bool IsCollection(XmlNode xmlNode)
+        {
+            if (xmlNode.Name.EndsWith("s") && !xmlNode.Name.EndsWith("ss")) return true;
+            return xmlNode.Name.EndsWith("Data") && !xmlNode.Name.StartsWith("Xml");
         }
     }
 }
