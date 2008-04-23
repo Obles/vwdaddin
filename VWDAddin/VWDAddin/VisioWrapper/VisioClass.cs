@@ -13,11 +13,19 @@ namespace VWDAddin.VisioWrapper
         {
         }
 
-        /// <summary>Физическое имя класса</summary>
-        public String Name
+        
+        /// <summary>Логическое имя класса</summary>
+        public String DisplayName
         {
             get { return GetSubshape("class_name").Text; }
             set { GetSubshape("class_name").Text = value; }
+        }
+
+        /// <summary>Физическое имя класса</summary>
+        public String Name
+        {
+            get { return VisioHelpers.FromString(Shape.get_Cells("User.RelName.Value").FormulaU); }
+            set { Shape.get_Cells("User.RelName.Value").FormulaU = VisioHelpers.ToString(value); }
         }
 
         public String Attributes

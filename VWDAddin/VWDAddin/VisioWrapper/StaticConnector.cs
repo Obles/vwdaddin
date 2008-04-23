@@ -14,6 +14,7 @@ namespace VWDAddin.VisioWrapper
             this.GUID = base.GUID;
             this.Type = base.Type;
             this.Name = base.Name;
+            this.DisplayName = base.DisplayName;
             this.Source = base.Source == null ? null : new StaticClass(base.Source);
             this.Target = base.Target == null ? null : new StaticClass(base.Target);
             this.SourceMultiplicity = base.SourceMultiplicity;
@@ -27,6 +28,9 @@ namespace VWDAddin.VisioWrapper
 
         /// <summary>Физическое имя коннектора</summary>
         new public String Name;
+
+        /// <summary>Логическое имя коннектора</summary>
+        new public String DisplayName;
 
         /// <summary>Получение элемента от которого начинается коннектор</summary>
         /// *Это там, где ромбик - для композиции* 
