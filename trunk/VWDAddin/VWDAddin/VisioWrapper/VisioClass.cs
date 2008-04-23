@@ -24,7 +24,16 @@ namespace VWDAddin.VisioWrapper
         /// <summary>Физическое имя класса</summary>
         public String Name
         {
-            get { return VisioHelpers.FromString(Shape.get_Cells("User.RelName.Value").FormulaU); }
+            get 
+            {
+                String s = VisioHelpers.FromString(Shape.get_Cells("User.RelName.Value").FormulaU);
+                if(s == String.Empty)
+                {
+                    s = Translit.Encode(this.DisplayName);
+                    this.Name = s;
+                }
+                return s;
+            }
             set { Shape.get_Cells("User.RelName.Value").FormulaU = VisioHelpers.ToString(value); }
         }
 

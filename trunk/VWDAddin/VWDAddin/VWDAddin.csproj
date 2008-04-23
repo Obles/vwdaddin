@@ -78,6 +78,7 @@
     <Compile Include="Synchronize\DslSync.cs" />
     <Compile Include="Synchronize\DslTemplate.cs" />
     <Compile Include="Synchronize\VisioSync.cs" />
+    <Compile Include="Translit.cs" />
     <Compile Include="VisioDialogs\ChangeValue.cs">
       <SubType>Form</SubType>
     </Compile>
