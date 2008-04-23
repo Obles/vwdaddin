@@ -14,11 +14,18 @@ namespace VWDAddin.VisioWrapper
         {
         }
 
-        /// <summary>Физическое имя коннектора</summary>
-        public String Name
+        /// <summary>Логическое имя коннектора</summary>
+        public String DisplayName
         {
             get { return Shape.Text; }
             set { Shape.Text = value; }
+        }
+
+        /// <summary>Физическое имя коннектора</summary>
+        public String Name
+        {
+            get { return VisioHelpers.FromString(Shape.get_Cells("User.RelName.Value").FormulaU); }
+            set { Shape.get_Cells("User.RelName.Value").FormulaU = VisioHelpers.ToString(value); }
         }
 
         /// <summary>Получение элемента от которого начинается коннектор</summary>

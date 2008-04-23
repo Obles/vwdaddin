@@ -14,12 +14,16 @@ namespace VWDAddin.VisioWrapper
             this.GUID = base.GUID;
             this.Type = base.Type;
             this.Name = base.Name;
+            this.DisplayName = base.DisplayName;
             this.Attributes = base.Attributes;
             this.Generalization = base.Generalization == null ? -1 : base.Generalization.ID;
         }
 
         new public String GUID;
         new public String Type;
+
+        /// <summary>Логическое имя класса</summary>
+        new public String DisplayName;
 
         /// <summary>Физическое имя класса</summary>
         new public String Name;
