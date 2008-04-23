@@ -113,6 +113,7 @@ namespace VWDAddin.Synchronize
                 VisioClass vc = new VisioClass(shape == null ? VisioMaster.Drop(Logger.Document, "Class") : shape);
                 vc.GUID = dc.GUID;
                 vc.Name = dc.Xml.GetAttribute("Name");
+                vc.DisplayName = dc.Xml.GetAttribute("DisplayName");
                 String attrs = "";
                 foreach (DomainProperty prop in dc.Properties)
                 {
@@ -156,6 +157,7 @@ namespace VWDAddin.Synchronize
                 );
                 vc.GUID = dr.GUID;
                 vc.Name = dr.Xml.GetAttribute("Name");
+                vc.DisplayName = dr.Xml.GetAttribute("DisplayName");
                 vc.SourceText = dr.Source.Xml.GetAttribute("DisplayName");
                 vc.TargetText = dr.Target.Xml.GetAttribute("DisplayName");
                 vc.SetSourceMultiplicity(dr.Source.Multiplicity);

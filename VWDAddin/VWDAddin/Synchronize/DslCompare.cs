@@ -72,7 +72,7 @@ namespace VWDAddin.DslWrapper
             // Переносим изменения
             Class.GUID = de2.GUID;
             Class.Name = de2.Xml.GetAttribute("Name");
-            //Class.DisplayName = de2.Xml.GetAttribute("DisplayName");
+            Class.DisplayName = de2.Xml.GetAttribute("DisplayName");
 
             // Переносим изменения наследования
             String b1 = (de1 as DomainClass).BaseClass;
@@ -128,7 +128,7 @@ namespace VWDAddin.DslWrapper
             // Переносим изменения
             Conn.GUID = de2.GUID;
             Conn.Name = de2.Xml.GetAttribute("Name");
-            //Conn.DisplayName = de2.Xml.GetAttribute("DisplayName");
+            Conn.DisplayName = de2.Xml.GetAttribute("DisplayName");
 
             String s = CompareMultiplicity(
                 (de1 as DomainRelationship).Source, 

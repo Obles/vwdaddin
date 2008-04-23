@@ -126,7 +126,7 @@ namespace VWDAddin.Synchronize
                 Trace.WriteLine(vc.Name);
                 DomainClass dc = Doc.Dsl.Classes.Find(vc.GUID) as DomainClass;
 
-                dc.Xml.SetAttribute("DisplayName", vc.Name);
+                dc.Xml.SetAttribute("DisplayName", vc.DisplayName);
                 dc.FullRename(vc.Name);             
             }
 
@@ -136,7 +136,7 @@ namespace VWDAddin.Synchronize
                 Trace.WriteLine(vc.Name);
                 DomainRelationship dr = Doc.Dsl.Relationships.Find(vc.GUID) as DomainRelationship;
 
-                dr.Xml.SetAttribute("DisplayName", vc.Name);
+                dr.Xml.SetAttribute("DisplayName", vc.DisplayName);
                 dr.FullRename(vc.Name);
             }
 
