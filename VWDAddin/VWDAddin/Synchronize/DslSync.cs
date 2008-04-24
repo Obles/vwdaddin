@@ -168,7 +168,7 @@ namespace VWDAddin.Synchronize
                 XmlClassData xcd = Doc.Dsl.XmlSerializationBehavior.GetClassData(dc);
                 if(xcd == null)
                 {
-                    Doc.Dsl.XmlSerializationBehavior.ClassData.Append(new XmlClassData(dc));
+                    Doc.Dsl.XmlSerializationBehavior.ClassData.Append(xcd = new XmlClassData(dc));
                 }
                 else xcd.Update(dc);
 
@@ -189,7 +189,7 @@ namespace VWDAddin.Synchronize
                 XmlClassData xcd = Doc.Dsl.XmlSerializationBehavior.GetClassData(dr);
                 if (xcd == null)
                 {
-                    Doc.Dsl.XmlSerializationBehavior.ClassData.Append(new XmlClassData(dr));
+                    Doc.Dsl.XmlSerializationBehavior.ClassData.Append(xcd = new XmlClassData(dr));
                 }
                 else xcd.Update(dr);
 
