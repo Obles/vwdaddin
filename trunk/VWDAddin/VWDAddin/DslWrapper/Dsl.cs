@@ -39,6 +39,16 @@ namespace VWDAddin.DslWrapper
             get { return new XmlSerializationBehavior(GetChildNode("XmlSerializationBehavior") as XmlElement); } 
         }
 
+        public Diagram Diagram
+        {
+            get { return new Diagram(GetChildNode("Diagram") as XmlElement); }
+        }
+
+        public Designer Designer
+        {
+            get { return new Designer(GetChildNode("Designer") as XmlElement); }
+        }
+
         public DomainClass CreateDomainClass(String Name, String DisplayName)
         {
             return Classes.Append(new DomainClass(OwnerDocument, Name, DisplayName)) as DomainClass;
@@ -107,6 +117,37 @@ namespace VWDAddin.DslWrapper
             catch
             {
                 return Name;
+            }
+        }
+
+        public DomainClass GetRootClass()
+        {
+            if (Diagram.Class != null)
+            {
+                System.Diagnostics.Trace.WriteLine("Getting root class from Diagram");
+                return Classes[Diagram.Class] as DomainClass;
+            }
+            else if (Designer.RootClass != null)
+            {
+                System.Diagnostics.Trace.WriteLine("Getting root class from Designer");
+                return Classes[Designer.RootClass] as DomainClass;
+            }
+            else
+            {
+                System.Diagnostics.Trace.WriteLine("Root class not found");
+                return null;
+            }
+        }
+
+        public void SetRootClass(String ClassName)
+        {
+            System.Diagnostics.Trace.WriteLine("Setting root class " + ClassName);
+            Diagram.Class = ClassName;
+            Designer.RootClass = ClassName;
+
+            if(ClassName != null)
+            {
+                XmlSerializationBehavior.GetClassData(Classes[ClassName] as DomainClass).Xml.SetAttribute("SerializeId", "true");
             }
         }
     }

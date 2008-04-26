@@ -36,6 +36,7 @@ namespace VWDAddin.Synchronize
             RemoveUnusedShapes();
             SynchronizeClasses();
             SynchronizeRelationships();
+            SynchronizePage();
 
             Logger.Active = true;
             Logger = Logger.LoggerManager.ResetLogger(Logger.Document);
@@ -169,6 +170,17 @@ namespace VWDAddin.Synchronize
                 shape = Page.Find(Doc.Dsl.Classes[dr.Target.RolePlayer].GUID);
                 if (vc.Target != shape) vc.Target = shape;
             }
+            Trace.Unindent();
+        }
+
+        private void SynchronizePage()
+        {
+            Trace.WriteLine("Synchronizing Page");
+            Trace.Indent();
+            
+            DomainClass dc = Logger.DslDocument.Dsl.GetRootClass();
+            Page.RootClass = dc != null ? new VisioClass(Page.Find(dc.GUID)) : null;
+
             Trace.Unindent();
         }
     }

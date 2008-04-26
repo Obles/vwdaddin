@@ -91,5 +91,20 @@ namespace VWDAddin.VisioWrapper
         {
             get { return Page.Document; }
         }
+
+        public VisioClass RootClass
+        {
+            get
+            {
+                //TODO реализовать получение корневого класса
+                Trace.WriteLine("Getting Root Class");
+                return classes.Count > 0 ? Classes[0] : null;
+            }
+            set 
+            {
+                //TODO реализовать установку корневого класса
+                Trace.WriteLine("Setting Root Class: " + value.Name);
+            }
+        }
     }
 }
