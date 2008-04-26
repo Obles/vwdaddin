@@ -210,6 +210,7 @@ namespace VWDAddin.Synchronize
         private void BuildStructure()
         {
             Trace.WriteLine("Building DSL structure");
+            Trace.Indent();
             foreach (VisioConnector vc in Page.Inheritances)
             {
                 DomainClass dc = Doc.Dsl.Classes.Find(new VisioClass(vc.Source).GUID) as DomainClass;
@@ -225,6 +226,9 @@ namespace VWDAddin.Synchronize
 
                 dr.Connect(src, dst);
             }
+            VisioClass root = Page.RootClass;
+            Doc.Dsl.SetRootClass(root != null ? root.Name : null);
+            Trace.Unindent();
         }
 
         private static void FixRoles(VisioConnector Connector, DomainRelationship Relationship)

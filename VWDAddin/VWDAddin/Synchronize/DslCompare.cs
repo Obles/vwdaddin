@@ -50,6 +50,21 @@ namespace VWDAddin.DslWrapper
                 dsl2.Dsl.Relationships,
                 CompareRelationships
             );
+            CompareRootClasses(dsl1.Dsl, dsl2.Dsl);
+        }
+
+        private void CompareRootClasses(Dsl dsl1, Dsl dsl2)
+        {
+            DomainClass dc1 = dsl1.GetRootClass();
+            DomainClass dc2 = dsl2.GetRootClass();
+            String name1 = dc1 == null ? null : dc1.Xml.GetAttribute("Name");
+            String name2 = dc2 == null ? null : dc2.Xml.GetAttribute("Name");
+
+            if (name1 != name2)
+            {
+                VisioPage page = new VisioPage(document.Pages[1]);
+                page.RootClass = dc2 != null ? new VisioClass(page.Find(dc2.GUID)) : null;
+            }
         }
 
         protected void CompareClasses(DslElement de1, DslElement de2)
