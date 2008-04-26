@@ -9,7 +9,10 @@ namespace VWDAddin
     public partial class DslTemplate
     {
         private const String DefaultCompany = "Company";
-        private const String DefaultProduct = "Language1";
+        private const String DefaultProduct = "Language";
+        private String[] TextFilesExtensions = {
+            ".cs", ".tt", ".csproj", "mydsl3", ".vstemplate", ".resx", ".dsl", ".dsl.diagram"
+        };
 
         public String Company = DefaultCompany;
         public String Product = DefaultProduct;
@@ -56,8 +59,11 @@ namespace VWDAddin
         {
             foreach (String dir in Directory.GetDirectories(root))
             {
-                CreateDirectory(dir.Substring(TemplatePath.Length));
-                CreateFileSystem(dir);
+                if (!dir.EndsWith(@"\.svn"))
+                {
+                    CreateDirectory(dir.Substring(TemplatePath.Length));
+                    CreateFileSystem(dir);
+                }
             }
             foreach (String file in Directory.GetFiles(root))
             {
@@ -67,29 +73,37 @@ namespace VWDAddin
 
         private void CreateDirectory(String dir)
         {
-            Trace.WriteLine("Creating " + dir);
+            Trace.WriteLine("Creating Dir " + dir);
             Directory.CreateDirectory(BasePath + dir);
         }
 
         private void CreateFile(String file)
         {
-            String ext = file.Substring(file.LastIndexOf('.'));
+            String filelower = file.ToLower();
+            foreach (String ext in TextFilesExtensions)
+            {
+                if (filelower.EndsWith(ext))
+                {
+                    CreateTextFile(file);
+                    return;
+                }
+            }                
             CreateBinaryFile(file);
         }
 
         private void CreateTextFile(String file)
         {
-            Trace.WriteLine("Creating " + file);
+            Trace.WriteLine("Creating Txt " + file);
             String f = File.ReadAllText(TemplatePath + file);
 
-            //TODO обработка файла
+            f = f.Replace("<?Company?>", Company).Replace("<?Product?>", Product);
 
             File.WriteAllText(BasePath + file.Replace("%Product%", Product).Replace("%Company%", Company), f);
         }
 
         private void CreateBinaryFile(String file)
         {
-            Trace.WriteLine("Creating " + file);
+            Trace.WriteLine("Creating Bin " + file);
             File.Copy(TemplatePath + file, BasePath + file.Replace("%Product%", Product).Replace("%Company%", Company));
         }
     }

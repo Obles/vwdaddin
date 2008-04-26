@@ -1,18 +1,18 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <microsoft.VisualStudio.Modeling.DslDesigner.DslDesignerDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 18.215416671633719, 8.5" isCompleteView="false" name="DslDefinition">
-  <DslMoniker Name="/Company.Language1/Language1" />
+  <DslMoniker Name="/<?Company?>.<?Product?>/<?Product?>" />
   <nestedChildShapes>
     <microsoft.VisualStudio.Modeling.DslDesigner.DomainModelElements Id="d5bb1e9e-851c-4051-a064-64c971884a9b" absoluteBounds="0, 0, 9.0854166716337215, 8.5">
       <nestedChildShapes>
         <microsoft.VisualStudio.Modeling.DslDesigner.RelationshipShape Id="5db0649e-d5dc-4553-a2d8-3e0c44d810ae" isExpanded="false" absoluteBounds="1.6, 1.50745849609375, 1.35, 0.25">
-          <DomainRelationshipMoniker Name="/Company.Language1/ExampleModelHasElements" />
+          <DomainRelationshipMoniker Name="/<?Company?>.<?Product?>/ExampleModelHasElements" />
           <relativeChildShapes />
           <nestedChildShapes>
             <elementListCompartment Id="60fa3413-2387-4b06-9204-4875f1c4f53e" absoluteBounds="1.6150000000000002, 1.8574584960937501, 1.3200000000000003, 0.22204819321632385" name="Properties" title="Domain Properties" titleFillColor="Window" compartmentFillColor="Window" />
           </nestedChildShapes>
         </microsoft.VisualStudio.Modeling.DslDesigner.RelationshipShape>
         <microsoft.VisualStudio.Modeling.DslDesigner.RelationshipShape Id="113ab086-1c46-4c88-9492-c709401dc507" isExpanded="false" absoluteBounds="4.95, 2.6792643229166666, 1.3500000000000005, 0.25">
-          <DomainRelationshipMoniker Name="/Company.Language1/ExampleElementReferencesTargets" />
+          <DomainRelationshipMoniker Name="/<?Company?>.<?Product?>/ExampleElementReferencesTargets" />
           <relativeChildShapes />
           <nestedChildShapes>
             <elementListCompartment Id="75a73f05-bb89-49e0-aa27-2c736ba9d59d" absoluteBounds="4.965, 3.0292643229166667, 1.3200000000000003, 0.22204819321632385" name="Properties" title="Domain Properties" titleFillColor="Window" compartmentFillColor="Window" />
@@ -116,19 +116,19 @@
           <Roots>
             <RootNode Id="df0eb219-d6b9-46ef-a2fb-e68b31b18a1f">
               <Class>
-                <DomainClassMoniker Name="/Company.Language1/ExampleModel" />
+                <DomainClassMoniker Name="/<?Company?>.<?Product?>/ExampleModel" />
               </Class>
             </RootNode>
           </Roots>
           <Arcs>
             <SourceRoleNode Id="5524766b-bcc6-457a-8eb9-c0b3896c5c88">
               <Role>
-                <DomainRoleMoniker Name="/Company.Language1/ExampleModelHasElements/ExampleModel" />
+                <DomainRoleMoniker Name="/<?Company?>.<?Product?>/ExampleModelHasElements/ExampleModel" />
               </Role>
             </SourceRoleNode>
             <SourceRoleNode Id="a9ef4eb7-edf9-4b61-b2f6-f1bf7034403b" IsLeaf="true">
               <Role>
-                <DomainRoleMoniker Name="/Company.Language1/ExampleElementReferencesTargets/Source" />
+                <DomainRoleMoniker Name="/<?Company?>.<?Product?>/ExampleElementReferencesTargets/Source" />
               </Role>
             </SourceRoleNode>
           </Arcs>
@@ -139,17 +139,17 @@
           <Roots>
             <RootNode Id="73bd53ee-aeb4-4505-b708-14c3a7af0ed2">
               <Class>
-                <GeometryShapeMoniker Name="/Company.Language1/ExampleShape" />
+                <GeometryShapeMoniker Name="/<?Company?>.<?Product?>/ExampleShape" />
               </Class>
             </RootNode>
             <RootNode Id="f6bf6cee-0843-47a8-9c94-b13428060c5e">
               <Class>
-                <ConnectorMoniker Name="/Company.Language1/ExampleConnector" />
+                <ConnectorMoniker Name="/<?Company?>.<?Product?>/ExampleConnector" />
               </Class>
             </RootNode>
             <RootNode Id="01dd485f-86b3-482a-8c42-e339fd47edbc">
               <Class>
-                <DiagramMoniker Name="/Company.Language1/Language1Diagram" />
+                <DiagramMoniker Name="/<?Company?>.<?Product?>/<?Product?>Diagram" />
               </Class>
             </RootNode>
           </Roots>

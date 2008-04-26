@@ -118,13 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="101" xml:space="preserve">
-    <value>Language1</value>
+    <value><?Product?></value>
   </data>
   <data name="102" xml:space="preserve">
-    <value>Adds a Language1 file to the project.</value>
+    <value>Adds a <?Product?> file to the project.</value>
   </data>
   <data name="103" xml:space="preserve">
-    <value>Language1</value>
+    <value><?Product?></value>
   </data>
   <data name="104" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\ModelExplorerToolWindowBitmaps.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

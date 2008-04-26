@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -8,8 +8,8 @@
     <ProjectGuid>{47175AEE-09B1-4AEF-ABE2-655C5695934B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Company.Language1</RootNamespace>
-    <AssemblyName>Company.Language1.Dsl</AssemblyName>
+    <RootNamespace><?Company?>.<?Product?></RootNamespace>
+    <AssemblyName><?Company?>.<?Product?>.Dsl</AssemblyName>
     <AssemblyOriginatorKeyFile>..\Key.snk</AssemblyOriginatorKeyFile>
     <AssemblyOriginatorKeyMode>File</AssemblyOriginatorKeyMode>
     <SignAssembly>true</SignAssembly>
@@ -180,18 +180,18 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>PropertiesGrid.cs</LastGenOutput>
     </None>
-    <None Include="GeneratedCode\Language1Schema.tt">
+    <None Include="GeneratedCode\<?Product?>Schema.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Language1Schema.xsd</LastGenOutput>
+      <LastGenOutput><?Product?>Schema.xsd</LastGenOutput>
     </None>
     <None Include="GeneratedCode\DomainModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>DomainModel.cs</LastGenOutput>
     </None>
-    <Content Include="GeneratedCode\Language1Schema.xsd">
+    <Content Include="GeneratedCode\<?Product?>Schema.xsd">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Language1Schema.tt</DependentUpon>
+      <DependentUpon><?Product?>Schema.tt</DependentUpon>
       <SubType>
       </SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

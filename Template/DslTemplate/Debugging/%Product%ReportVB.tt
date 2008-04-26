@@ -1,6 +1,6 @@
-﻿<#@ template inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" language="VB" debug="true"#>
+<#@ template inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" language="VB" debug="true"#>
 <#@ output extension=".txt" #>
-<#@ Language1 processor="Language1DirectiveProcessor" requires="fileName='Sample.mydsl3'" #>
+<#@ <?Product?> processor="Language1DirectiveProcessor" requires="fileName='Sample.mydsl3'" #>
 
 Generated material. Generating code in VB.
 
