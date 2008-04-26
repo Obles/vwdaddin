@@ -62,11 +62,16 @@ namespace VWDAddin
             {
                 try
                 {
+                    // Создаем проект из шаблона
                     DslTemplate dsl = new DslTemplate(folderBrowserDialog.SelectedPath);
                     dsl.Create();
 
+                    // Устанавливаем пути
                     DSLPath.Text = dsl.DslPath;
                     VisioHelpers.SetDSLPath(Logger.Document, DSLPath.Text);
+                    
+                    // Переносим Visio-схему в Dsl
+                    Logger = Logger.LoggerManager.ResetLogger(Logger.Document);
 
                     Logger.DslDocument = new DslDocument();
                     Logger.DslDocument.Load(dsl.DslPath);
