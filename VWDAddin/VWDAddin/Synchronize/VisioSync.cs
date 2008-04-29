@@ -111,7 +111,7 @@ namespace VWDAddin.Synchronize
             foreach (DomainClass dc in Doc.Dsl.Classes)
             {
                 Shape shape = Page.Find(dc.GUID);
-                VisioClass vc = new VisioClass(shape == null ? VisioMaster.Drop(Logger.Document, "Class") : shape);
+                VisioClass vc = new VisioClass(shape == null ? VisioMaster.Drop(Page.Document, "Class") : shape);
                 vc.GUID = dc.GUID;
                 vc.Name = dc.Xml.GetAttribute("Name");
                 vc.DisplayName = dc.Xml.GetAttribute("DisplayName");
@@ -178,7 +178,7 @@ namespace VWDAddin.Synchronize
             Trace.WriteLine("Synchronizing Page");
             Trace.Indent();
             
-            DomainClass dc = Logger.DslDocument.Dsl.GetRootClass();
+            DomainClass dc = Doc.Dsl.GetRootClass();
             Page.RootClass = dc != null ? new VisioClass(Page.Find(dc.GUID)) : null;
 
             Trace.Unindent();
