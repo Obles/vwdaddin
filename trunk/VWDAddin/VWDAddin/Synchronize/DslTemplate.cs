@@ -36,7 +36,7 @@ namespace VWDAddin
 
         public String TemplatePath
         {
-            get { return @"C:\Andrey\Work\vwdaddin\Template\DslTemplate"; }
+            get { return Environment.GetFolderPath(Environment.SpecialFolder.Templates) + @"\DslTemplate"; }
         }
         #endregion
 
