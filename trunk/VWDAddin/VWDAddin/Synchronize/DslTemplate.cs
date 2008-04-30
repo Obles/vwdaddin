@@ -26,7 +26,7 @@ namespace VWDAddin
         #region Paths...
         public String BasePath
         {
-            get { return RootPath + @"\" + Product; }
+            get { return RootPath; }
         }
 
         public String DslPath
