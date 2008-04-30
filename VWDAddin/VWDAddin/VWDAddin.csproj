@@ -99,6 +99,12 @@
     <Compile Include="VisioDialogs\DocumentProperties.Designer.cs">
       <DependentUpon>DocumentProperties.cs</DependentUpon>
     </Compile>
+    <Compile Include="VisioDialogs\NewDslProject.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VisioDialogs\NewDslProject.Designer.cs">
+      <DependentUpon>NewDslProject.cs</DependentUpon>
+    </Compile>
     <Compile Include="VisioEventHandlers\MarkerEventHandler.cs" />
     <Compile Include="VisioLogger\Actions\AssociationAction.cs" />
     <Compile Include="Connect.cs">
@@ -196,6 +202,10 @@
     <EmbeddedResource Include="VisioDialogs\DocumentProperties.resx">
       <SubType>Designer</SubType>
       <DependentUpon>DocumentProperties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VisioDialogs\NewDslProject.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>NewDslProject.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

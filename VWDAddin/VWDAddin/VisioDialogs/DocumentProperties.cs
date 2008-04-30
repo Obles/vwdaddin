@@ -58,12 +58,15 @@ namespace VWDAddin
 
         private void btnCreateDSL_Click(object sender, EventArgs e)
         {
-            if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
+            NewDslProject NewDslProject = new NewDslProject();
+            if (NewDslProject.ShowDialog(this) == DialogResult.OK)
             {
                 try
                 {
                     // Создаем проект из шаблона
-                    DslTemplate dsl = new DslTemplate(folderBrowserDialog.SelectedPath);
+                    DslTemplate dsl = new DslTemplate(NewDslProject.BasePath);
+                    dsl.Company = NewDslProject.CompanyName;
+                    dsl.Product = NewDslProject.ProductName;
                     dsl.Create();
 
                     // Устанавливаем пути
