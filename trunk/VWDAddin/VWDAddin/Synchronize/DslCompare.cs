@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.IO;
 using Microsoft.Office.Interop.Visio;
 using System.Diagnostics;
 using VWDAddin.VisioWrapper;
+using VWDAddin.VisioLogger;
 
 namespace VWDAddin.DslWrapper
 {
@@ -220,7 +222,7 @@ namespace VWDAddin.DslWrapper
             try
             {
                 String TempDslPath = VisioHelpers.GetTempDSLPath(Document);
-                if (System.IO.File.Exists(TempDslPath))
+                if (File.Exists(TempDslPath))
                 {
                     DslDocument dslOrig = new DslDocument();
                     dslOrig.Load(TempDslPath);
@@ -231,7 +233,7 @@ namespace VWDAddin.DslWrapper
                     DslCompare comparer = new DslCompare(Document);
                     comparer.Compare(dslOrig, dslNew);
 
-                    System.IO.File.Delete(TempDslPath);
+                    File.Delete(TempDslPath);
                     Document.Save();
                 }
             }
@@ -241,6 +243,19 @@ namespace VWDAddin.DslWrapper
                 Debug.WriteLine(e.StackTrace);
             }
             Trace.Unindent();
+        }
+
+        public static bool IsModified(Logger Logger)
+        {
+            try
+            {
+                FileInfo DslInfo = new FileInfo(VisioHelpers.GetDSLPath(Logger.Document));
+                return !Logger.LastSaveTime.Equals(DslInfo.LastWriteTime);
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }
