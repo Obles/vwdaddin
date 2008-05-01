@@ -32,6 +32,12 @@ namespace VWDAddin.VisioLogger
             RemoveDSLControlPoint();
         }
 
+        private DateTime lastSaveTime;
+        public DateTime LastSaveTime
+        {
+            get { return lastSaveTime; }
+        }
+
         private LoggerManager loggerManager;
         public LoggerManager LoggerManager
         {
@@ -129,6 +135,8 @@ namespace VWDAddin.VisioLogger
                     File.WriteAllText(DslPath + ".diagram", String.Empty);
                     dslDocument.Save(DslPath);
                     dslDocument = null;
+
+                    lastSaveTime = new FileInfo(DslPath).LastWriteTime;
                 }
             }
             catch(Exception e)
@@ -149,6 +157,7 @@ namespace VWDAddin.VisioLogger
             if (File.Exists(DslPath))
             {
                 File.Copy(DslPath, VisioHelpers.GetTempDSLPath(associatedDocument), true);
+                lastSaveTime = new FileInfo(DslPath).LastWriteTime;
             }
         }
 
