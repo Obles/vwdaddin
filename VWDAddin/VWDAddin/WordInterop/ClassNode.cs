@@ -15,21 +15,18 @@ namespace VWDAddin
             ParentRemained = false;
             _doc = doc;
             XmlNode property = WordHelpers.GetCustomXmlPropertyNode(node);
-            if (property !=null)
+            if (property == null)
+                throw new BadCustomXml();        
+            foreach (XmlNode attribute in property.ChildNodes)
             {
-                foreach (XmlNode attribute in property.ChildNodes)
+                if (attribute.Attributes[0].Value.Equals(Definitions.ATTR_GUID))
                 {
-                    if (attribute.Attributes[0].Value.Equals(Definitions.ATTR_GUID))
-                    {
-                        ClassID = attribute.Attributes[1].Value;
-                    }
+                    ClassID = attribute.Attributes[1].Value;
                 }
             }
-            else
-            {
-                throw new Exception("NULL property in class node");
-            }
             XmlNode nodeAttrPart = WordHelpers.GetCustomChild(ClassXmlNode, Definitions.CLASS_ATTR_PART);
+            if (nodeAttrPart == null)
+                throw new BadCustomXml();
             foreach (XmlNode attrNode in nodeAttrPart.ChildNodes)
             {
                 if (WordHelpers.IsCustomNode(attrNode, Definitions.CLASS_ATTR_SECTION))
@@ -41,6 +38,8 @@ namespace VWDAddin
                 }
             }
             XmlNode nodeAssocPart = WordHelpers.GetCustomChild(ClassXmlNode, Definitions.CLASS_ASSOC_PART);
+            if (nodeAssocPart == null)
+                throw new BadCustomXml();
             foreach (XmlNode assocNode in nodeAssocPart.ChildNodes)
             {
                 if (WordHelpers.IsCustomNode(assocNode, Definitions.CLASS_ASSOC_SECTION))
@@ -49,6 +48,12 @@ namespace VWDAddin
                     _assocList.Add(association);
                 }
             }
+            if (WordHelpers.GetCustomChild(ClassXmlNode, Definitions.CLASS_NAME) == null)
+                throw new BadCustomXml();
+            if (WordHelpers.GetCustomChild(ClassXmlNode, Definitions.CLASS_PARENT) == null)
+                throw new BadCustomXml();
+            if (WordHelpers.GetCustomChild(ClassXmlNode, Definitions.CLASS_DESCR) == null)
+                throw new BadCustomXml();
         }
 
         public ClassNode(WordDocument doc, string name, string classAttributes, string id)
@@ -265,10 +270,11 @@ namespace VWDAddin
                 ClassXmlNode.InsertAfter(classParentNode, WordHelpers.GetCustomChild(ClassXmlNode, Definitions.CLASS_NAME));
             }
             RemoveParent();
-            XmlNode hyperlinkNode = WordHelpers.CreateHyperlinkNode(_doc, parentGUID);
+            //XmlNode hyperlinkNode = WordHelpers.CreateHyperlinkNode(_doc, parentGUID);
             XmlNode textNode = WordHelpers.CreateTextChildNode(_doc, Definitions.CLASS_PARENT_PREFIX + parentName, Definitions.CLASS_PARENT);
-            hyperlinkNode.AppendChild(textNode);
-            classParentNode.AppendChild(hyperlinkNode);
+            //hyperlinkNode.AppendChild(textNode);
+            //classParentNode.AppendChild(hyperlinkNode);
+            classParentNode.AppendChild(textNode);
             IsRemained = ParentRemained = true;
         }
 
@@ -291,8 +297,10 @@ namespace VWDAddin
         public void RemoveParent()
         {
             XmlNode classParentNode = WordHelpers.GetCustomChild(ClassXmlNode, Definitions.CLASS_PARENT);
-            foreach (XmlNode child in classParentNode.ChildNodes)
-                classParentNode.RemoveChild(child);
+            //classParentNode.RemoveAll();
+            int count = classParentNode.ChildNodes.Count;
+            for (int i = 0; i < count; ++i)
+                classParentNode.RemoveChild(classParentNode.ChildNodes[0]);
         }
 
         public void DeleteParent()

@@ -21,6 +21,7 @@ namespace VWDAddin
             m_listBox = listBox;
             m_clickedOnListBox = clickedOnListBox;
             ValueTextBox.Text = listBox.Text;
+            ValueTextBox.SelectAll();
         }
 
         private void OKBtn_Click(object sender, EventArgs e)
