@@ -73,11 +73,11 @@ namespace VWDAddin
                     SetCheckBoxFromShape(DisplayEnd2MP, m_shape["end2_mp"], "HideText");
                     if (VisioHelpers.GetShapeType(shape) == Constants.Composition)
                     {
-                        DisplayArrows.Visible = false;
+                        DisplayArrows.Enabled = false;
                     }
                     else
                     {
-                        DisplayArrows.Visible = true;
+                        DisplayArrows.Enabled = true;
                         SetArrowCheckBoxFromShape(DisplayArrows, m_shape.Shape, "BeginArrow");
                     }
                 }

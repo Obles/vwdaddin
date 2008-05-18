@@ -26,6 +26,13 @@ namespace VWDAddin
             try
             {
                 _pkgOutputDoc = Package.Open(fileName, FileMode.Open, FileAccess.ReadWrite);
+            }
+            catch (Exception e) 
+            {
+                throw new FileProtectedException();
+            }
+            try
+            {
                 Uri uri = new Uri("/word/document.xml", UriKind.Relative);
                 _partDocumentXML = _pkgOutputDoc.GetPart(uri);
                 this.Load(_partDocumentXML.GetStream(FileMode.Open, FileAccess.ReadWrite));
@@ -41,7 +48,7 @@ namespace VWDAddin
             catch (Exception e)
             {
                 Debug.WriteLine(e.Message);
-                MessageBox.Show(Definitions.VALIDATION_FAILED);
+                //MessageBox.Show(Definitions.VALIDATION_FAILED);
                 throw e;
             }
         }
@@ -201,7 +208,7 @@ namespace VWDAddin
                     CloseWordDocument();
                 if (!File.Exists(pathToDoc))
                 {
-                    return;
+                    throw new FileNotFoundException();
                 }
                 else
                 {
@@ -295,8 +302,8 @@ namespace VWDAddin
                             string childGUID = null;
                             string parentGUID = null;
                             string parentName = string.Empty;
-                            Shape parent = FindConnectedShape(shape, shape.get_Cells("BegTrigger").Formula);
-                            Shape child = FindConnectedShape(shape, shape.get_Cells("EndTrigger").Formula);
+                            Shape parent = FindConnectedShape(shape, shape.get_Cells("EndTrigger").Formula);
+                            Shape child = FindConnectedShape(shape, shape.get_Cells("BegTrigger").Formula);
                             if (child != null && parent != null)
                             {
                                 childGUID = VisioHelpers.FromString(child.get_Cells("User.GUID.Value").Formula);
@@ -319,10 +326,29 @@ namespace VWDAddin
                 DeleteClasses();
                 CloseWordDocument();
             }
+            catch (BadCustomXml e)
+            {
+                CloseWordDocument();
+                Debug.WriteLine(e.Message);
+                MessageBox.Show("Ошибка: Неправильный формат файла " + pathToDoc + ". Сохранение не произошло");
+            }
+            catch (FileProtectedException e)
+            {
+                CloseWordDocument();
+                Debug.WriteLine(e.Message);
+                MessageBox.Show("Ошибка: Невозможно открыть файл " + pathToDoc + ". Возможно файл занят другим процессом." + " Сохранение не произошло");
+            }
+            catch (FileNotFoundException e)
+            {
+                CloseWordDocument();
+                Debug.WriteLine(e.Message);
+                MessageBox.Show("Ошибка: Файл " + pathToDoc + " не найден." + " Сохранение не произошло");
+            }
             catch (Exception e)
             {
+                CloseWordDocument();
                 Debug.WriteLine(e.Message);
-                MessageBox.Show("Ошибка: Сохранение документа {0} не произошло", pathToDoc);
+                MessageBox.Show("Ошибка: Сохранение документа " + pathToDoc + " не произошло");
             }
         }
 
@@ -362,17 +388,19 @@ namespace VWDAddin
             try
             {
                 if (IsAssociated)
-                {                    
+                {
                     this.Save(_partDocumentXML.GetStream(FileMode.Create));
-                    _pkgOutputDoc.Flush();
-                    _pkgOutputDoc.Close();
-                    IsAssociated = false;
+                    _pkgOutputDoc.Flush();                    
                 }
+                if (_pkgOutputDoc != null)
+                    _pkgOutputDoc.Close();
+                IsAssociated = false;
             }
             catch (Exception e)
             {
                 Debug.WriteLine(e.Message);
-                _pkgOutputDoc.Close();
+                if (_pkgOutputDoc != null)
+                    _pkgOutputDoc.Close();
             }
         }
 
@@ -393,4 +421,14 @@ namespace VWDAddin
             set { _isAssociated = value; }
         }
     }
+
+    public class FileNotFoundException : Exception
+    {}
+
+    public class FileProtectedException : Exception
+    {}
+    
+    public class BadCustomXml : Exception
+    {}
 }
+

@@ -34,6 +34,7 @@ namespace VWDAddin
                     if (!attribute.Equals(string.Empty))
                         AttrListBox.Items.Add(attribute);
                 }
+                ClassNameTextBox.SelectAll();
             }
             catch (Exception e)
             {
