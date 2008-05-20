@@ -45,5 +45,10 @@ namespace VWDAddin.VisioWrapper
         {
             get { return VisioHelpers.GetShapeType(Shape); }
         }
+
+        public bool Equals(VisioShape vs)
+        {
+            return vs.Shape == Shape;
+        }
     }
 }

@@ -26,6 +26,12 @@ namespace VWDAddin
 
         private void OKBtn_Click(object sender, EventArgs e)
         {
+            if (m_listBox.Items.IndexOf(ValueTextBox.Text) >= 0)
+            {
+                MessageBox.Show("Атрибут с таким именем уже существует");
+                return;
+            }
+
             if (m_clickedOnListBox)
             {
                 m_listBox.Items.Insert(m_listBox.SelectedIndex, ValueTextBox.Text);
