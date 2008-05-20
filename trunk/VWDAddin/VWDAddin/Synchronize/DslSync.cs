@@ -28,6 +28,7 @@ namespace VWDAddin.Synchronize
             Trace.WriteLine("Synchronizing DSL");
             Trace.Indent();
 
+            CreatingUniqueNames();
             DestroyStructure();
             CreateElements();
             SynchronizeElements();
@@ -36,6 +37,24 @@ namespace VWDAddin.Synchronize
 
             Trace.Unindent();
             Trace.WriteLine("DSL Synchronized");
+        }
+
+        private void CreatingUniqueNames()
+        {
+            Trace.WriteLine("Creating Unique Names");
+            Trace.Indent();
+
+            foreach (VisioClass vc in Page.Classes)
+            {
+                vc.Name = UniqueNames.UniqueName(Page, vc);
+            }
+
+            foreach (VisioConnector vc in Page.Relationships)
+            {
+                vc.Name = UniqueNames.UniqueName(Page, vc);
+            }
+
+            Trace.Unindent();
         }
 
         /// <summary>Синхронизация свойств классов</summary>
