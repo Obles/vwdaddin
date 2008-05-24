@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 using Microsoft.Office.Interop.Visio;
 using System.Diagnostics;
+using Color = System.Drawing.Color;
 
 namespace VWDAddin.VisioWrapper
 {
@@ -61,6 +63,28 @@ namespace VWDAddin.VisioWrapper
         public StaticClass ToStaticClass()
         {
             return new StaticClass(Shape);
+        }
+
+        public Color Color
+        {
+            get
+            {
+                Regex regex = new Regex(@"RGB\(\s*([0-9]+)\s*,\s*([0-9]+)\s*,\s*([0-9]+)\s*\)");
+                Match m = regex.Match(this["class_name"].get_Cells("FillForegnd").FormulaU);
+                if (m.Success)
+                {
+                    int r = int.Parse(m.Groups[1].Value);
+                    int g = int.Parse(m.Groups[2].Value);
+                    int b = int.Parse(m.Groups[3].Value);
+                    return Color.FromArgb(r, g, b);
+                }
+                else return Color.White;
+            }
+            set
+            {
+                this["class_name"].get_Cells("FillForegnd").FormulaU =
+                    "RGB(" + value.R + "," + value.G + "," + value.B + ")";
+            }
         }
     }
 }
