@@ -183,8 +183,9 @@ namespace VWDAddin
             return string.Empty;
         }
 
-        public static XmlNode GetFirstTextNode(XmlNode customNode)
+        public static string CalcText(XmlNode customNode, string prefix)
         {
+            string result = string.Empty;
             foreach (XmlNode paragraphNode in customNode.ChildNodes)
             {
                 if (paragraphNode.Name.Equals("w:p"))
@@ -194,11 +195,14 @@ namespace VWDAddin
                             foreach (XmlNode textNode in regionNode.ChildNodes)
                             {
                                 if (textNode.Name.Equals("w:t"))
-                                    return textNode.FirstChild;
+                                    foreach (XmlNode text in textNode.ChildNodes)
+                                    {
+                                        result += text.Value;
+                                    }
                             }
                     }
             }
-            return null;
+            return result;
         }
 
         public static bool IsCustomNode(XmlNode node, string name)
@@ -238,9 +242,42 @@ namespace VWDAddin
         {
             XmlNode hyperlinkNode = doc.CreateNode(XmlNodeType.Element, "w:hyperlink", Definitions.WORD_PROCESSING_ML);
             XmlAttribute anchor = doc.CreateAttribute("w:anchor", Definitions.WORD_PROCESSING_ML);
+            XmlAttribute history = doc.CreateAttribute("w:history", Definitions.WORD_PROCESSING_ML);
+            history.Value = "1";
             anchor.Value = hyperlinkedClassID;
             hyperlinkNode.Attributes.Append(anchor);
+            hyperlinkNode.Attributes.Append(history);
             return hyperlinkNode;
+        }
+
+        public static XmlNode CreateHyperlinkTextNode(WordDocument doc, string hyperlinkedClassID, string text, string element)
+        {
+            XmlElement tagParagraph = doc.CreateElement("w:p", Definitions.WORD_PROCESSING_ML);
+            XmlNode paragraphPropertyNode = doc.CreateNode(XmlNodeType.Element, "w:pPr", Definitions.WORD_PROCESSING_ML);
+            XmlNode styleNode = doc.CreateNode(XmlNodeType.Element, "w:pStyle", Definitions.WORD_PROCESSING_ML);
+            XmlAttribute styleName = doc.CreateAttribute("w:val", Definitions.WORD_PROCESSING_ML);
+            styleName.Value = WordHelpers.GetParagraphStyle(element);
+            styleNode.Attributes.Append(styleName);
+            paragraphPropertyNode.AppendChild(styleNode);
+            tagParagraph.AppendChild(paragraphPropertyNode);
+
+            XmlNode hyperlinkNode = doc.CreateNode(XmlNodeType.Element, "w:hyperlink", Definitions.WORD_PROCESSING_ML);
+            XmlAttribute anchor = doc.CreateAttribute("w:anchor", Definitions.WORD_PROCESSING_ML);
+            //XmlAttribute history = doc.CreateAttribute("w:history", Definitions.WORD_PROCESSING_ML);
+            //history.Value = "1";
+            anchor.Value = hyperlinkedClassID;
+            hyperlinkNode.Attributes.Append(anchor);
+            //hyperlinkNode.Attributes.Append(history);
+            tagParagraph.AppendChild(hyperlinkNode);
+
+            XmlElement tagRun = doc.CreateElement("w:r", Definitions.WORD_PROCESSING_ML);
+            hyperlinkNode.AppendChild(tagRun);
+            XmlElement tagText = doc.CreateElement("w:t", Definitions.WORD_PROCESSING_ML);
+            tagRun.AppendChild(tagText);
+            XmlNode nodeText = doc.CreateNode(XmlNodeType.Text, "w:t", Definitions.WORD_PROCESSING_ML);
+            nodeText.Value = text;
+            tagText.AppendChild(nodeText);
+            return tagParagraph;
         }
 
         public static string[] ConvertListToArray(List<string> list)

@@ -208,24 +208,10 @@ namespace VWDAddin
                     CloseWordDocument();
                 if (!File.Exists(pathToDoc))
                 {
-                    throw new FileNotFoundException();
-                }
-                else
-                {
-                    //if (MessageBox.Show("Не существует привязанного файла, вы хотите создать новый ассоциированный документ?", "Создание нового файла", MessageBoxButtons.OKCancel) == DialogResult.OK)
-                    //{
-                    //    string path = Environment.GetFolderPath(Environment.SpecialFolder.Templates) + "\\EmptyDoc.docx";
-                    //    if (File.Exists(path))
-                    //    {
-                    //        File.Copy(path, pathToDoc, true);
-                    //    }
-                    //    else
-                    //    {
-                    //        Debug.WriteLine("WORD_INTEROP.SYNCRONIZE : EmptyDoc not found");
-                    //        MessageBox.Show("EmptyDoc not found");
-                    //        throw new Exception("WORD_INTEROP.SYNCRONIZE : EmptyDoc not found");
-                    //    }
-                    //}
+                    if (pathToDoc.Equals(string.Empty))
+                        throw new EmptyFilePathException();
+                    else
+                        throw new FileNotFoundException();
                 }
                 this.ParseDocx(pathToDoc);
                 foreach (Shape shape in visioDocument.Pages[1].Shapes)
@@ -330,19 +316,23 @@ namespace VWDAddin
             {
                 CloseWordDocument();
                 Debug.WriteLine(e.Message);
-                MessageBox.Show("Ошибка: Неправильный формат файла " + pathToDoc + ". Сохранение не произошло");
+                MessageBox.Show("Ошибка: Неправильный формат файла " + pathToDoc + ". Синхронизация не удалась");
             }
             catch (FileProtectedException e)
             {
                 CloseWordDocument();
                 Debug.WriteLine(e.Message);
-                MessageBox.Show("Ошибка: Невозможно открыть файл " + pathToDoc + ". Возможно файл занят другим процессом." + " Сохранение не произошло");
+                MessageBox.Show("Ошибка: Невозможно открыть файл " + pathToDoc + ". Возможно файл занят другим процессом." + " Синхронизация не удалась");
             }
             catch (FileNotFoundException e)
             {
                 CloseWordDocument();
                 Debug.WriteLine(e.Message);
-                MessageBox.Show("Ошибка: Файл " + pathToDoc + " не найден." + " Сохранение не произошло");
+                MessageBox.Show("Ошибка: Файл " + pathToDoc + " не найден." + " Синхронизация не удалась");
+            }
+            catch (EmptyFilePathException e)
+            {
+                // This is normal situation - do nothing                
             }
             catch (Exception e)
             {
@@ -430,5 +420,8 @@ namespace VWDAddin
     
     public class BadCustomXml : Exception
     {}
+
+    public class EmptyFilePathException : Exception
+    { }
 }
 

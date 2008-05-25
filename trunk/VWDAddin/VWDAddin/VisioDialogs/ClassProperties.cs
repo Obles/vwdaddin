@@ -28,6 +28,7 @@ namespace VWDAddin
                 m_shape = new VisioClass(shape);
                 colorBox.BackColor = m_shape.Color;
                 ClassNameTextBox.Text = m_shape["class_name"].Text;
+                ClassDSLNameTextBox.Text = m_shape.Name;
                 m_attributes = m_shape["attr_section"].Text.Split(new Char[] { '\n' });
                 AttrListBox.Items.Clear();
                 foreach (string attribute in m_attributes)
@@ -49,6 +50,7 @@ namespace VWDAddin
             {
                 m_shape.Color = colorBox.BackColor;
                 m_shape["class_name"].Text = ClassNameTextBox.Text;
+                m_shape.Name = ClassDSLNameTextBox.Text;
                 string attr_sect = string.Empty;
                 foreach (object attr in AttrListBox.Items)
                 {
