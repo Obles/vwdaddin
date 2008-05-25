@@ -26,6 +26,7 @@ namespace VWDAddin
             try
             {
                 m_shape = new VisioClass(shape);
+                colorBox.BackColor = m_shape.Color;
                 ClassNameTextBox.Text = m_shape["class_name"].Text;
                 m_attributes = m_shape["attr_section"].Text.Split(new Char[] { '\n' });
                 AttrListBox.Items.Clear();
@@ -46,6 +47,7 @@ namespace VWDAddin
         {
             try
             {
+                m_shape.Color = colorBox.BackColor;
                 m_shape["class_name"].Text = ClassNameTextBox.Text;
                 string attr_sect = string.Empty;
                 foreach (object attr in AttrListBox.Items)
@@ -97,6 +99,14 @@ namespace VWDAddin
             if (AttrListBox.SelectedIndex >= 0)
             {
                 AttrListBox.Items.RemoveAt(AttrListBox.SelectedIndex);
+            }
+        }
+
+        private void colorBox_Click(object sender, EventArgs e)
+        {
+            if (colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                colorBox.BackColor = colorDialog.Color;
             }
         }
     }
