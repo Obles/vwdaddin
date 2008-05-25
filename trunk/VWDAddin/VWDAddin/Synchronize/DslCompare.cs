@@ -146,6 +146,8 @@ namespace VWDAddin.DslWrapper
             Conn.GUID = de2.GUID;
             Conn.Name = de2.Xml.GetAttribute("Name");
             Conn.DisplayName = de2.Xml.GetAttribute("DisplayName");
+            Conn.SourceText = (de2 as DomainRelationship).Source.Xml.GetAttribute("DisplayName");
+            Conn.TargetText = (de2 as DomainRelationship).Target.Xml.GetAttribute("DisplayName");
 
             String s = CompareMultiplicity(
                 (de1 as DomainRelationship).Source, 
