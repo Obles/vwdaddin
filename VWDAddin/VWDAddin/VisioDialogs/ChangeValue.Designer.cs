@@ -38,7 +38,7 @@ namespace VWDAddin
             // OKBtn
             // 
             this.OKBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.OKBtn.Location = new System.Drawing.Point(12, 82);
+            this.OKBtn.Location = new System.Drawing.Point(12, 80);
             this.OKBtn.Name = "OKBtn";
             this.OKBtn.Size = new System.Drawing.Size(75, 23);
             this.OKBtn.TabIndex = 1;
@@ -50,7 +50,7 @@ namespace VWDAddin
             // 
             this.CancelBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.CancelBtn.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.CancelBtn.Location = new System.Drawing.Point(123, 82);
+            this.CancelBtn.Location = new System.Drawing.Point(121, 80);
             this.CancelBtn.Name = "CancelBtn";
             this.CancelBtn.Size = new System.Drawing.Size(75, 23);
             this.CancelBtn.TabIndex = 2;
@@ -64,7 +64,7 @@ namespace VWDAddin
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.ValueTextBox.Location = new System.Drawing.Point(6, 19);
             this.ValueTextBox.Name = "ValueTextBox";
-            this.ValueTextBox.Size = new System.Drawing.Size(174, 20);
+            this.ValueTextBox.Size = new System.Drawing.Size(172, 20);
             this.ValueTextBox.TabIndex = 0;
             // 
             // groupBox1
@@ -74,8 +74,8 @@ namespace VWDAddin
             this.groupBox1.Controls.Add(this.ValueTextBox);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(186, 47);
-            this.groupBox1.TabIndex = 3;
+            this.groupBox1.Size = new System.Drawing.Size(184, 47);
+            this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Attribute";
             // 
@@ -85,7 +85,7 @@ namespace VWDAddin
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.CancelBtn;
-            this.ClientSize = new System.Drawing.Size(210, 117);
+            this.ClientSize = new System.Drawing.Size(208, 115);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.CancelBtn);
             this.Controls.Add(this.OKBtn);

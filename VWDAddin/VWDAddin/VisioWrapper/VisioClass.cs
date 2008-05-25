@@ -36,7 +36,7 @@ namespace VWDAddin.VisioWrapper
                 }
                 return s;
             }
-            set { Shape.get_Cells("User.RelName.Value").FormulaU = VisioHelpers.ToString(value); }
+            set { Shape.get_Cells("User.RelName.Value").FormulaU = Translit.Encode(VisioHelpers.ToString(value)); }
         }
 
         public String Attributes

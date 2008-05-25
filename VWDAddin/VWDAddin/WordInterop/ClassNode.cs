@@ -270,11 +270,12 @@ namespace VWDAddin
                 ClassXmlNode.InsertAfter(classParentNode, WordHelpers.GetCustomChild(ClassXmlNode, Definitions.CLASS_NAME));
             }
             RemoveParent();
+            XmlNode hyperLinkTextNode = WordHelpers.CreateHyperlinkTextNode(_doc, parentGUID, Definitions.CLASS_PARENT_PREFIX + parentName, Definitions.CLASS_PARENT);
             //XmlNode hyperlinkNode = WordHelpers.CreateHyperlinkNode(_doc, parentGUID);
-            XmlNode textNode = WordHelpers.CreateTextChildNode(_doc, Definitions.CLASS_PARENT_PREFIX + parentName, Definitions.CLASS_PARENT);
+            //XmlNode textNode = WordHelpers.CreateTextChildNode(_doc, Definitions.CLASS_PARENT_PREFIX + parentName, Definitions.CLASS_PARENT);
             //hyperlinkNode.AppendChild(textNode);
-            //classParentNode.AppendChild(hyperlinkNode);
-            classParentNode.AppendChild(textNode);
+            classParentNode.AppendChild(hyperLinkTextNode);
+            //classParentNode.AppendChild(textNode);
             IsRemained = ParentRemained = true;
         }
 

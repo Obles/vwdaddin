@@ -29,7 +29,7 @@ namespace VWDAddin
             }
             else
             {
-                throw new Exception("NULL property in association node");
+                throw new BadCustomXml();
             }
         }
 
