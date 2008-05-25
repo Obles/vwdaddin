@@ -38,8 +38,11 @@ namespace VWDAddin
             this.RemoveAttrBtn = new System.Windows.Forms.Button();
             this.AttributesGroupBox = new System.Windows.Forms.GroupBox();
             this.ClassNameGroupBox = new System.Windows.Forms.GroupBox();
+            this.colorBox = new System.Windows.Forms.PictureBox();
+            this.colorDialog = new System.Windows.Forms.ColorDialog();
             this.AttributesGroupBox.SuspendLayout();
             this.ClassNameGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.colorBox)).BeginInit();
             this.SuspendLayout();
             // 
             // ClassNameTextBox
@@ -49,7 +52,7 @@ namespace VWDAddin
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.ClassNameTextBox.Location = new System.Drawing.Point(6, 19);
             this.ClassNameTextBox.Name = "ClassNameTextBox";
-            this.ClassNameTextBox.Size = new System.Drawing.Size(203, 20);
+            this.ClassNameTextBox.Size = new System.Drawing.Size(172, 20);
             this.ClassNameTextBox.TabIndex = 1;
             // 
             // CancelBtn
@@ -129,6 +132,7 @@ namespace VWDAddin
             // 
             this.ClassNameGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.ClassNameGroupBox.Controls.Add(this.colorBox);
             this.ClassNameGroupBox.Controls.Add(this.ClassNameTextBox);
             this.ClassNameGroupBox.Location = new System.Drawing.Point(12, 12);
             this.ClassNameGroupBox.Name = "ClassNameGroupBox";
@@ -136,6 +140,17 @@ namespace VWDAddin
             this.ClassNameGroupBox.TabIndex = 9;
             this.ClassNameGroupBox.TabStop = false;
             this.ClassNameGroupBox.Text = "Class name";
+            // 
+            // colorBox
+            // 
+            this.colorBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.colorBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.colorBox.Location = new System.Drawing.Point(184, 19);
+            this.colorBox.Name = "colorBox";
+            this.colorBox.Size = new System.Drawing.Size(25, 20);
+            this.colorBox.TabIndex = 2;
+            this.colorBox.TabStop = false;
+            this.colorBox.Click += new System.EventHandler(this.colorBox_Click);
             // 
             // ClassProperties
             // 
@@ -153,6 +168,7 @@ namespace VWDAddin
             this.AttributesGroupBox.ResumeLayout(false);
             this.ClassNameGroupBox.ResumeLayout(false);
             this.ClassNameGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.colorBox)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -162,11 +178,13 @@ namespace VWDAddin
         private System.Windows.Forms.TextBox ClassNameTextBox;
         private System.Windows.Forms.Button CancelBtn;
         private System.Windows.Forms.Button OKButton;
-        private VisioShape m_shape;
+        private VisioClass m_shape;
         private System.Windows.Forms.ListBox AttrListBox;
         private System.Windows.Forms.Button AddAttrBtn;
         private System.Windows.Forms.Button RemoveAttrBtn;
         private System.Windows.Forms.GroupBox AttributesGroupBox;
         private System.Windows.Forms.GroupBox ClassNameGroupBox;
+        private System.Windows.Forms.PictureBox colorBox;
+        private System.Windows.Forms.ColorDialog colorDialog;
     }
 }
