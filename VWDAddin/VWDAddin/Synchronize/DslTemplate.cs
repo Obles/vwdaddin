@@ -10,12 +10,15 @@ namespace VWDAddin
     {
         private const String DefaultCompany = "Company";
         private const String DefaultProduct = "Language";
+        private const String DefaultPathToSDK = @"$(ProgramFiles)\Visual Studio 2005 SDK\2006.09";
+        
         private String[] TextFilesExtensions = {
             ".cs", ".tt", ".csproj", "mydsl3", ".vstemplate", ".resx", ".dsl", ".dsl.diagram"
         };
 
         public String Company = DefaultCompany;
         public String Product = DefaultProduct;
+        public String PathToSDK = DefaultPathToSDK;
         public String RootPath;
 
         public DslTemplate(String RootPath)
@@ -44,6 +47,9 @@ namespace VWDAddin
         {
             Trace.WriteLine("Creating Dsl Template");
             Trace.Indent();
+
+            TestPathToSDK();
+
             if (Directory.Exists(BasePath))
             {
                 throw new IOException("Папка '" + BasePath + "' уже существует!");
@@ -53,6 +59,34 @@ namespace VWDAddin
             CreateFileSystem(TemplatePath);
 
             Trace.Unindent();
+        }
+
+        private void TestPathToSDK()
+        {
+            Trace.WriteLine("Testing Path To SDK");
+
+            String dir = PathToSDK.Replace("$(ProgramFiles)", Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles));
+            if (Directory.Exists(dir)) 
+            {
+                Trace.WriteLine("OK: " + dir);
+                return;
+            }
+            dir = Directory.GetParent(dir).FullName + @"\2007.02";
+            if (Directory.Exists(dir))
+            {
+                PathToSDK = dir.Replace(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "$(ProgramFiles)");
+                Trace.WriteLine("OK: " + dir);
+                return;
+            }
+            String[] dirs = Directory.GetDirectories(Directory.GetParent(dir).FullName);
+            if (dirs.Length > 0)
+            {
+                dir = dirs[0];
+                PathToSDK = dir.Replace(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "$(ProgramFiles)");
+                Trace.WriteLine("OK: " + dir);
+                return;
+            }
+            throw new NotImplementedException("Не найден Microsoft Visual Studio SDK");
         }
 
         private void CreateFileSystem(String root)
@@ -96,7 +130,7 @@ namespace VWDAddin
             Trace.WriteLine("Creating Txt " + file);
             String f = File.ReadAllText(TemplatePath + file);
 
-            f = f.Replace("<?Company?>", Company).Replace("<?Product?>", Product);
+            f = f.Replace("<?Company?>", Company).Replace("<?Product?>", Product).Replace("<?PathToSDK?>", PathToSDK);
 
             File.WriteAllText(BasePath + file.Replace("%Product%", Product).Replace("%Company%", Company), f);
         }
