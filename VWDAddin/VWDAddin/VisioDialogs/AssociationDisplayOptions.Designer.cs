@@ -56,7 +56,7 @@ namespace VWDAddin
             // OKButton
             // 
             this.OKButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.OKButton.Location = new System.Drawing.Point(12, 153);
+            this.OKButton.Location = new System.Drawing.Point(12, 151);
             this.OKButton.Name = "OKButton";
             this.OKButton.Size = new System.Drawing.Size(75, 23);
             this.OKButton.TabIndex = 6;
@@ -68,7 +68,7 @@ namespace VWDAddin
             // 
             this.CancelBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.CancelBtn.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.CancelBtn.Location = new System.Drawing.Point(219, 153);
+            this.CancelBtn.Location = new System.Drawing.Point(217, 151);
             this.CancelBtn.Name = "CancelBtn";
             this.CancelBtn.Size = new System.Drawing.Size(75, 23);
             this.CancelBtn.TabIndex = 7;
@@ -81,7 +81,7 @@ namespace VWDAddin
             this.DisplayEnd2Name.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.DisplayEnd2Name.AutoSize = true;
-            this.DisplayEnd2Name.Location = new System.Drawing.Point(161, 82);
+            this.DisplayEnd2Name.Location = new System.Drawing.Point(159, 82);
             this.DisplayEnd2Name.Name = "DisplayEnd2Name";
             this.DisplayEnd2Name.Size = new System.Drawing.Size(116, 17);
             this.DisplayEnd2Name.TabIndex = 3;
@@ -120,7 +120,7 @@ namespace VWDAddin
             this.DisplayEnd2MP.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.DisplayEnd2MP.AutoSize = true;
-            this.DisplayEnd2MP.Location = new System.Drawing.Point(161, 117);
+            this.DisplayEnd2MP.Location = new System.Drawing.Point(159, 117);
             this.DisplayEnd2MP.Name = "DisplayEnd2MP";
             this.DisplayEnd2MP.Size = new System.Drawing.Size(137, 17);
             this.DisplayEnd2MP.TabIndex = 5;
@@ -147,7 +147,7 @@ namespace VWDAddin
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.CancelBtn;
-            this.ClientSize = new System.Drawing.Size(306, 188);
+            this.ClientSize = new System.Drawing.Size(304, 186);
             this.Controls.Add(this.DisplayArrows);
             this.Controls.Add(this.DisplayEnd2MP);
             this.Controls.Add(this.DisplayEnd1MP);
