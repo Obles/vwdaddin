@@ -36,7 +36,19 @@ namespace VWDAddin
                     if (!attribute.Equals(string.Empty))
                         AttrListBox.Items.Add(attribute);
                 }
-                ClassNameTextBox.SelectAll();
+                string rootClassGuid = m_shape.Shape.Document.Pages[1].PageSheet.get_Cells("User.RootClassGuid").FormulaU;
+                if (rootClassGuid == VisioHelpers.ToString(m_shape.GUID))
+                {
+                    DSLRootClass.Checked = true;
+                    DSLRootClass.Enabled = true;
+                }
+                else if(rootClassGuid == VisioHelpers.ToString(string.Empty))
+                {
+                    DSLRootClass.Checked = false;
+                    DSLRootClass.Enabled = true;
+                }
+                else
+                    DSLRootClass.Enabled = false;
             }
             catch (Exception e)
             {
@@ -110,6 +122,22 @@ namespace VWDAddin
             {
                 colorBox.BackColor = colorDialog.Color;
             }
+        }
+
+        private void DSLRootClass_CheckedChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (DSLRootClass.Checked == true)
+                {
+                    m_shape.Shape.Document.Pages[1].PageSheet.get_Cells("User.RootClassGuid").FormulaU = VisioHelpers.ToString(m_shape.GUID);
+                }
+                else
+                {
+                    m_shape.Shape.Document.Pages[1].PageSheet.get_Cells("User.RootClassGuid").FormulaU = VisioHelpers.ToString(string.Empty);
+                }
+            }
+            catch(Exception ex) {}
         }
     }
 }
