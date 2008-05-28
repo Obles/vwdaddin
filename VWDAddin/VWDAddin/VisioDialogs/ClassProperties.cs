@@ -38,17 +38,9 @@ namespace VWDAddin
                 }
                 string rootClassGuid = m_shape.Shape.Document.Pages[1].PageSheet.get_Cells("User.RootClassGuid").FormulaU;
                 if (rootClassGuid == VisioHelpers.ToString(m_shape.GUID))
-                {
-                    DSLRootClass.Checked = true;
-                    DSLRootClass.Enabled = true;
-                }
-                else if(rootClassGuid == VisioHelpers.ToString(string.Empty))
-                {
+                    DSLRootClass.Checked = true;                
+                else                
                     DSLRootClass.Checked = false;
-                    DSLRootClass.Enabled = true;
-                }
-                else
-                    DSLRootClass.Enabled = false;
             }
             catch (Exception e)
             {
@@ -128,9 +120,17 @@ namespace VWDAddin
         {
             try
             {
+                string rootClassGuid = m_shape.Shape.Document.Pages[1].PageSheet.get_Cells("User.RootClassGuid").FormulaU;
                 if (DSLRootClass.Checked == true)
                 {
-                    m_shape.Shape.Document.Pages[1].PageSheet.get_Cells("User.RootClassGuid").FormulaU = VisioHelpers.ToString(m_shape.GUID);
+                    if (rootClassGuid.Equals(VisioHelpers.ToString(string.Empty)))
+                        m_shape.Shape.Document.Pages[1].PageSheet.get_Cells("User.RootClassGuid").FormulaU = VisioHelpers.ToString(m_shape.GUID);
+                    else
+                        if (!rootClassGuid.Equals(VisioHelpers.ToString(m_shape.GUID)))
+                            if (MessageBox.Show("Вы хотите заменить корневой класс на текущий?", "Корневой класс уже задан", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                                m_shape.Shape.Document.Pages[1].PageSheet.get_Cells("User.RootClassGuid").FormulaU = VisioHelpers.ToString(m_shape.GUID);
+                            else
+                                DSLRootClass.Checked = false;
                 }
                 else
                 {
