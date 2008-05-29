@@ -134,7 +134,8 @@ namespace VWDAddin
                 }
                 else
                 {
-                    m_shape.Shape.Document.Pages[1].PageSheet.get_Cells("User.RootClassGuid").FormulaU = VisioHelpers.ToString(string.Empty);
+                    if (rootClassGuid.Equals(VisioHelpers.ToString(m_shape.GUID)))
+                        m_shape.Shape.Document.Pages[1].PageSheet.get_Cells("User.RootClassGuid").FormulaU = VisioHelpers.ToString(string.Empty);
                 }
             }
             catch(Exception ex) {}
