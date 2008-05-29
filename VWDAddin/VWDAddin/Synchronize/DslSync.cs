@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Office.Interop.Visio;
 using System.Diagnostics;
+using System.Windows.Forms;
 using VWDAddin.VisioLogger;
 using VWDAddin.DslWrapper;
 using VWDAddin.VisioWrapper;
@@ -28,6 +29,7 @@ namespace VWDAddin.Synchronize
             Trace.WriteLine("Synchronizing DSL");
             Trace.Indent();
 
+            TestRootClass();
             CreatingUniqueNames();
             DestroyStructure();
             CreateElements();
@@ -37,6 +39,19 @@ namespace VWDAddin.Synchronize
 
             Trace.Unindent();
             Trace.WriteLine("DSL Synchronized");
+        }
+
+        private void TestRootClass()
+        {
+            Trace.WriteLine("Testing Root Class");
+            Trace.Indent();
+
+            if (Page.RootClass == null)
+            {
+                MessageBox.Show("Не задан корневой класс", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
+            Trace.Unindent();
         }
 
         private void CreatingUniqueNames()

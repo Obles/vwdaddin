@@ -50,5 +50,10 @@ namespace VWDAddin.VisioWrapper
         {
             return vs.Shape == Shape;
         }
+
+        public VisioPage Page
+        {
+            get { return new VisioPage(Shape.Document.Pages[1]); }
+        }
     }
 }

@@ -92,18 +92,25 @@ namespace VWDAddin.VisioWrapper
             get { return Page.Document; }
         }
 
+        public String RootClassGuid
+        {
+            get { return VisioHelpers.FromString(Page.PageSheet.get_Cells("User.RootClassGuid").FormulaU); }
+            set { Page.PageSheet.get_Cells("User.RootClassGuid").FormulaU = VisioHelpers.ToString(value); }
+        }
+
         public VisioClass RootClass
         {
             get
             {
-                //TODO реализовать получение корневого класса
-                Trace.WriteLine("Getting Root Class");
-                return classes.Count > 0 ? Classes[0] : null;
+                Shape shape = Find(RootClassGuid);
+                VisioClass vc = shape == null ? null : new VisioClass(shape);
+                Trace.WriteLine("Getting Root Class: " + (vc == null ? "null" : vc.Name));
+                return vc;
             }
             set 
             {
-                //TODO реализовать установку корневого класса
-                Trace.WriteLine("Setting Root Class: " + value.Name);
+                Trace.WriteLine("Setting Root Class: " + (value == null ? "null" : value.Name));
+                RootClassGuid = value == null ? String.Empty : value.GUID;
             }
         }
     }

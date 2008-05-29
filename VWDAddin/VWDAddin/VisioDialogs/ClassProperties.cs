@@ -36,11 +36,7 @@ namespace VWDAddin
                     if (!attribute.Equals(string.Empty))
                         AttrListBox.Items.Add(attribute);
                 }
-                string rootClassGuid = m_shape.Shape.Document.Pages[1].PageSheet.get_Cells("User.RootClassGuid").FormulaU;
-                if (rootClassGuid == VisioHelpers.ToString(m_shape.GUID))
-                    DSLRootClass.Checked = true;                
-                else                
-                    DSLRootClass.Checked = false;
+                DSLRootClass.Checked = m_shape.IsRootClass;
             }
             catch (Exception e)
             {
@@ -116,29 +112,23 @@ namespace VWDAddin
             }
         }
 
-        private void DSLRootClass_CheckedChanged(object sender, EventArgs e)
+        private void DSLRootClass_Click(object sender, EventArgs e)
         {
-            try
+            VisioPage page = m_shape.Page;
+            if (DSLRootClass.Checked == true)
             {
-                string rootClassGuid = m_shape.Shape.Document.Pages[1].PageSheet.get_Cells("User.RootClassGuid").FormulaU;
-                if (DSLRootClass.Checked == true)
+                if (page.RootClass == null ||
+                    MessageBox.Show(
+                        "Вы хотите заменить корневой класс на текущий?",
+                        "Корневой класс уже задан",
+                        MessageBoxButtons.YesNo
+                    ) == DialogResult.Yes)
                 {
-                    if (rootClassGuid.Equals(VisioHelpers.ToString(string.Empty)))
-                        m_shape.Shape.Document.Pages[1].PageSheet.get_Cells("User.RootClassGuid").FormulaU = VisioHelpers.ToString(m_shape.GUID);
-                    else
-                        if (!rootClassGuid.Equals(VisioHelpers.ToString(m_shape.GUID)))
-                            if (MessageBox.Show("Вы хотите заменить корневой класс на текущий?", "Корневой класс уже задан", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                                m_shape.Shape.Document.Pages[1].PageSheet.get_Cells("User.RootClassGuid").FormulaU = VisioHelpers.ToString(m_shape.GUID);
-                            else
-                                DSLRootClass.Checked = false;
+                    page.RootClass = m_shape;
                 }
-                else
-                {
-                    if (rootClassGuid.Equals(VisioHelpers.ToString(m_shape.GUID)))
-                        m_shape.Shape.Document.Pages[1].PageSheet.get_Cells("User.RootClassGuid").FormulaU = VisioHelpers.ToString(string.Empty);
-                }
+                else DSLRootClass.Checked = false;
             }
-            catch(Exception ex) {}
+            else page.RootClass = null;
         }
     }
 }
