@@ -201,7 +201,7 @@ namespace VWDAddin
             this.DSLRootClass.TabIndex = 5;
             this.DSLRootClass.Text = "This class is the root class in DSL";
             this.DSLRootClass.UseVisualStyleBackColor = true;
-            this.DSLRootClass.CheckedChanged += new System.EventHandler(this.DSLRootClass_CheckedChanged);
+            this.DSLRootClass.Click += new System.EventHandler(this.DSLRootClass_Click);
             // 
             // ClassProperties
             // 

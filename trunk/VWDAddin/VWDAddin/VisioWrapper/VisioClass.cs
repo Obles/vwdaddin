@@ -86,5 +86,10 @@ namespace VWDAddin.VisioWrapper
                     "RGB(" + value.R + "," + value.G + "," + value.B + ")";
             }
         }
+
+        public bool IsRootClass
+        {
+            get { return new VisioPage(Shape.Document.Pages[1]).RootClassGuid == GUID; }
+        }
     }
 }
