@@ -424,25 +424,25 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_ACB57726A7239F5EDA2BB03616F469C6"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_01D6AB554AEF83977A035F07C93515AD"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_FB696EC08F1C901CB5404E12F2A36CFB"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_ACB57726A7239F5EDA2BB03616F469C6"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_59505E2A81B92812F9328D5F0E2D6995"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_01D6AB554AEF83977A035F07C93515AD"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -564,11 +564,11 @@
                 {
                     "_01D6AB554AEF83977A035F07C93515AD"
                     {
-                    "Name" = "8:Office.dll"
+                    "Name" = "8:office.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:Office.dll"
+            "SourcePath" = "8:office.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_A661E735FE7C4B56BC632FF9A3E3E463"
@@ -1082,7 +1082,7 @@
             "SourcePath" = "8:..\\..\\Template\\Domain-Specific Modeling\\Stencil.vss"
             "TargetName" = "8:Stencil.vss"
             "Tag" = "8:"
-            "Folder" = "8:_CAD4EC24A92D4501B01B70456BBECE88"
+            "Folder" = "8:_44E9D8F9A3374AA8937FD734AAB39A8F"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1433,7 +1433,7 @@
             "SourcePath" = "8:..\\..\\Template\\Domain-Specific Modeling\\TestTemplate.vtx"
             "TargetName" = "8:TestTemplate.vtx"
             "Tag" = "8:"
-            "Folder" = "8:_CAD4EC24A92D4501B01B70456BBECE88"
+            "Folder" = "8:_44E9D8F9A3374AA8937FD734AAB39A8F"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1896,6 +1896,28 @@
                 {
                 }
             }
+            "{1525181F-901A-416C-8A58-119130FE478E}:_77AC3662AA77458AA6C4BBE4DF3A43F0"
+            {
+            "Name" = "8:#1918"
+            "AlwaysCreate" = "11:FALSE"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Property" = "8:PersonalFolder"
+                "Folders"
+                {
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_44E9D8F9A3374AA8937FD734AAB39A8F"
+                    {
+                    "Name" = "8:Visio Template (VWDAddin)"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_26F995317C5C4F688BD8F7612C81436F"
+                        "Folders"
+                        {
+                        }
+                    }
+                }
+            }
             "{3C67513D-01DD-4637-8A68-80971EB9504F}:_A661E735FE7C4B56BC632FF9A3E3E463"
             {
             "DefaultLocation" = "8:[ProgramFilesFolder]\\VWDAddin"
@@ -2088,14 +2110,14 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:VWDAddinSetup"
-        "ProductCode" = "8:{2F4AE977-B80A-4A5C-A4F4-9D8A40171A51}"
-        "PackageCode" = "8:{9F731CC7-7A59-4091-B73B-3166DB553F49}"
+        "ProductCode" = "8:{C50FA524-205B-4BE8-B4B2-A9E410ACCD09}"
+        "PackageCode" = "8:{B8F1215C-EA6D-495F-B652-BBE5BAE3A3B1}"
         "UpgradeCode" = "8:{C49B1B6B-E44E-424F-A953-189FCD60995B}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:0.1.158"
+        "ProductVersion" = "8:0.1.171"
         "Manufacturer" = "8:Default Company Name"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
