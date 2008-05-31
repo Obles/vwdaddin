@@ -26,6 +26,11 @@ namespace VWDAddin
 
         private void OKBtn_Click(object sender, EventArgs e)
         {
+            if (ValueTextBox.Text.Equals(string.Empty))
+            {
+                this.DialogResult = DialogResult.Cancel;
+                return;
+            }
             if (m_listBox.Items.IndexOf(ValueTextBox.Text) >= 0)
             {
                 MessageBox.Show("Атрибут с таким именем уже существует");
