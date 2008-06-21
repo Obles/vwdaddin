@@ -44,7 +44,7 @@ namespace VWDAddin
             // 
             this.DisplayName.Location = new System.Drawing.Point(12, 47);
             this.DisplayName.Name = "DisplayName";
-            this.DisplayName.Size = new System.Drawing.Size(145, 15);
+            this.DisplayName.Size = new System.Drawing.Size(156, 29);
             this.DisplayName.TabIndex = 1;
             this.DisplayName.Text = "Display association name";
             this.DisplayName.UseVisualStyleBackColor = true;
@@ -53,7 +53,7 @@ namespace VWDAddin
             // OKButton
             // 
             this.OKButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.OKButton.Location = new System.Drawing.Point(12, 143);
+            this.OKButton.Location = new System.Drawing.Point(12, 155);
             this.OKButton.Name = "OKButton";
             this.OKButton.Size = new System.Drawing.Size(75, 23);
             this.OKButton.TabIndex = 6;
@@ -65,7 +65,7 @@ namespace VWDAddin
             // 
             this.CancelBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.CancelBtn.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.CancelBtn.Location = new System.Drawing.Point(209, 143);
+            this.CancelBtn.Location = new System.Drawing.Point(243, 155);
             this.CancelBtn.Name = "CancelBtn";
             this.CancelBtn.Size = new System.Drawing.Size(75, 23);
             this.CancelBtn.TabIndex = 7;
@@ -76,11 +76,11 @@ namespace VWDAddin
             // DisplayEnd2Name
             // 
             this.DisplayEnd2Name.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.DisplayEnd2Name.Location = new System.Drawing.Point(151, 82);
+            this.DisplayEnd2Name.Location = new System.Drawing.Point(169, 82);
             this.DisplayEnd2Name.Name = "DisplayEnd2Name";
-            this.DisplayEnd2Name.Size = new System.Drawing.Size(116, 15);
+            this.DisplayEnd2Name.Size = new System.Drawing.Size(149, 24);
             this.DisplayEnd2Name.TabIndex = 3;
-            this.DisplayEnd2Name.Text = "Display end2 name";
+            this.DisplayEnd2Name.Text = "Display target name";
             this.DisplayEnd2Name.UseVisualStyleBackColor = true;
             this.DisplayEnd2Name.CheckedChanged += new System.EventHandler(this.DisplayEnd2Name_CheckedChanged);
             // 
@@ -88,30 +88,30 @@ namespace VWDAddin
             // 
             this.DisplayEnd1Name.Location = new System.Drawing.Point(12, 82);
             this.DisplayEnd1Name.Name = "DisplayEnd1Name";
-            this.DisplayEnd1Name.Size = new System.Drawing.Size(116, 15);
+            this.DisplayEnd1Name.Size = new System.Drawing.Size(145, 24);
             this.DisplayEnd1Name.TabIndex = 2;
-            this.DisplayEnd1Name.Text = "Display end1 name";
+            this.DisplayEnd1Name.Text = "Display source name";
             this.DisplayEnd1Name.UseVisualStyleBackColor = true;
             this.DisplayEnd1Name.CheckedChanged += new System.EventHandler(this.DisplayEnd1Name_CheckedChanged);
             // 
             // DisplayEnd1MP
             // 
-            this.DisplayEnd1MP.Location = new System.Drawing.Point(12, 117);
+            this.DisplayEnd1MP.Location = new System.Drawing.Point(12, 112);
             this.DisplayEnd1MP.Name = "DisplayEnd1MP";
-            this.DisplayEnd1MP.Size = new System.Drawing.Size(137, 15);
+            this.DisplayEnd1MP.Size = new System.Drawing.Size(156, 28);
             this.DisplayEnd1MP.TabIndex = 4;
-            this.DisplayEnd1MP.Text = "Display end1 multiplicity";
+            this.DisplayEnd1MP.Text = "Display source multiplicity";
             this.DisplayEnd1MP.UseVisualStyleBackColor = true;
             this.DisplayEnd1MP.CheckedChanged += new System.EventHandler(this.DisplayEnd1MP_CheckedChanged);
             // 
             // DisplayEnd2MP
             // 
             this.DisplayEnd2MP.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.DisplayEnd2MP.Location = new System.Drawing.Point(151, 117);
+            this.DisplayEnd2MP.Location = new System.Drawing.Point(169, 112);
             this.DisplayEnd2MP.Name = "DisplayEnd2MP";
-            this.DisplayEnd2MP.Size = new System.Drawing.Size(137, 15);
+            this.DisplayEnd2MP.Size = new System.Drawing.Size(149, 28);
             this.DisplayEnd2MP.TabIndex = 5;
-            this.DisplayEnd2MP.Text = "Display end2 multiplicity";
+            this.DisplayEnd2MP.Text = "Display target multiplicity";
             this.DisplayEnd2MP.UseVisualStyleBackColor = true;
             this.DisplayEnd2MP.CheckedChanged += new System.EventHandler(this.DisplayEnd2MP_CheckedChanged);
             // 
@@ -119,7 +119,7 @@ namespace VWDAddin
             // 
             this.DisplayArrows.Location = new System.Drawing.Point(12, 12);
             this.DisplayArrows.Name = "DisplayArrows";
-            this.DisplayArrows.Size = new System.Drawing.Size(94, 15);
+            this.DisplayArrows.Size = new System.Drawing.Size(145, 29);
             this.DisplayArrows.TabIndex = 0;
             this.DisplayArrows.Text = "Display arrows";
             this.DisplayArrows.UseVisualStyleBackColor = true;
@@ -131,7 +131,7 @@ namespace VWDAddin
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.CancelBtn;
-            this.ClientSize = new System.Drawing.Size(296, 178);
+            this.ClientSize = new System.Drawing.Size(330, 190);
             this.Controls.Add(this.DisplayArrows);
             this.Controls.Add(this.DisplayEnd2MP);
             this.Controls.Add(this.DisplayEnd1MP);
@@ -141,7 +141,7 @@ namespace VWDAddin
             this.Controls.Add(this.OKButton);
             this.Controls.Add(this.DisplayName);
             this.Name = "AssociationDisplayOptions";
-            this.Text = "Association Display Options";
+            this.Text = "Display Options";
             this.TopMost = true;
             this.ResumeLayout(false);
 
