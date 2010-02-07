@@ -11,15 +11,15 @@ namespace VWDAddin
     {
         public static Document GetStencil(Documents documents)
         {
-            try
+            //try
             {
                 return documents[Constants.StencilName];
             }
-            catch
-            {
-                // The stencil is not in the collection; open it as a docked stencil.
-                return documents.OpenEx(Constants.StencilName, (short)VisOpenSaveArgs.visOpenDocked);
-            }
+            //catch
+            //{
+            //    // The stencil is not in the collection; open it as a docked stencil.
+            //    return documents.OpenEx(Constants.StencilName, (short)VisOpenSaveArgs.visOpenDocked);
+            //}
         }
 
         public static int count = 0;
@@ -38,7 +38,7 @@ namespace VWDAddin
             double pinY)
         {
             Shape droppedShape = null;
-            try
+            //try
             {
                 // Get a master from the stencil by its universal name.
                 Document stencil = GetStencil(document.Application.Documents);
@@ -47,10 +47,10 @@ namespace VWDAddin
                 // Drop the master on the page
                 droppedShape = document.Pages[1].Drop(master, pinX, pinY);
             }
-            catch (Exception err)
-            {
-                System.Diagnostics.Debug.WriteLine(err.Message);
-            }
+            //catch (Exception err)
+            //{
+            //    System.Diagnostics.Debug.WriteLine(err.Message);
+            //}
 
             return droppedShape;
         }

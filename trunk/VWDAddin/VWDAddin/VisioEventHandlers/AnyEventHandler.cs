@@ -6,7 +6,7 @@ using System.Diagnostics;
 
 namespace VWDAddin
 {
-    public class AnyEventHandler : EventHandler
+    public class AnyEventHandler : VisioAppEventHandler
     {
         public static short[] HandleEvents = {
             // Document event codes

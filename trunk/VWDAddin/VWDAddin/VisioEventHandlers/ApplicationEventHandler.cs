@@ -14,7 +14,7 @@ using System.Threading;
 
 namespace VWDAddin
 {
-    public class ApplicationEventHandler : EventHandler
+    public class ApplicationEventHandler : VisioAppEventHandler
     {
         public static short[] HandleEvents = {
           (short)VisEventCodes.visEvtDoc + Constants.visEvtAdd,
@@ -53,7 +53,7 @@ namespace VWDAddin
                     }
                     break;
                 default:
-                    EventHandler.UnhandledEvent(eventCode);
+                    VisioAppEventHandler.UnhandledEvent(eventCode);
                     break;
             }
             return true;

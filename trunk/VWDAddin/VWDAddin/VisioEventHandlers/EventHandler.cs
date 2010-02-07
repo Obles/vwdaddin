@@ -7,15 +7,17 @@ using VWDAddin.VisioLogger;
 
 namespace VWDAddin
 {
-    public abstract class EventHandler
+    public abstract class VisioAppEventHandler
     {
         protected EventManager Owner;
         protected List<short> handleEvents;
+        private int lastEventSequenceNumber;
 
-        public EventHandler(EventManager manager, IEnumerable<short> events)
+        public VisioAppEventHandler(EventManager manager, IEnumerable<short> events)
         {
             Owner = manager;
             handleEvents = new List<short>(events);
+            lastEventSequenceNumber = -1;
         }
 
         public abstract object VisEventProc(
@@ -27,6 +29,17 @@ namespace VWDAddin
             object moreInformation
         );
         
+        public bool HandlesEvent(short eventCode, int eventSequenceNumber)
+        {
+            if (lastEventSequenceNumber >= eventSequenceNumber)
+            {
+                return false;
+            }
+
+            lastEventSequenceNumber = eventSequenceNumber;
+            return handleEvents.Contains(eventCode);
+        }
+
         public bool HandlesEvent(short eventCode)
         {
             return handleEvents.Contains(eventCode);

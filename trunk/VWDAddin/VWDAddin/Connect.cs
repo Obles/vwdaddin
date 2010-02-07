@@ -60,15 +60,16 @@ namespace VWDAddin
             }
 
             Trace.WriteLine("-----------[ Add-In Connecting ]-----------");
-            try
+            //try
             {
                 visApplication = (Application)application;
+              //  visApplication.Settings
             }
-            catch (Exception)
-            {
-                MessageBox.Show("TypeCast Error");
-                return;
-            }
+            //catch (Exception)
+            //{
+            //    MessageBox.Show("TypeCast Error");
+            //    return;
+            //}
 
             addInInstance = addInInst;
 

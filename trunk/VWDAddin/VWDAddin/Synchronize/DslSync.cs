@@ -10,6 +10,9 @@ using VWDAddin.VisioWrapper;
 
 namespace VWDAddin.Synchronize
 {
+    /// <summary>
+    /// Visio -> Dsl
+    /// </summary>
     class DslSync
     {
         private Logger Logger;
@@ -31,7 +34,7 @@ namespace VWDAddin.Synchronize
 
             TestRootClass();
             CreatingUniqueNames();
-            DestroyStructure();
+            DeleteRemovedDslElements();
             CreateElements();
             SynchronizeElements();
             UpdateSerializationInfo();
@@ -75,7 +78,7 @@ namespace VWDAddin.Synchronize
         /// <summary>Синхронизация свойств классов</summary>
         /// <param name="dc">Класс, который синхронизируем</param>
         /// <param name="vc">Класс, с которым синхронизируем</param>
-        private void SyncProperties(DomainClass dc, VisioClass vc)
+        private void SynchronizeProperties(DomainClass dc, VisioClass vc)
         {
             // Приводим в порядок атрибуты
             String attrstr = "\n";
@@ -108,6 +111,39 @@ namespace VWDAddin.Synchronize
             }
         }
 
+        private void SynchronizeProperties(DomainRelationship dr, VisioClass vc)
+        {
+            // Приводим в порядок атрибуты
+            String attrstr = "\n";
+            String[] attrs = vc.Attributes.Split('\n');
+            for (int i = 0; i < attrs.Length; i++)
+            {
+                attrs[i] = attrs[i].Trim();
+                attrstr += attrs[i] + "\n";
+            }
+
+            // Добавляем новые свойства
+            foreach (String attr in attrs)
+            {
+                if (attr.Length == 0) continue;
+                if (dr.Properties[attr].Xml == null)
+                {
+                    dr.CreateProperty("/System/String", attr, attr);
+                }
+            }
+
+            // Удаляем ненужные свойства
+            for (int i = 0; i < dr.Properties.Count; i++)
+            {
+                DomainProperty prop = dr.Properties[i] as DomainProperty;
+                if (!attrstr.Contains("\n" + prop.Xml.GetAttribute("Name") + "\n"))
+                {
+                    dr.Properties.RemoveLinked(prop);
+                    i--;
+                }
+            }
+        }
+
         /// <summary>Создание недостающих классов\отношений</summary>
         private void CreateElements()
         {
@@ -117,23 +153,35 @@ namespace VWDAddin.Synchronize
             // Создание недостающих классов
             foreach (VisioClass vc in Page.Classes)
             {
-                DomainClass dc = Doc.Dsl.Classes.Find(vc.GUID) as DomainClass;
-                if (!dc.IsValid)
+                if (vc.IsDslRelationClass)
                 {
-                    Trace.WriteLine(vc.Name);
-                    dc = new DomainClass(Doc);
-                    dc.GUID = vc.GUID;
-                    Doc.Dsl.Classes.Append(dc);
-                }
+                    DomainRelationship dr = Doc.Dsl.Relationships.FindByGuid(vc.GUID) as DomainRelationship;
+                    
+                    // We can only create such VisioClass during synch with Dsl - it should not be possible to add such class from Visio. 
+                    Debug.Assert(dr.IsValid);
 
-                // Синхронизация свойств
-                SyncProperties(dc, vc);
+                    SynchronizeProperties(dr, vc);
+                }
+                else
+                {
+                    DomainClass dc = Doc.Dsl.Classes.FindByGuid(vc.GUID) as DomainClass;
+                    if (!dc.IsValid)
+                    {
+                        Trace.WriteLine(vc.Name);
+                        dc = new DomainClass(Doc);
+                        dc.GUID = vc.GUID;
+                        Doc.Dsl.Classes.Add(dc);
+                    }
+
+                    // Синхронизация свойств
+                    SynchronizeProperties(dc, vc);
+                }
             }
 
             // Создание недостающих ассоциаций\композиций
             foreach (VisioConnector vc in Page.Relationships)
             {
-                DomainRelationship dr = Doc.Dsl.Relationships.Find(vc.GUID) as DomainRelationship;
+                DomainRelationship dr = Doc.Dsl.Relationships.FindByGuid(vc.GUID) as DomainRelationship;
                 if (!dr.IsValid)
                 {
                     Trace.WriteLine(vc.Name);
@@ -142,7 +190,7 @@ namespace VWDAddin.Synchronize
                     dr.Source = new DomainRole(Doc);
                     dr.Target = new DomainRole(Doc);
                     dr.IsEmbedding = vc.IsComposition;
-                    Doc.Dsl.Relationships.Append(dr);
+                    Doc.Dsl.Relationships.Add(dr);
                 }
             }
             Trace.Unindent();
@@ -158,36 +206,94 @@ namespace VWDAddin.Synchronize
             foreach (VisioClass vc in Page.Classes)
             {
                 Trace.WriteLine(vc.Name);
-                DomainClass dc = Doc.Dsl.Classes.Find(vc.GUID) as DomainClass;
+                DomainClass dc = Doc.Dsl.Classes.FindByGuid(vc.GUID) as DomainClass;
 
-                dc.Xml.SetAttribute("DisplayName", vc.DisplayName);
-                dc.FullRename(vc.Name);             
+                if (dc != null)
+                {
+                    dc.Xml.SetAttribute("DisplayName", vc.DisplayName);
+                    dc.FullRename(vc.Name);
+                }
             }
 
             // Синхронизация ассоциаций\композиций
             foreach (VisioConnector vc in Page.Relationships)
             {
                 Trace.WriteLine(vc.Name);
-                DomainRelationship dr = Doc.Dsl.Relationships.Find(vc.GUID) as DomainRelationship;
+                DomainRelationship dr = Doc.Dsl.Relationships.FindByGuid(vc.GUID) as DomainRelationship;
 
-                dr.Xml.SetAttribute("DisplayName", vc.DisplayName);
-                dr.FullRename(vc.Name);
+                if (dr != null)
+                {
+                    dr.Xml.SetAttribute("DisplayName", vc.DisplayName);
+
+                    dr.FullRename(vc.Name);
+                }
             }
 
             Trace.Unindent();
         }
 
+        private bool IsImplementationRelationship(DomainRelationship dr)
+        {
+            DomainClass sourceClass = Doc.Dsl.Classes.FindIfExist("Name", dr.Source.RolePlayer) as DomainClass;
+            DomainClass targetClass = Doc.Dsl.Classes.FindIfExist("Name", dr.Target.RolePlayer) as DomainClass;
+            return IsImplementationClass(sourceClass) || IsImplementationClass(targetClass);
+        }
+
+        private bool IsImplementationClass(DomainClass dc)
+        {
+            if (dc == null)
+            {
+                return false;
+            }
+            
+            DslAttribute entityAttribute = dc.DslAttributes.FindIfExist("Name", "EntityAttribute") as DslAttribute;
+            if (entityAttribute != null)
+            {
+                bool implementationOnlyEntity;
+                if (Boolean.TryParse(entityAttribute["IsImplementationOnlyEntity"], out implementationOnlyEntity)
+                    && implementationOnlyEntity)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         /// <summary>Уничтожаем известную нам информацию о связях классов\отношений</summary>
-        private void DestroyStructure()
+        private void DeleteRemovedDslElements()
         {
             Trace.WriteLine("Destroying DSL structure");
-            foreach (DomainClass dc in Doc.Dsl.Classes)
-            {
-                dc.BaseClass = null;
-            }
+
+            List<DomainRelationship> relationshipsToRemove = new List<DomainRelationship>();
             foreach (DomainRelationship dr in Doc.Dsl.Relationships)
             {
-                dr.Disconnect();
+                if (!Page.Relationships.Contains(dr.GUID) && !IsImplementationRelationship(dr))
+                {
+                    relationshipsToRemove.Add(dr);
+                }
+            }
+
+            foreach (DomainRelationship elem in relationshipsToRemove)
+            {
+                elem.Disconnect();
+                XmlClassData xcd = Doc.Dsl.XmlSerializationBehavior.GetClassData(elem);
+                Doc.Dsl.XmlSerializationBehavior.ClassData.RemoveLinked(xcd);
+                Doc.Dsl.Relationships.RemoveLinked(elem);
+            }
+
+            List<DomainClass> classesToRemove = new List<DomainClass>();
+            foreach (DomainClass dc in Doc.Dsl.Classes)
+            {
+                if (!Page.Classes.Contains(dc.GUID) && !IsImplementationClass(dc))
+                {
+                    classesToRemove.Add(dc);
+                }
+            }
+            foreach (DomainClass elem in classesToRemove)
+            {
+                XmlClassData xcd = Doc.Dsl.XmlSerializationBehavior.GetClassData(elem);
+                Doc.Dsl.XmlSerializationBehavior.ClassData.RemoveLinked(xcd);
+                Doc.Dsl.Classes.RemoveLinked(elem);
             }
         }
 
@@ -198,11 +304,11 @@ namespace VWDAddin.Synchronize
             foreach (VisioClass vc in Page.Classes)
             {
                 Trace.WriteLine(vc.Name);
-                DomainClass dc = Doc.Dsl.Classes.Find(vc.GUID) as DomainClass;
+                DomainClass dc = Doc.Dsl.Classes.FindByGuid(vc.GUID) as DomainClass;
                 XmlClassData xcd = Doc.Dsl.XmlSerializationBehavior.GetClassData(dc);
                 if(xcd == null)
                 {
-                    Doc.Dsl.XmlSerializationBehavior.ClassData.Append(xcd = new XmlClassData(dc));
+                    Doc.Dsl.XmlSerializationBehavior.ClassData.Add(xcd = new XmlClassData(dc));
                 }
                 else xcd.Update(dc);
 
@@ -211,19 +317,20 @@ namespace VWDAddin.Synchronize
                     XmlPropertyData xpd = xcd.GetPropertyData(dp);
                     if (xpd == null)
                     {
-                        xcd.ElementData.Append(new XmlPropertyData(dp));
+                        xcd.ElementData.Add(new XmlPropertyData(dp));
                     }
                     else xpd.Update(dp);
                 }
             }
+
             foreach (VisioConnector vc in Page.Relationships)
             {
                 Trace.WriteLine(vc.Name);
-                DomainRelationship dr = Doc.Dsl.Relationships.Find(vc.GUID) as DomainRelationship;
+                DomainRelationship dr = Doc.Dsl.Relationships.FindByGuid(vc.GUID) as DomainRelationship;
                 XmlClassData xcd = Doc.Dsl.XmlSerializationBehavior.GetClassData(dr);
                 if (xcd == null)
                 {
-                    Doc.Dsl.XmlSerializationBehavior.ClassData.Append(xcd = new XmlClassData(dr));
+                    Doc.Dsl.XmlSerializationBehavior.ClassData.Add(xcd = new XmlClassData(dr));
                 }
                 else xcd.Update(dr);
 
@@ -232,11 +339,12 @@ namespace VWDAddin.Synchronize
                     ConnectionBuilder cb = Doc.Dsl.GetConnectionBuilder(dr);
                     if(cb == null)
                     {
-                        Doc.Dsl.ConnectionBuilders.Append(new ConnectionBuilder(dr));
+                        Doc.Dsl.ConnectionBuilders.Add(new ConnectionBuilder(dr));
                     }
                     else cb.Update(dr);
                 }
             }
+
             Trace.Unindent();
         }
 
@@ -247,18 +355,23 @@ namespace VWDAddin.Synchronize
             Trace.Indent();
             foreach (VisioConnector vc in Page.Inheritances)
             {
-                DomainClass dc = Doc.Dsl.Classes.Find(new VisioClass(vc.Source).GUID) as DomainClass;
+                DomainClass dc = Doc.Dsl.Classes.FindByGuid(new VisioClass(vc.Source).GUID) as DomainClass;
                 dc.BaseClass = new VisioClass(vc.Target).Name;
             }
             foreach (VisioConnector vc in Page.Relationships)
             {
-                DomainRelationship dr = Doc.Dsl.Relationships.Find(vc.GUID) as DomainRelationship;
-                DomainClass src = Doc.Dsl.Classes.Find(new VisioClass(vc.Source).GUID) as DomainClass;
-                DomainClass dst = Doc.Dsl.Classes.Find(new VisioClass(vc.Target).GUID) as DomainClass;
+                DomainRelationship dr = Doc.Dsl.Relationships.FindByGuid(vc.GUID) as DomainRelationship;
+                DomainClass src = Doc.Dsl.Classes.FindByGuid(new VisioClass(vc.Source).GUID) as DomainClass;
+                DomainClass dst = Doc.Dsl.Classes.FindByGuid(new VisioClass(vc.Target).GUID) as DomainClass;
+
 
                 FixRoles(vc, dr);
 
-                dr.Connect(src, dst);
+                if (string.Compare(dr.Source.GUID, src.GUID, StringComparison.OrdinalIgnoreCase) != 0
+                    || string.Compare(dr.Target.GUID, dst.GUID, StringComparison.OrdinalIgnoreCase) != 0)
+                {
+                    dr.Connect(src, dst);
+                }
             }
             VisioClass root = Page.RootClass;
             Doc.Dsl.SetRootClass(root != null ? root.Name : null);
@@ -270,24 +383,24 @@ namespace VWDAddin.Synchronize
             String SourceName = new VisioClass(Connector.Source).Name;
             String TargetName = new VisioClass(Connector.Target).Name;
 
-            if (Relationship.Source.RolePlayer == SourceName &&
-                Relationship.Target.RolePlayer == TargetName) return;
+            //if (Relationship.Source.RolePlayer == SourceName &&
+            //    Relationship.Target.RolePlayer == TargetName) return;
 
             String SourceText = Connector.SourceText == String.Empty ? SourceName : Connector.SourceText;
             String TargetText = Connector.TargetText == String.Empty ? TargetName : Connector.TargetText;
 
             DomainRole source = Relationship.Source;
-            source.SetAttributeIfEmpty("Name", SourceName + "Name");
-            source.SetAttributeIfEmpty("DisplayName", SourceText);
-            source.SetAttributeIfEmpty("PropertyName", TargetName + "Prop");
-            source.SetAttributeIfEmpty("PropertyDisplayName", TargetText);
+            source.SetAttribute("Name", "s" + SourceName + "Name");
+            source.SetAttribute("DisplayName", SourceText);
+            source.SetAttribute("PropertyName", "s" + TargetName + "Prop");
+            source.SetAttribute("PropertyDisplayName", TargetText);
             source.Multiplicity = MultiplicityHelper.Compatible(Connector.SourceMultiplicity);
 
             DomainRole target = Relationship.Target;
-            target.SetAttributeIfEmpty("Name", TargetName + "Name");
-            target.SetAttributeIfEmpty("DisplayName", TargetText);
-            target.SetAttributeIfEmpty("PropertyName", SourceName + "Prop");
-            target.SetAttributeIfEmpty("PropertyDisplayName", SourceText);
+            target.SetAttribute("Name", "t" + TargetName + "Name");
+            target.SetAttribute("DisplayName", TargetText);
+            target.SetAttribute("PropertyName", "t" + SourceName + "Prop");
+            target.SetAttribute("PropertyDisplayName", SourceText);
             target.Multiplicity = MultiplicityHelper.Compatible(Connector.TargetMultiplicity);
         }
     }

@@ -7,7 +7,7 @@ namespace VWDAddin
     public class Constants
     {
         public const String LogFile = @"";
-        public const bool TraceAnyEvent = false;
+        public const bool TraceAnyEvent = true;
 
         // Declare visEvtAdd as a 2-byte value to avoid a run-time overflow error.
         public const short visEvtAdd = -32768;

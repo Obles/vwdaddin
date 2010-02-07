@@ -58,14 +58,14 @@ namespace VWDAddin
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.ClassNameTextBox.Location = new System.Drawing.Point(6, 19);
             this.ClassNameTextBox.Name = "ClassNameTextBox";
-            this.ClassNameTextBox.Size = new System.Drawing.Size(167, 20);
+            this.ClassNameTextBox.Size = new System.Drawing.Size(215, 20);
             this.ClassNameTextBox.TabIndex = 0;
             // 
             // CancelBtn
             // 
             this.CancelBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.CancelBtn.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.CancelBtn.Location = new System.Drawing.Point(145, 302);
+            this.CancelBtn.Location = new System.Drawing.Point(193, 357);
             this.CancelBtn.Name = "CancelBtn";
             this.CancelBtn.Size = new System.Drawing.Size(75, 23);
             this.CancelBtn.TabIndex = 7;
@@ -76,7 +76,7 @@ namespace VWDAddin
             // OKButton
             // 
             this.OKButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.OKButton.Location = new System.Drawing.Point(12, 301);
+            this.OKButton.Location = new System.Drawing.Point(12, 356);
             this.OKButton.Name = "OKButton";
             this.OKButton.Size = new System.Drawing.Size(75, 23);
             this.OKButton.TabIndex = 6;
@@ -93,14 +93,14 @@ namespace VWDAddin
             this.AttrListBox.HorizontalScrollbar = true;
             this.AttrListBox.Location = new System.Drawing.Point(6, 19);
             this.AttrListBox.Name = "AttrListBox";
-            this.AttrListBox.Size = new System.Drawing.Size(116, 82);
+            this.AttrListBox.Size = new System.Drawing.Size(164, 108);
             this.AttrListBox.TabIndex = 2;
             this.AttrListBox.DoubleClick += new System.EventHandler(this.AtrrListBox_DoubleClick);
             // 
             // AddAttrBtn
             // 
             this.AddAttrBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.AddAttrBtn.Location = new System.Drawing.Point(127, 19);
+            this.AddAttrBtn.Location = new System.Drawing.Point(175, 19);
             this.AddAttrBtn.Name = "AddAttrBtn";
             this.AddAttrBtn.Size = new System.Drawing.Size(75, 23);
             this.AddAttrBtn.TabIndex = 3;
@@ -111,7 +111,7 @@ namespace VWDAddin
             // RemoveAttrBtn
             // 
             this.RemoveAttrBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.RemoveAttrBtn.Location = new System.Drawing.Point(127, 48);
+            this.RemoveAttrBtn.Location = new System.Drawing.Point(175, 48);
             this.RemoveAttrBtn.Name = "RemoveAttrBtn";
             this.RemoveAttrBtn.Size = new System.Drawing.Size(75, 23);
             this.RemoveAttrBtn.TabIndex = 4;
@@ -128,7 +128,7 @@ namespace VWDAddin
             this.AttributesGroupBox.Controls.Add(this.AddAttrBtn);
             this.AttributesGroupBox.Location = new System.Drawing.Point(12, 134);
             this.AttributesGroupBox.Name = "AttributesGroupBox";
-            this.AttributesGroupBox.Size = new System.Drawing.Size(208, 111);
+            this.AttributesGroupBox.Size = new System.Drawing.Size(256, 140);
             this.AttributesGroupBox.TabIndex = 2;
             this.AttributesGroupBox.TabStop = false;
             this.AttributesGroupBox.Text = "Attributes";
@@ -141,7 +141,7 @@ namespace VWDAddin
             this.ClassNameGroupBox.Controls.Add(this.ClassNameTextBox);
             this.ClassNameGroupBox.Location = new System.Drawing.Point(12, 12);
             this.ClassNameGroupBox.Name = "ClassNameGroupBox";
-            this.ClassNameGroupBox.Size = new System.Drawing.Size(208, 55);
+            this.ClassNameGroupBox.Size = new System.Drawing.Size(256, 55);
             this.ClassNameGroupBox.TabIndex = 0;
             this.ClassNameGroupBox.TabStop = false;
             this.ClassNameGroupBox.Text = "Class name";
@@ -150,7 +150,7 @@ namespace VWDAddin
             // 
             this.colorBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.colorBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.colorBox.Location = new System.Drawing.Point(179, 19);
+            this.colorBox.Location = new System.Drawing.Point(227, 19);
             this.colorBox.Name = "colorBox";
             this.colorBox.Size = new System.Drawing.Size(25, 20);
             this.colorBox.TabIndex = 2;
@@ -164,7 +164,7 @@ namespace VWDAddin
             this.ClassDSLName.Controls.Add(this.ClassDSLNameTextBox);
             this.ClassDSLName.Location = new System.Drawing.Point(12, 73);
             this.ClassDSLName.Name = "ClassDSLName";
-            this.ClassDSLName.Size = new System.Drawing.Size(208, 55);
+            this.ClassDSLName.Size = new System.Drawing.Size(256, 55);
             this.ClassDSLName.TabIndex = 1;
             this.ClassDSLName.TabStop = false;
             this.ClassDSLName.Text = "Class DSL name";
@@ -176,7 +176,7 @@ namespace VWDAddin
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.ClassDSLNameTextBox.Location = new System.Drawing.Point(6, 19);
             this.ClassDSLNameTextBox.Name = "ClassDSLNameTextBox";
-            this.ClassDSLNameTextBox.Size = new System.Drawing.Size(196, 20);
+            this.ClassDSLNameTextBox.Size = new System.Drawing.Size(244, 20);
             this.ClassDSLNameTextBox.TabIndex = 1;
             // 
             // DSLRootClassBox
@@ -185,9 +185,9 @@ namespace VWDAddin
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.DSLRootClassBox.Controls.Add(this.DSLRootClass);
-            this.DSLRootClassBox.Location = new System.Drawing.Point(12, 251);
+            this.DSLRootClassBox.Location = new System.Drawing.Point(12, 280);
             this.DSLRootClassBox.Name = "DSLRootClassBox";
-            this.DSLRootClassBox.Size = new System.Drawing.Size(208, 44);
+            this.DSLRootClassBox.Size = new System.Drawing.Size(256, 70);
             this.DSLRootClassBox.TabIndex = 5;
             this.DSLRootClassBox.TabStop = false;
             this.DSLRootClassBox.Text = "DSL root class";
@@ -208,13 +208,16 @@ namespace VWDAddin
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.CancelBtn;
-            this.ClientSize = new System.Drawing.Size(232, 337);
+            this.ClientSize = new System.Drawing.Size(280, 392);
             this.Controls.Add(this.DSLRootClassBox);
             this.Controls.Add(this.ClassDSLName);
             this.Controls.Add(this.ClassNameGroupBox);
             this.Controls.Add(this.AttributesGroupBox);
             this.Controls.Add(this.OKButton);
             this.Controls.Add(this.CancelBtn);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "ClassProperties";
             this.Text = "Class Properties";
             this.AttributesGroupBox.ResumeLayout(false);

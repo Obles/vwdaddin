@@ -10,6 +10,8 @@ namespace VWDAddin.VisioWrapper
 {
     public class VisioClass : VisioShape
     {
+        private const string IsDslRelationClassShapeProperty = "User.IsDslRelationClass.Value";
+
         public VisioClass(Shape Shape)
             : base(Shape)
         {
@@ -37,6 +39,30 @@ namespace VWDAddin.VisioWrapper
                 return s;
             }
             set { Shape.get_Cells("User.RelName.Value").FormulaU = Translit.Encode(VisioHelpers.ToString(value)); }
+        }
+
+        public bool IsDslRelationClass
+        {
+            get
+            {
+                return IsDslRelationClassShape(Shape);
+            }
+            //set
+            //{
+            //    Shape.get_Cells(IsDslRelationClassShapeProperty).FormulaU = value.ToString();
+            //}
+        }
+
+        public static bool IsDslRelationClassShape(Shape shape)
+        {
+            //string resultString = VisioHelpers.FromString(shape.get_Cells(IsDslRelationClassShapeProperty).FormulaU);
+            //bool result;
+            //if (!string.IsNullOrEmpty(resultString)
+            //    && bool.TryParse(resultString, out result))
+            //{
+            //    return result;
+            //}
+            return false;
         }
 
         public String Attributes

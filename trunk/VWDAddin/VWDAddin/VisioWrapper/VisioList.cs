@@ -61,5 +61,18 @@ namespace VWDAddin.VisioWrapper
                 return count;
             }
         }
+
+        public bool Contains(string guid)
+        {
+            foreach (Shape shape in Shapes)
+            {
+                VisioShape visioShape = new VisioShape(shape);
+                if (string.Compare(visioShape.GUID, guid, StringComparison.OrdinalIgnoreCase) == 0)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }

@@ -5,7 +5,7 @@ using System.Xml;
 
 namespace VWDAddin.DslWrapper
 {
-    public class DomainRelationship : DslElement
+    public class DomainRelationship : DslElement, IEquatable<DomainRelationship>
     {
         public DomainRelationship(XmlElement Node)
             : base(Node)
@@ -45,7 +45,7 @@ namespace VWDAddin.DslWrapper
             {
                 XmlNode node = GetChildNode("Source");
                 node.RemoveAll();
-                (new DslElementList(typeof(DomainRole), node)).Append(value);
+                (new DslElementList(typeof(DomainRole), node)).Add(value);
             }
         }
 
@@ -60,27 +60,27 @@ namespace VWDAddin.DslWrapper
             {
                 XmlNode node = GetChildNode("Target");
                 node.RemoveAll();
-                (new DslElementList(typeof(DomainRole), node)).Append(value);
+                (new DslElementList(typeof(DomainRole), node)).Add(value);
             }
         }
 
         public DomainProperty CreateProperty(String Type, String Name, String DisplayName)
         {
-            return Properties.Append(new DomainProperty(OwnerDocument, Type, Name, DisplayName)) as DomainProperty;
+            return Properties.Add(new DomainProperty(OwnerDocument, Type, Name, DisplayName)) as DomainProperty;
         }
 
         public bool IsEmbedding
         {
             get
             {
-                try
+                //try
                 {
                     return bool.Parse(Xml.GetAttribute("IsEmbedding"));
                 }
-                catch
-                {
-                    return false;
-                }
+                //catch
+                //{
+                //    return false;
+                //}
             }
             set { Xml.SetAttribute("IsEmbedding", value.ToString().ToUpper()); }
         }
@@ -129,7 +129,7 @@ namespace VWDAddin.DslWrapper
         public void Connect(DomainClass source, DomainClass target)
         {
             Dsl Dsl = this.OwnerDocument.Dsl;
-            Dsl.XmlSerializationBehavior.GetClassData(source).ElementData.Append(
+            Dsl.XmlSerializationBehavior.GetClassData(source).ElementData.Add(
                 new XmlRelationshipData(this)
             );
 
@@ -138,16 +138,37 @@ namespace VWDAddin.DslWrapper
 
             if (this.IsEmbedding)
             {
-                source.ElementMergeDirectives.Append(new ElementMergeDirective(this));
+                bool needToAddNewMergeDirective = true;
+                foreach (ElementMergeDirective elem in source.ElementMergeDirectives)
+                {
+                    if (elem.Index == Target.RolePlayer)
+                    {
+                        needToAddNewMergeDirective = false;
+                        break;
+                    }
+                }
+                if (needToAddNewMergeDirective)
+                {
+                    source.ElementMergeDirectives.Add(new ElementMergeDirective(this));
+                }
             }
             else
             {
                 Dsl.XmlSerializationBehavior.GetClassData(target).Xml.SetAttribute("SerializeId", "true");
 
                 ConnectionBuilder cb = Dsl.GetConnectionBuilder(this);
-                cb.SourceDirectives.Append(new RolePlayerConnectDirective(source));
-                cb.TargetDirectives.Append(new RolePlayerConnectDirective(target));
+                cb.SourceDirectives.Add(new RolePlayerConnectDirective(source));
+                cb.TargetDirectives.Add(new RolePlayerConnectDirective(target));
             }
         }
+
+        #region IEquatable<DomainRelationship> Members
+
+        public bool Equals(DomainRelationship other)
+        {
+            return (this.GUID == other.GUID);
+        }
+
+        #endregion
     }
 }

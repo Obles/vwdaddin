@@ -17,19 +17,19 @@ namespace VWDAddin
         public const string WORD_XML_PREFIX = "w";
         public const string WORD_CONTENT_TYPE = "application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml";
 
-        public const string CLASS_NAME_PREFIX = "Класс: ";
-        public const string CLASS_PARENT_PREFIX = "Предок: ";
-        public const string CLASS_NAME_DESCR_PREFIX = "Описание: ";
-        public const string CLASS_ATTR_NAME_PREFIX = "Атрибут: ";
-        public const string CLASS_ATTR_NAME_DESCR_PREFIX = "Описание: ";
-        public const string CLASS_ASSOC_NAME_PREFIX =       "Ассоциация: "; // WARNING! Don't change this line! These two lines must have same length. Current length is 12
-        public const string CLASS_COMPOSITION_NAME_PREFIX = "Композиция: "; // WARNING! Don't change this line! These two lines must have same length. Current length is 12
-        public const string CLASS_ASSOC_DESCR_PREFIX = "Описание: ";
-        public const string CLASS_ASSOC_NAME_END_PREFIX = "Имя конца: ";
-        public const string CLASS_ASSOC_MULT_PREFIX = "Множественность: ";
-        public const string CLASS_ASSOC_TYPE_PREFIX = "Тип: ";
-        public const string CLASS_ATTR_PART_PREFIX = "Атрибуты";
-        public const string CLASS_ASSOC_PART_PREFIX = "Ассоциации";
+        public const string CLASS_NAME_PREFIX = "Class :";
+        public const string CLASS_PARENT_PREFIX = "Base class :";
+        public const string CLASS_NAME_DESCR_PREFIX = "Description :";
+        public const string CLASS_ATTR_NAME_PREFIX = "Attribute :";
+        public const string CLASS_ATTR_NAME_DESCR_PREFIX = "Description :";
+        public const string CLASS_ASSOC_NAME_PREFIX = "Association :"; // WARNING! Don't change this line! These two lines must have same length. Current length is 13
+        public const string CLASS_COMPOSITION_NAME_PREFIX = "Composition :"; // WARNING! Don't change this line! These two lines must have same length. Current length is 13
+        public const string CLASS_ASSOC_DESCR_PREFIX = "Description :";
+        public const string CLASS_ASSOC_NAME_END_PREFIX = "Target name :";
+        public const string CLASS_ASSOC_MULT_PREFIX = "Multiplicity :";
+        public const string CLASS_ASSOC_TYPE_PREFIX = "Type :";
+        public const string CLASS_ATTR_PART_PREFIX = "Attributes";
+        public const string CLASS_ASSOC_PART_PREFIX = "Associations";
 
         public const string CLASS_NAME_STYLE = "Heading1";
         public const string CLASS_PARENT_STYLE = "Heading3";
@@ -46,6 +46,8 @@ namespace VWDAddin
         public const string CLASS_ASSOC_PART_STYLE = "Heading2";
 
         public const string CLASS = "class";
+        public const string CONTENT_TYPE_NODE = "content_type";
+        public const string CONTENT_NODE = "content";
         public const string CLASS_NAME = "class_name";
         public const string CLASS_PARENT = "class_parent";
         public const string CLASS_DESCR = "class_descr";

@@ -8,8 +8,9 @@ using DialogResult = System.Windows.Forms.DialogResult;
 
 namespace VWDAddin
 {
-    public class MarkerEventHandler : EventHandler
+    public class MarkerEventHandler : VisioAppEventHandler
     {
+
         public static short[] HandleEvents = {
             (short)VisEventCodes.visEvtApp + (short)VisEventCodes.visEvtMarker,
         };
@@ -27,10 +28,12 @@ namespace VWDAddin
             object subject,
             object moreInformation)
         {
+
             if (eventCode == (short)VisEventCodes.visEvtApp + (short)VisEventCodes.visEvtMarker)
             {
                 Application application = subject as Application;
                 String[] Params = application.get_EventInfo(0).Split(':');
+
                 switch (Params[0])
                 {
                     case AssociationDisplayOptions.MarkerName:
@@ -77,15 +80,16 @@ namespace VWDAddin
                         break;
                 }
             }
-            else EventHandler.UnhandledEvent(eventCode);
+            else VisioAppEventHandler.UnhandledEvent(eventCode);
             return true;
         }
 
-        private static void Show(Form Form, Application App)
+        private static void Show(Form form, Application App)
         {
+            form.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             App.EndUndoScope(
                 App.BeginUndoScope("Show Dialog"),
-                Form.ShowDialog() == DialogResult.OK
+                form.ShowDialog() == DialogResult.OK
             );
         }
     }

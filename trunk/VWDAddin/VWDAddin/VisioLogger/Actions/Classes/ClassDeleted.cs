@@ -17,7 +17,7 @@ namespace VWDAddin.VisioLogger.Actions
         override public void Apply(Logger Logger)
         {
             Dsl Dsl = Logger.DslDocument.Dsl;
-            DomainClass dc = Dsl.Classes.Find(ClassShape.GUID) as DomainClass;
+            DomainClass dc = Dsl.Classes.FindByGuid(ClassShape.GUID) as DomainClass;
 
             if (dc.IsValid)
             {

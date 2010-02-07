@@ -140,6 +140,7 @@ namespace VWDAddin
             this.Controls.Add(this.CancelBtn);
             this.Controls.Add(this.OKButton);
             this.Controls.Add(this.DisplayName);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "AssociationDisplayOptions";
             this.Text = "Display Options";
             this.TopMost = true;

@@ -30,11 +30,11 @@ namespace VWDAddin
             AttrName = attribute;
             AttributeXMLNode = WordHelpers.CreateCustomNode(doc, Definitions.CLASS_ATTR_SECTION);
             XmlNode attrNameNode = WordHelpers.CreateCustomNode(doc, Definitions.CLASS_ATTR_NAME);
-            attrNameNode.AppendChild(WordHelpers.CreateTextChildNode(doc, Definitions.CLASS_ATTR_NAME_PREFIX + attribute, Definitions.CLASS_ATTR_NAME));
+            attrNameNode.AppendChild(WordHelpers.CreateTextChildNode(doc, Definitions.CLASS_ATTR_NAME_PREFIX, attribute, Definitions.CLASS_ATTR_NAME));
             AttributeXMLNode.AppendChild(attrNameNode);
 
             XmlNode attrDescrNode = WordHelpers.CreateCustomNode(doc, Definitions.CLASS_ATTR_DESCR);
-            attrDescrNode.AppendChild(WordHelpers.CreateTextChildNode(doc, Definitions.CLASS_ATTR_NAME_DESCR_PREFIX, Definitions.CLASS_ATTR_DESCR));
+            attrDescrNode.AppendChild(WordHelpers.CreateTextChildNode(doc, Definitions.CLASS_ATTR_NAME_DESCR_PREFIX, string.Empty, Definitions.CLASS_ATTR_DESCR));
             AttributeXMLNode.AppendChild(attrDescrNode);
         }
 

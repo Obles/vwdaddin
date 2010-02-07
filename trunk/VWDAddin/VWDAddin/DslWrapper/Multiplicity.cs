@@ -54,8 +54,8 @@ namespace VWDAddin.DslWrapper
             {
                 String fstStr = matches[0].Groups[0].Value;
                 String sndStr = matches[1].Groups[0].Value;
-                int? fst = parseInt(fstStr);
-                int? snd = parseInt(sndStr);
+                int? fst = ParseInt(fstStr);
+                int? snd = ParseInt(sndStr);
 
                 // сортируем
                 if (fst == null)
@@ -89,13 +89,23 @@ namespace VWDAddin.DslWrapper
                     else return Multiplicity.ZeroMany;
                 }
             }
-            return Multiplicity.One;
         }
 
         private static Multiplicity CompatibleOne(String countStr)
         {
-            int? count = parseInt(countStr);
-            if (count == null)
+            int count;
+            if (int.TryParse(countStr, out count))
+            {
+                if (count == 1)
+                {
+                    return Multiplicity.One;
+                }
+                else
+                {
+                    return Multiplicity.OneMany;
+                }
+            }
+            else 
             {
                 switch (countStr)
                 {
@@ -104,17 +114,9 @@ namespace VWDAddin.DslWrapper
                     default: throw new NotSupportedException();
                 }
             }
-            else if (count == 1)
-            {
-                return Multiplicity.One;
-            }
-            else
-            {
-                return Multiplicity.OneMany;
-            }
         }
 
-        private static int? parseInt(String value)
+        private static int? ParseInt(String value)
         {
             try
             {
