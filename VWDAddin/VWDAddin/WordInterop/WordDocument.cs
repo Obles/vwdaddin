@@ -12,6 +12,9 @@ namespace VWDAddin
 {
     public class WordDocument : XmlDocument
     {
+        // do not replace names with too short names
+        private const int EntityNameReplacementLengthMin = 4;
+
         public WordDocument()
           : base()
         {
@@ -19,19 +22,22 @@ namespace VWDAddin
             _namespaceManager = new XmlNamespaceManager(this.NameTable);
             _namespaceManager.AddNamespace(Definitions.WORD_XML_PREFIX, Definitions.WORD_PROCESSING_ML);
             IsAssociated = false;
+
+            _entitiesOldAndNewNames = new Dictionary<string, string>();
+            this.PreserveWhitespace = true;
         }
 
         public void ParseDocx(string fileName)
         {
-            try
+            //try
             {
                 _pkgOutputDoc = Package.Open(fileName, FileMode.Open, FileAccess.ReadWrite);
             }
-            catch (Exception e) 
-            {
-                throw new FileProtectedException();
-            }
-            try
+            //catch (Exception) 
+            //{
+            //    throw new FileProtectedException();
+            //}
+            //try
             {
                 Uri uri = new Uri("/word/document.xml", UriKind.Relative);
                 _partDocumentXML = _pkgOutputDoc.GetPart(uri);
@@ -45,12 +51,12 @@ namespace VWDAddin
                 }
                 IsAssociated = true;
             }
-            catch (Exception e)
-            {
-                Debug.WriteLine(e.Message);
-                //MessageBox.Show(Definitions.VALIDATION_FAILED);
-                throw e;
-            }
+            //catch (Exception e)
+            //{
+            //    Debug.WriteLine(e.Message);
+            //    //MessageBox.Show(Definitions.VALIDATION_FAILED);
+            //    throw e;
+            //}
         }
 
         public void AddClass(string name, string attributes, string id)
@@ -77,7 +83,14 @@ namespace VWDAddin
             ClassNode node = WordHelpers.GetClassNodeByID(_classList, id);
             if (null != node)
             {
-                node.ChangeName(newName);
+                if (string.Compare(newName, node.ClassName) != 0)
+                {
+                    if (!_entitiesOldAndNewNames.ContainsKey(node.ClassName))
+                    {
+                        _entitiesOldAndNewNames.Add(node.ClassName, newName);
+                    }
+                    node.ChangeName(newName);
+                }
             }
             else
             {
@@ -204,14 +217,27 @@ namespace VWDAddin
         {
             try
             {
+                _entitiesOldAndNewNames.Clear();
                 if (IsAssociated)
                     CloseWordDocument();
                 if (!File.Exists(pathToDoc))
                 {
                     if (pathToDoc.Equals(string.Empty))
+                    {
                         throw new EmptyFilePathException();
+                    }
                     else
-                        throw new FileNotFoundException();
+                    {
+                        string pathToEmptyDoc = Environment.GetFolderPath(Environment.SpecialFolder.Templates) + "\\EmptyDoc.docx";
+                        if (File.Exists(pathToEmptyDoc))
+                        {
+                            File.Copy(pathToEmptyDoc, pathToDoc, true);
+                        }
+                        else
+                        {
+                            throw new FileNotFoundException();
+                        }
+                    }
                 }
                 this.ParseDocx(pathToDoc);
                 foreach (Shape shape in visioDocument.Pages[1].Shapes)
@@ -236,9 +262,12 @@ namespace VWDAddin
                             }
                             else
                             {
+                                targetNode.IsRemained = true;
                                 ChangeClassName(classGUID, name);
                                 if (attributes.Length > 0)
+                                {
                                     ChangeClassAttributes(classGUID, attributes);
+                                }
                             }
                             break;
                         default:
@@ -309,37 +338,56 @@ namespace VWDAddin
                             break;
                     }
                 }
+                foreach (ClassNode classNode in _classList)
+                {
+                    classNode.Description = ReplaceOldEntitiesNames(classNode.Description);
+                }
+
                 DeleteClasses();
-                CloseWordDocument();
             }
             catch (BadCustomXml e)
             {
-                CloseWordDocument();
                 Debug.WriteLine(e.Message);
-                MessageBox.Show("Ошибка: Неправильный формат файла " + pathToDoc + ". Синхронизация не удалась");
+                MessageBox.Show(string.Format(VWDAddinResources.WordWrongFileFormatMessage, pathToDoc));
             }
             catch (FileProtectedException e)
             {
-                CloseWordDocument();
                 Debug.WriteLine(e.Message);
-                MessageBox.Show("Ошибка: Невозможно открыть файл " + pathToDoc + ". Возможно файл занят другим процессом." + " Синхронизация не удалась");
+                MessageBox.Show(string.Format(VWDAddinResources.WordFileProtectedMessage, pathToDoc));
             }
             catch (FileNotFoundException e)
             {
-                CloseWordDocument();
                 Debug.WriteLine(e.Message);
-                MessageBox.Show("Ошибка: Файл " + pathToDoc + " не найден." + " Синхронизация не удалась");
+                MessageBox.Show(string.Format(VWDAddinResources.WordFileNotFoundMessage, pathToDoc));
             }
-            catch (EmptyFilePathException e)
+            catch (EmptyFilePathException)
             {
                 // This is normal situation - do nothing                
             }
-            catch (Exception e)
+            finally
             {
                 CloseWordDocument();
-                Debug.WriteLine(e.Message);
-                MessageBox.Show("Ошибка: Сохранение документа " + pathToDoc + " не произошло");
             }
+            //catch (Exception e)
+            //{
+            //    CloseWordDocument();
+            //    Debug.WriteLine(e.Message);
+            //    MessageBox.Show("Ошибка: Сохранение документа " + pathToDoc + " не произошло");
+            //}
+        }
+
+        private string ReplaceOldEntitiesNames(string descriptionString)
+        {
+            string result = descriptionString;
+            foreach (string oldName in _entitiesOldAndNewNames.Keys)
+            {
+                // TODO: replace this by something less stupid:)
+                if (oldName.Length >= EntityNameReplacementLengthMin)
+                {
+                    result = result.Replace(oldName, _entitiesOldAndNewNames[oldName]);
+                }
+            }
+            return result;
         }
 
         public Shape FindConnectedShape(Shape shape, string connectionString)
@@ -375,7 +423,7 @@ namespace VWDAddin
 
         public void CloseWordDocument()
         {            
-            try
+            //try
             {
                 if (IsAssociated)
                 {
@@ -386,12 +434,12 @@ namespace VWDAddin
                     _pkgOutputDoc.Close();
                 IsAssociated = false;
             }
-            catch (Exception e)
-            {
-                Debug.WriteLine(e.Message);
-                if (_pkgOutputDoc != null)
-                    _pkgOutputDoc.Close();
-            }
+            //catch (Exception e)
+            //{
+            //    Debug.WriteLine(e.Message);
+            //    if (_pkgOutputDoc != null)
+            //        _pkgOutputDoc.Close();
+            //}
         }
 
 
@@ -400,6 +448,8 @@ namespace VWDAddin
         { 
             get { return _namespaceManager; } 
         }
+
+        private Dictionary<string, string> _entitiesOldAndNewNames;
         private List<ClassNode> _classList;
         public XmlNode Root;
         private PackagePart _partDocumentXML;

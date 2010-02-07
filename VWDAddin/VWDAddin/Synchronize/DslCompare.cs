@@ -23,7 +23,7 @@ namespace VWDAddin.DslWrapper
         {
             foreach (DslElement de1 in list1)
             {
-                DslElement de2 = list2.Find(de1.GUID);
+                DslElement de2 = list2.FindByGuid(de1.GUID);
                 if (de2.Xml == null)
                 {
                     CompareAction(de1, null);
@@ -32,7 +32,7 @@ namespace VWDAddin.DslWrapper
             }
             foreach (DslElement de2 in list2)
             {
-                DslElement de1 = list1.Find(de2.GUID);
+                DslElement de1 = list1.FindByGuid(de2.GUID);
                 if (de1.Xml == null)
                 {
                     CompareAction(null, de2);
@@ -202,7 +202,7 @@ namespace VWDAddin.DslWrapper
 
         protected String CompareMultiplicity(DomainRole dr1, DomainRole dr2)
         {
-            try
+            //try
             {
                 if (dr1.Xml.GetAttribute("Multiplicity") != dr2.Xml.GetAttribute("Multiplicity"))
                 {
@@ -211,17 +211,17 @@ namespace VWDAddin.DslWrapper
                 }
                 else return null;
             }
-            catch
-            {
-                return MultiplicityHelper.AsDigits(dr2.Multiplicity);
-            }
+            //catch
+            //{
+            //    return MultiplicityHelper.AsDigits(dr2.Multiplicity);
+            //}
         }
 
         public static void ApplyChanges(Document Document)
         {
             Trace.WriteLine("Applying Changes from DSL");
             Trace.Indent();
-            try
+            //try
             {
                 String TempDslPath = VisioHelpers.GetTempDSLPath(Document);
                 if (File.Exists(TempDslPath))
@@ -239,25 +239,25 @@ namespace VWDAddin.DslWrapper
                     Document.Save();
                 }
             }
-            catch(Exception e)
-            {
-                Debug.WriteLine(e.TargetSite + ": " + e.Message);
-                Debug.WriteLine(e.StackTrace);
-            }
+            //catch(Exception e)
+            //{
+            //    Debug.WriteLine(e.TargetSite + ": " + e.Message);
+            //    Debug.WriteLine(e.StackTrace);
+            //}
             Trace.Unindent();
         }
 
         public static bool IsModified(Logger Logger)
         {
-            try
+            //try
             {
                 FileInfo DslInfo = new FileInfo(VisioHelpers.GetDSLPath(Logger.Document));
                 return !Logger.LastSaveTime.Equals(DslInfo.LastWriteTime);
             }
-            catch
-            {
-                return false;
-            }
+            //catch
+            //{
+            //    return false;
+            //}
         }
     }
 }

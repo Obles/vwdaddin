@@ -6,7 +6,7 @@ using System.Diagnostics;
 
 namespace VWDAddin
 {
-    public class DocumentEventHandler : EventHandler
+    public class DocumentEventHandler : VisioAppEventHandler
     {
         public static short[] HandleEvents = {
             (short)VisEventCodes.visEvtPage + Constants.visEvtAdd,
@@ -35,6 +35,7 @@ namespace VWDAddin
                 case (short)VisEventCodes.visEvtCodeDocSave:
                 case (short)VisEventCodes.visEvtCodeDocSaveAs:
                 {
+                    Debug.WriteLine("Сохранение документа... Номер события: " + eventSequenceNumber.ToString());
                     GetLogger(subject as Document).ApplyChanges();
                     GetLogger(subject as Document).WordDocument.Syncronize(subject as Document, VisioHelpers.GetWordPath(subject as Document));
                     break;
@@ -53,7 +54,7 @@ namespace VWDAddin
                     break;
                 }
                 default:
-                    EventHandler.UnhandledEvent(eventCode);
+                    VisioAppEventHandler.UnhandledEvent(eventCode);
                     break;
             }
             return true;

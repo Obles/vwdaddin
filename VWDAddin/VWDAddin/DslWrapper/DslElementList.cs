@@ -35,29 +35,38 @@ namespace VWDAddin.DslWrapper
             }
         }
 
-        public DslElement this[String Name]
+        public DslElement this[string name]
         {
             get
             {
-                Type[] types = new Type[1];
-                types[0] = typeof(XmlElement);
-
-                Object[] obj = new Object[1];
-                obj[0] = null;
-                
-                foreach (XmlElement Node in RootNode.ChildNodes)
-                {
-                    if(Node.GetAttribute("Name") == Name)
-                    {
-                        obj[0] = Node;
-                        break;
-                    }
-                }
-                return ElemType.GetConstructor(types).Invoke(obj) as DslElement;
+                return FindByName(name);
             }
         }
 
-        public DslElement Find(String Guid)
+        public DslElement FindByGuid(string guid)
+        {
+            return Find("Id", guid);
+        }
+
+        public DslElement FindByName(string elementName)
+        {
+            return Find("Name", elementName);
+        }
+
+        public DslElement FindIfExist(string propertyName, string propertyValue)
+        {
+            foreach (XmlElement Node in RootNode.ChildNodes)
+            {
+                if (Node.GetAttribute(propertyName) == propertyValue)
+                {
+                    return ElemType.GetConstructor(
+                        new Type[] { typeof(XmlElement) }).Invoke(new Object[] { Node }) as DslElement;
+                }
+            }
+            return null;
+        }
+
+        private DslElement Find(string parameterName, string parameterValue)
         {
             Type[] types = new Type[1];
             types[0] = typeof(XmlElement);
@@ -67,7 +76,7 @@ namespace VWDAddin.DslWrapper
 
             foreach (XmlElement Node in RootNode.ChildNodes)
             {
-                if (Node.GetAttribute("Id") == Guid)
+                if (Node.GetAttribute(parameterName) == parameterValue)
                 {
                     obj[0] = Node;
                     break;
@@ -89,7 +98,7 @@ namespace VWDAddin.DslWrapper
             }
         }
 
-        public DslElement Append(DslElement Node)
+        public DslElement Add(DslElement Node)
         {
             RootNode.AppendChild(Node.Xml);
             return Node;

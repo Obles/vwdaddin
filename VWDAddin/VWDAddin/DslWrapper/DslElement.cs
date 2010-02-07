@@ -113,6 +113,11 @@ namespace VWDAddin.DslWrapper
             }
         }
 
+        public void SetAttribute(String name, String value)
+        {
+            Xml.SetAttribute(name, value);
+        }
+
         /// <summary>Конструкция из некоторой коллекции, которая содержит внутри себя текущий элемент</summary>
         public DslElement OwnerElement
         {

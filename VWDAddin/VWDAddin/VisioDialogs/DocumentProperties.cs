@@ -61,7 +61,7 @@ namespace VWDAddin
             NewDslProject NewDslProject = new NewDslProject();
             if (NewDslProject.ShowDialog(this) == DialogResult.OK)
             {
-                try
+                //try
                 {
                     // Создаем проект из шаблона
                     DslTemplate dsl = new DslTemplate(NewDslProject.BasePath);
@@ -86,17 +86,17 @@ namespace VWDAddin
                     Logger.DslDocument.Save(dsl.DslPath);
                     Logger.DslDocument = null;
                 }
-                catch (Exception err)
-                {
-                    MessageBox.Show(err.Message);
-                }
+                //catch (Exception err)
+                //{
+                //    MessageBox.Show(err.Message);
+                //}
             }
         }
 
         private void btnCreateWord_Click(object sender, EventArgs e)
         {
             saveFileDialog.Filter = WordFilter;
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            if (WordPath.Text.Length > 0 || saveFileDialog.ShowDialog() == DialogResult.OK)
             {
                 WordPath.Text = saveFileDialog.FileName;
                 VisioHelpers.SetWordPath(Logger.Document, WordPath.Text);
@@ -114,7 +114,7 @@ namespace VWDAddin
             }
         }
 
-        private void btnOK_Click(object sender, EventArgs e)
+        private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
         }

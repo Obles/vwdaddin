@@ -18,14 +18,14 @@ namespace VWDAddin
             get { return owner; }
         }
 
-        private List<EventHandler> EventHandlers;
-        public EventSink(EventManager owner, IEnumerable<EventHandler> handlers)
+        private List<VisioAppEventHandler> EventHandlers;
+        public EventSink(EventManager owner, IEnumerable<VisioAppEventHandler> handlers)
         {
             this.owner = owner;
-            this.EventHandlers = new List<EventHandler>(handlers);
+            this.EventHandlers = new List<VisioAppEventHandler>(handlers);
         }
 
-        public void Add(EventHandler EventHandler)
+        public void Add(VisioAppEventHandler EventHandler)
         {
             EventHandlers.Add(EventHandler);
         }
@@ -69,9 +69,9 @@ namespace VWDAddin
                 return returnValue;
             }
 
-            foreach (EventHandler EventHandler in EventHandlers)
+            foreach (VisioAppEventHandler EventHandler in EventHandlers)
             {
-                if (EventHandler.HandlesEvent(eventCode))
+                if (EventHandler.HandlesEvent(eventCode, eventSequenceNumber))
                 {
                     returnValue = EventHandler.VisEventProc(
                         eventCode,
@@ -111,7 +111,7 @@ namespace VWDAddin
             Style subjectStyle = null;
             Window subjectWindow = null;
 
-            try
+            //try
             {
                 switch (eventCode)
                 {
@@ -299,7 +299,7 @@ namespace VWDAddin
                 }
 
                 // get a description for this event code
-                message = EventHandler.GetDescription(eventCode);
+                message = VisioAppEventHandler.GetDescription(eventCode);
 
                 // append the name of the subject object
                 if (name.Length > 0)
@@ -374,10 +374,10 @@ namespace VWDAddin
                 // Write the event info to the output window
                 System.Diagnostics.Debug.WriteLine(message);
             }
-            catch (Exception err)
-            {
-                System.Diagnostics.Debug.WriteLine(err.Message);
-            }
+            //catch (Exception err)
+            //{
+            //    System.Diagnostics.Debug.WriteLine(err.Message);
+            //}
         }
     }
 }

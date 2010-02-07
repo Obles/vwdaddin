@@ -11,7 +11,7 @@ namespace VWDAddin
     {
         public static Shape GetShapeByID(int ID, Application application)
         {
-            try 
+            //try 
             {
                 foreach (Shape shape in application.ActivePage.Shapes)
                 {
@@ -19,16 +19,16 @@ namespace VWDAddin
                         return shape;
                 }
             }
-            catch(Exception e)
-            {
-                Debug.WriteLine(e.Message /* + "Possible cause: Unknown" */);
-            }
+            //catch(Exception e)
+            //{
+            //    Debug.WriteLine(e.Message /* + "Possible cause: Unknown" */);
+            //}
             return null;
         }
 
         public static Shape GetShapeByGUID(String Guid, Document Document)
         {
-            try
+            //try
             {
                 Guid = ToString(Guid);
                 foreach (Shape shape in Document.Pages[1].Shapes)
@@ -37,10 +37,10 @@ namespace VWDAddin
                         return shape;
                 }
             }
-            catch (Exception e)
-            {
-                Debug.WriteLine(e.Message);
-            }
+            //catch (Exception e)
+            //{
+            //    Debug.WriteLine(e.Message);
+            //}
             return null;
         }
 
@@ -62,7 +62,7 @@ namespace VWDAddin
 
         public static void ParseClassShape(Shape shape, out String guid, out String className, out String attributes)
         {
-            try
+            //try
             {
                 switch (GetShapeType(shape))
                 {
@@ -82,11 +82,11 @@ namespace VWDAddin
                         break;
                 }
             }
-            catch (Exception e)
-            {
-                guid = className = attributes = String.Empty;
-                Debug.WriteLine(e.Message /* + "Possible cause: Unknown" */);
-            }
+            //catch (Exception e)
+            //{
+            //    guid = className = attributes = String.Empty;
+            //    Debug.WriteLine(e.Message /* + "Possible cause: Unknown" */);
+            //}
         }
     
         public static String ToString(String value)
@@ -108,26 +108,26 @@ namespace VWDAddin
 
         public static String GetDSLPath(Document Document)
         {
-            try
+            //try
             {
                 return FromString(GetDocumentCell(Document, "User.DSL.Value").FormulaU);
             }
-            catch (Exception)
-            {
-                return String.Empty;
-            }
+            //catch (Exception)
+            //{
+            //    return String.Empty;
+            //}
         }
 
         public static String GetWordPath(Document Document)
         {
-            try
+            //try
             {
                 return FromString(GetDocumentCell(Document, "User.Word.Value").FormulaU);
             }
-            catch (Exception)
-            {
-                return String.Empty;
-            }
+            //catch (Exception)
+            //{
+            //    return String.Empty;
+            //}
         }
 
         public static void SetDSLPath(Document Document, String Path)

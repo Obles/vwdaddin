@@ -89,6 +89,9 @@ namespace VWDAddin
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.CancelBtn);
             this.Controls.Add(this.OKBtn);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "ChangeValue";
             this.Text = "Change attribute";
             this.TopMost = true;

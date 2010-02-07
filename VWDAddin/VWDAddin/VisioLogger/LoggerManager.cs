@@ -18,6 +18,10 @@ namespace VWDAddin.VisioLogger
 
         public Logger GetLogger(Document Document)
         {
+            if (!Loggers.ContainsKey(Document))
+            {
+                Loggers.Add(Document, CreateLogger(Document));
+            }
             return Loggers[Document];
         }
 

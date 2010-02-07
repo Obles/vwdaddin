@@ -26,7 +26,7 @@ namespace VWDAddin
 
         public void Do(IVBUndoManager undoManager)
         {
-            try
+            //try
             {
                 if (stateDo)
                 {
@@ -49,10 +49,10 @@ namespace VWDAddin
                     undoManager.Add(this);
                 }
             }
-            catch (Exception err)
-            {
-                System.Diagnostics.Debug.WriteLine(err.Message);
-            }
+            //catch (Exception err)
+            //{
+            //    System.Diagnostics.Debug.WriteLine(err.Message);
+            //}
         }
 
         #region Unused methods

@@ -106,7 +106,7 @@ namespace VWDAddin.VisioLogger
             if (!Active) return;
 
             Trace.Indent();
-            try
+            //try
             {
                 // Инициализация dsl-документа и возврат к контрольной точке
                 String DslPath = VisioHelpers.GetDSLPath(associatedDocument);
@@ -122,11 +122,11 @@ namespace VWDAddin.VisioLogger
                 if (dslDocument != null)
                 {
                     // Внесение изменений
-                    for (int i = 0; i <= currentAction; i++)
-                    {
-                        Trace.WriteLine("Apply " + actionList[i].ToString());
-                        actionList[i].Apply(this);
-                    }
+                    //for (int i = 0; i <= currentAction; i++)
+                    //{
+                    //    Trace.WriteLine("Apply " + actionList[i].ToString());
+                    //    actionList[i].Apply(this);
+                    //}
 
                     // Синхронизация всего остального
                     new DslSync(this).Synchronize();
@@ -139,13 +139,13 @@ namespace VWDAddin.VisioLogger
                     lastSaveTime = new FileInfo(DslPath).LastWriteTime;
                 }
             }
-            catch(Exception e)
-            {
-                Debug.Indent();
-                Debug.WriteLine(e.TargetSite + ": " + e.Message);
-                Debug.WriteLine(e.StackTrace);
-                Debug.Unindent();
-            }
+            //catch(Exception e)
+            //{
+            //    Debug.Indent();
+            //    Debug.WriteLine(e.TargetSite + ": " + e.Message);
+            //    Debug.WriteLine(e.StackTrace);
+            //    Debug.Unindent();
+            //}
             Trace.Unindent();
         }
 

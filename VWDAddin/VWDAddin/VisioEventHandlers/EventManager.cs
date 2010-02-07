@@ -28,7 +28,7 @@ namespace VWDAddin
 
         public EventManager()
         {
-            eventHandler = new EventSink(this, new EventHandler[] {
+            eventHandler = new EventSink(this, new VisioAppEventHandler[] {
                 new ApplicationEventHandler(this),
                 new MarkerEventHandler(this),
                 new DocumentEventHandler(this),
@@ -43,7 +43,7 @@ namespace VWDAddin
         public void FillEventList(EventList EventList, IEnumerable<short> Events)
         {
             short t = 0;
-            try
+            //try
             {
                 foreach (short eventCode in Events)
                 {
@@ -51,11 +51,11 @@ namespace VWDAddin
                     EventList.AddAdvise(eventCode, eventHandler, "", "");
                 }
             }
-            catch (Exception err)
-            {
-                Debug.WriteLine(EventHandler.GetDescription(t));
-                Debug.WriteLine(err.Message);
-            }
+            //catch (Exception err)
+            //{
+            //    Debug.WriteLine(EventHandler.GetDescription(t));
+            //    Debug.WriteLine(err.Message);
+            //}
         }
 
         public void StartApplicationListener(Application theApplication)

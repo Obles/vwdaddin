@@ -10,7 +10,7 @@ using VWDAddin.VisioWrapper;
 
 namespace VWDAddin
 {
-    public class ShapeEventHandler : EventHandler
+    public class ShapeEventHandler : VisioAppEventHandler
     {
         public static short[] HandleEvents = {
             (short)VisEventCodes.visEvtDel + (short)VisEventCodes.visEvtShape,
@@ -43,7 +43,7 @@ namespace VWDAddin
                         GetLogger(shape.Document).Add(new AssociationDeleted(new VisioConnector(shape)));
                         break;
                     default:
-                        EventHandler.UnhandledEvent(eventCode);
+                        VisioAppEventHandler.UnhandledEvent(eventCode);
                         break;
                 }
             }
@@ -54,7 +54,7 @@ namespace VWDAddin
                 //if (vs.GUID == String.Empty) vs.GUID = Guid.NewGuid().ToString();
                 vs.GUID = Guid.NewGuid().ToString();
             }
-            else EventHandler.UnhandledEvent(eventCode);
+            else VisioAppEventHandler.UnhandledEvent(eventCode);
             return true;
         }
     }

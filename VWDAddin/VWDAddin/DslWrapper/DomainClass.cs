@@ -5,7 +5,7 @@ using System.Xml;
 
 namespace VWDAddin.DslWrapper
 {
-    public class DomainClass : DslElement
+    public class DomainClass : DslElement, IEquatable<DomainClass>
     {
         public DomainClass(XmlElement Node)
             : base(Node)
@@ -33,6 +33,11 @@ namespace VWDAddin.DslWrapper
             get { return new DslElementList(typeof(DomainProperty), GetChildNode("Properties")); }
         }
 
+        public DslElementList DslAttributes
+        {
+            get { return new DslElementList(typeof(DslAttribute), GetChildNode("Attributes")); }
+        }
+
         public DslElementList ElementMergeDirectives
         {
             get { return new DslElementList(typeof(ElementMergeDirective), GetChildNode("ElementMergeDirectives")); }
@@ -46,7 +51,7 @@ namespace VWDAddin.DslWrapper
 
         public DomainProperty CreateProperty(String Type, String Name, String DisplayName)
         {
-            return Properties.Append(new DomainProperty(OwnerDocument, Type, Name, DisplayName)) as DomainProperty;
+            return Properties.Add(new DomainProperty(OwnerDocument, Type, Name, DisplayName)) as DomainProperty;
         }
 
         public void Print(String t)
@@ -69,6 +74,34 @@ namespace VWDAddin.DslWrapper
                 if (emd.Index == Name) return emd;
             }
             return null;
+        }
+
+        public string Name
+        {
+            get
+            {
+                return Xml.GetAttribute("Name");
+            }
+        }
+
+        #region IEquatable<DomainClass> Members
+
+        public bool Equals(DomainClass other)
+        {
+            return (this.GUID == other.GUID);
+        }
+
+        #endregion
+
+        public override int GetHashCode()
+        {
+            return this.GUID.GetHashCode();
+        }
+
+        public override bool Equals(object obj)
+        {
+            DomainClass anotherDC = obj as DomainClass;
+            return ((anotherDC != null) && Equals(anotherDC));
         }
     }
 }

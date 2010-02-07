@@ -43,25 +43,25 @@ namespace VWDAddin
             AssociationXmlNode = WordHelpers.CreateCustomNode(doc, Definitions.CLASS_ASSOC_SECTION, guid, connectionType);
             XmlNode assocNameNode = WordHelpers.CreateCustomNode(doc, Definitions.CLASS_ASSOC_NAME);
             if (associationType.Equals(Constants.Association))
-                assocNameNode.AppendChild(WordHelpers.CreateTextChildNode(doc, Definitions.CLASS_ASSOC_NAME_PREFIX + name, Definitions.CLASS_ASSOC_NAME));
+                assocNameNode.AppendChild(WordHelpers.CreateTextChildNode(doc, Definitions.CLASS_ASSOC_NAME_PREFIX, name, Definitions.CLASS_ASSOC_NAME));
             else
-                assocNameNode.AppendChild(WordHelpers.CreateTextChildNode(doc, Definitions.CLASS_COMPOSITION_NAME_PREFIX + name, Definitions.CLASS_ASSOC_NAME));
+                assocNameNode.AppendChild(WordHelpers.CreateTextChildNode(doc, Definitions.CLASS_COMPOSITION_NAME_PREFIX, name, Definitions.CLASS_ASSOC_NAME));
             AssociationXmlNode.AppendChild(assocNameNode);
 
             XmlNode assocDescrNode = WordHelpers.CreateCustomNode(doc, Definitions.CLASS_ASSOC_DESCR);
-            assocDescrNode.AppendChild(WordHelpers.CreateTextChildNode(doc, Definitions.CLASS_ASSOC_DESCR_PREFIX, Definitions.CLASS_ASSOC_DESCR));
+            assocDescrNode.AppendChild(WordHelpers.CreateTextChildNode(doc, Definitions.CLASS_ASSOC_DESCR_PREFIX, string.Empty, Definitions.CLASS_ASSOC_DESCR));
             AssociationXmlNode.AppendChild(assocDescrNode);
 
             XmlNode assocNameEndNode = WordHelpers.CreateCustomNode(doc, Definitions.CLASS_ASSOC_NAME_END);
-            assocNameEndNode.AppendChild(WordHelpers.CreateTextChildNode(doc, Definitions.CLASS_ASSOC_NAME_END_PREFIX + endName, Definitions.CLASS_ASSOC_NAME_END));
+            assocNameEndNode.AppendChild(WordHelpers.CreateTextChildNode(doc, Definitions.CLASS_ASSOC_NAME_END_PREFIX, endName, Definitions.CLASS_ASSOC_NAME_END));
             AssociationXmlNode.AppendChild(assocNameEndNode);
 
             XmlNode assocMultNode = WordHelpers.CreateCustomNode(doc, Definitions.CLASS_ASSOC_MULT);
-            assocMultNode.AppendChild(WordHelpers.CreateTextChildNode(doc, Definitions.CLASS_ASSOC_MULT_PREFIX + endMP, Definitions.CLASS_ASSOC_MULT));
+            assocMultNode.AppendChild(WordHelpers.CreateTextChildNode(doc, Definitions.CLASS_ASSOC_MULT_PREFIX, endMP, Definitions.CLASS_ASSOC_MULT));
             AssociationXmlNode.AppendChild(assocMultNode);
 
             XmlNode assocTypeNode = WordHelpers.CreateCustomNode(doc, Definitions.CLASS_ASSOC_TYPE);
-            assocTypeNode.AppendChild(WordHelpers.CreateTextChildNode(doc, Definitions.CLASS_ASSOC_TYPE_PREFIX + associationType, Definitions.CLASS_ASSOC_TYPE));
+            assocTypeNode.AppendChild(WordHelpers.CreateTextChildNode(doc, Definitions.CLASS_ASSOC_TYPE_PREFIX, associationType, Definitions.CLASS_ASSOC_TYPE));
             AssociationXmlNode.AppendChild(assocTypeNode);
         }
 
@@ -71,9 +71,9 @@ namespace VWDAddin
             foreach (XmlNode child in assocNameNode.ChildNodes) 
                 assocNameNode.RemoveChild(child);
             if (associationType.Equals(Constants.Association))
-                assocNameNode.AppendChild(WordHelpers.CreateTextChildNode(_doc, Definitions.CLASS_ASSOC_NAME_PREFIX + newName, Definitions.CLASS_ASSOC_NAME));
+                assocNameNode.AppendChild(WordHelpers.CreateTextChildNode(_doc, Definitions.CLASS_ASSOC_NAME_PREFIX, newName, Definitions.CLASS_ASSOC_NAME));
             else
-                assocNameNode.AppendChild(WordHelpers.CreateTextChildNode(_doc, Definitions.CLASS_COMPOSITION_NAME_PREFIX + newName, Definitions.CLASS_ASSOC_NAME));
+                assocNameNode.AppendChild(WordHelpers.CreateTextChildNode(_doc, Definitions.CLASS_COMPOSITION_NAME_PREFIX, newName, Definitions.CLASS_ASSOC_NAME));
             IsRemained = true;
         }
 
@@ -82,7 +82,7 @@ namespace VWDAddin
             XmlNode assocNameEndNode = WordHelpers.GetCustomChild(AssociationXmlNode, Definitions.CLASS_ASSOC_NAME_END);
             foreach (XmlNode child in assocNameEndNode.ChildNodes)
                 assocNameEndNode.RemoveChild(child);
-            assocNameEndNode.AppendChild(WordHelpers.CreateTextChildNode(_doc, Definitions.CLASS_ASSOC_NAME_END_PREFIX + newName, Definitions.CLASS_ASSOC_NAME_END));
+            assocNameEndNode.AppendChild(WordHelpers.CreateTextChildNode(_doc, Definitions.CLASS_ASSOC_NAME_END_PREFIX, newName, Definitions.CLASS_ASSOC_NAME_END));
             IsRemained = true;
         }
 
@@ -91,7 +91,7 @@ namespace VWDAddin
             XmlNode assocMultNode = WordHelpers.GetCustomChild(AssociationXmlNode, Definitions.CLASS_ASSOC_MULT);
             foreach (XmlNode child in assocMultNode.ChildNodes)
                 assocMultNode.RemoveChild(child);
-            assocMultNode.AppendChild(WordHelpers.CreateTextChildNode(_doc, Definitions.CLASS_ASSOC_MULT_PREFIX + newName, Definitions.CLASS_ASSOC_MULT));
+            assocMultNode.AppendChild(WordHelpers.CreateTextChildNode(_doc, Definitions.CLASS_ASSOC_MULT_PREFIX, newName, Definitions.CLASS_ASSOC_MULT));
             IsRemained = true;
         }        
 

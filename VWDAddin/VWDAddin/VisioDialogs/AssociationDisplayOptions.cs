@@ -60,7 +60,7 @@ namespace VWDAddin
 
         public AssociationDisplayOptions(Shape shape)
         {
-            try
+            //try
             {
                 InitializeComponent();
                 if (shape != null)
@@ -82,10 +82,10 @@ namespace VWDAddin
                     }
                 }
             }
-            catch (Exception e)
-            {
-                Debug.WriteLine(e.Message + "Possible cause: Shape or child shape doesn't have user.type cell");
-            }
+            //catch (Exception e)
+            //{
+            //    Debug.WriteLine(e.Message + "Possible cause: Shape or child shape doesn't have user.type cell");
+            //}
         }
 
         private void OKButton_Click(object sender, EventArgs e)

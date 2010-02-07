@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Xml;
+using System.Diagnostics;
 
 namespace VWDAddin
 {
@@ -65,7 +66,7 @@ namespace VWDAddin
 
             ClassXmlNode.AppendChild(WordHelpers.CreateBookmarkStart(doc, id));
             XmlNode classNameNode = WordHelpers.CreateCustomNode(doc, Definitions.CLASS_NAME);
-            classNameNode.AppendChild(WordHelpers.CreateTextChildNode(doc, Definitions.CLASS_NAME_PREFIX + name, Definitions.CLASS_NAME));
+            classNameNode.AppendChild(WordHelpers.CreateTextChildNode(doc, Definitions.CLASS_NAME_PREFIX, name, Definitions.CLASS_NAME));
             ClassXmlNode.AppendChild(classNameNode);
             ClassXmlNode.AppendChild(WordHelpers.CreateBookmarkEnd(doc, id));
 
@@ -73,11 +74,11 @@ namespace VWDAddin
             ClassXmlNode.AppendChild(classParentNode);
 
             XmlNode classDescrNode = WordHelpers.CreateCustomNode(doc, Definitions.CLASS_DESCR);
-            classDescrNode.AppendChild(WordHelpers.CreateTextChildNode(doc, Definitions.CLASS_NAME_DESCR_PREFIX, Definitions.CLASS_DESCR));
+            classDescrNode.AppendChild(WordHelpers.CreateTextChildNode(doc, Definitions.CLASS_NAME_DESCR_PREFIX, string.Empty, Definitions.CLASS_DESCR));
             ClassXmlNode.AppendChild(classDescrNode);
 
             XmlNode classAttrPartNode = WordHelpers.CreateCustomNode(doc, Definitions.CLASS_ATTR_PART);
-            classAttrPartNode.AppendChild(WordHelpers.CreateTextChildNode(doc, Definitions.CLASS_ATTR_PART_PREFIX, Definitions.CLASS_ATTR_PART));
+            classAttrPartNode.AppendChild(WordHelpers.CreateTextChildNode(doc, Definitions.CLASS_ATTR_PART_PREFIX, string.Empty, Definitions.CLASS_ATTR_PART));
             if (!classAttributes.Equals(""))
             {
                 string[] attributes = classAttributes.Split(new Char[] { '\n' });
@@ -95,7 +96,7 @@ namespace VWDAddin
             ClassXmlNode.AppendChild(classAttrPartNode);
 
             XmlNode classAssocNode = WordHelpers.CreateCustomNode(doc, Definitions.CLASS_ASSOC_PART);
-            classAssocNode.AppendChild(WordHelpers.CreateTextChildNode(doc, Definitions.CLASS_ASSOC_PART_PREFIX, Definitions.CLASS_ASSOC_PART));
+            classAssocNode.AppendChild(WordHelpers.CreateTextChildNode(doc, Definitions.CLASS_ASSOC_PART_PREFIX, string.Empty, Definitions.CLASS_ASSOC_PART));
             ClassXmlNode.AppendChild(classAssocNode);
 
             ClassID = id;
@@ -107,7 +108,7 @@ namespace VWDAddin
             XmlNode classNameNode = WordHelpers.GetCustomChild(ClassXmlNode, Definitions.CLASS_NAME);
             foreach (XmlNode child in classNameNode.ChildNodes)
                 classNameNode.RemoveChild(child);
-            classNameNode.AppendChild(WordHelpers.CreateTextChildNode(_doc, Definitions.CLASS_NAME_PREFIX + newName, Definitions.CLASS_NAME));
+            classNameNode.AppendChild(WordHelpers.CreateTextChildNode(_doc, Definitions.CLASS_NAME_PREFIX, newName, Definitions.CLASS_NAME));
             IsRemained = true;
         }
 
@@ -270,7 +271,7 @@ namespace VWDAddin
                 ClassXmlNode.InsertAfter(classParentNode, WordHelpers.GetCustomChild(ClassXmlNode, Definitions.CLASS_NAME));
             }
             RemoveParent();
-            XmlNode hyperLinkTextNode = WordHelpers.CreateHyperlinkTextNode(_doc, parentGUID, Definitions.CLASS_PARENT_PREFIX + parentName, Definitions.CLASS_PARENT);
+            XmlNode hyperLinkTextNode = WordHelpers.CreateHyperlinkTextNode(_doc, parentGUID, Definitions.CLASS_PARENT_PREFIX, parentName, Definitions.CLASS_PARENT);
             //XmlNode hyperlinkNode = WordHelpers.CreateHyperlinkNode(_doc, parentGUID);
             //XmlNode textNode = WordHelpers.CreateTextChildNode(_doc, Definitions.CLASS_PARENT_PREFIX + parentName, Definitions.CLASS_PARENT);
             //hyperlinkNode.AppendChild(textNode);
@@ -334,13 +335,80 @@ namespace VWDAddin
                 _assocList = new List<AssociationNode>();
         }
 
-        public XmlNode ClassXmlNode;
-        public string ClassID;
-        public bool IsRemained;
-        public bool ParentRemained;
+        private XmlNode classXmlNode;
+        public XmlNode ClassXmlNode
+        {
+            get { return classXmlNode; }
+            set { classXmlNode = value; }
+        }
+
+        private string classID;
+        public string ClassID
+        {
+            get { return classID; }
+            set { classID = value; }
+        }
+
+        private bool isRemained;
+        public bool IsRemained
+        {
+            get { return isRemained; }
+            set { isRemained = value; }
+        }
+
+        private bool parentRemained;
+        public bool ParentRemained
+        {
+            get { return parentRemained; }
+            set { parentRemained = value; }
+        }
+
         private List<AttributeNode> _attrList;
         private List<String> _attributes;
         private List<AssociationNode> _assocList;
         private WordDocument _doc;
+
+        public string ClassName
+        {
+            get
+            {
+                XmlNode classNameNode = WordHelpers.GetCustomChild(ClassXmlNode, Definitions.CLASS_NAME).FirstChild;
+                if (classNameNode != null)
+                {
+                    XmlNode classNameContentNode = WordHelpers.GetCustomChild(classNameNode, Definitions.CONTENT_NODE);
+                    if (classNameContentNode != null)
+                    {
+                        return classNameContentNode.FirstChild.FirstChild.InnerText;
+                    }
+                }
+                Debug.Assert(false);
+                return string.Empty;
+            }
+        }
+
+        public string Description
+        {
+            get
+            {
+                XmlNode classDescNode = WordHelpers.GetCustomChild(ClassXmlNode, Definitions.CLASS_DESCR).FirstChild;
+                if (classDescNode != null)
+                {
+                    return classDescNode.InnerXml;
+                }
+                //Debug.Assert(false);
+                return string.Empty;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    XmlNode classDescNode = WordHelpers.GetCustomChild(ClassXmlNode, Definitions.CLASS_DESCR).FirstChild;
+                    if (classDescNode != null)
+                    {
+                        classDescNode.InnerXml = value;
+                    }
+                }
+            }
+        }
     }
 }

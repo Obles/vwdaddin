@@ -6,6 +6,9 @@ EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "VWDAddinSetup", "VWDAddinSetup\VWDAddinSetup.vdproj", "{2C3798EE-A26C-4BBE-B1D0-B41603B2C558}"
 EndProject
 Global
+	GlobalSection(TextTemplating) = postSolution
+		TextTemplating = 1
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU

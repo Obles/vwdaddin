@@ -23,7 +23,7 @@ namespace VWDAddin
         public ClassProperties(Shape shape)
         {
             InitializeComponent();
-            try
+            //try
             {
                 m_shape = new VisioClass(shape);
                 colorBox.BackColor = m_shape.Color;
@@ -38,15 +38,15 @@ namespace VWDAddin
                 }
                 DSLRootClass.Checked = m_shape.IsRootClass;
             }
-            catch (Exception e)
-            {
-                Debug.WriteLine(e.Message + "Possible cause: Shape or child shape doesn't have user.type cell");
-            }
+            //catch (Exception e)
+            //{
+            //    Debug.WriteLine(e.Message + "Possible cause: Shape or child shape doesn't have user.type cell");
+            //}
         }
 
         private void OKButton_Click(object sender, EventArgs e)
         {
-            try
+            //try
             {
                 m_shape.Color = colorBox.BackColor;
                 m_shape["class_name"].Text = ClassNameTextBox.Text;
@@ -63,10 +63,10 @@ namespace VWDAddin
                     m_shape["attr_section"].Text = string.Empty;
                 this.DialogResult = DialogResult.OK;
             }
-            catch (Exception exception)
-            {
-                Debug.WriteLine(exception.Message + "Possible cause: Shape or child shape doesn't have user.type cell");
-            }
+            //catch (Exception exception)
+            //{
+            //    Debug.WriteLine(exception.Message + "Possible cause: Shape or child shape doesn't have user.type cell");
+            //}
         }
 
         private void Fill()

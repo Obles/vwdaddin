@@ -22,7 +22,7 @@ namespace VWDAddin.DslWrapper
         {
             Index = Relationship.Target.RolePlayer;
 
-            LinkCreationPaths.Append(new DomainPath(
+            LinkCreationPaths.Add(new DomainPath(
                 Relationship.OwnerDocument,
                 Relationship.Xml.GetAttribute("Name") + "." + 
                     Relationship.Source.Xml.GetAttribute("PropertyName")
